@@ -1,0 +1,99 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [Player-sdk-checkins] r6 - in player-sdk/trunk: . examples
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/player-sdk-checkins/2004-November/index.html" >
+   <LINK REL="made" HREF="mailto:player-sdk-checkins%40lists.berlios.de?Subject=Re%3A%20%5BPlayer-sdk-checkins%5D%20r6%20-%20in%20player-sdk/trunk%3A%20.%20examples&In-Reply-To=%3C200411082343.iA8NhK8k001514%40sheep.berlios.de%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000001.html">
+   <LINK REL="Next"  HREF="000003.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[Player-sdk-checkins] r6 - in player-sdk/trunk: . examples</H1>
+    <B>Sergio Rubio at BerliOS</B> 
+    <A HREF="mailto:player-sdk-checkins%40lists.berlios.de?Subject=Re%3A%20%5BPlayer-sdk-checkins%5D%20r6%20-%20in%20player-sdk/trunk%3A%20.%20examples&In-Reply-To=%3C200411082343.iA8NhK8k001514%40sheep.berlios.de%3E"
+       TITLE="[Player-sdk-checkins] r6 - in player-sdk/trunk: . examples">rubiojr at sheep.berlios.de
+       </A><BR>
+    <I>Tue Nov  9 00:43:20 CET 2004</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000001.html">[Player-sdk-checkins] r5 - in player-sdk/trunk: . PlayerKits/Gstreamer examples src/Playlist
+</A></li>
+        <LI>Next message: <A HREF="000003.html">[Player-sdk-checkins] r7 - player-sdk/trunk
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#2">[ date ]</a>
+              <a href="thread.html#2">[ thread ]</a>
+              <a href="subject.html#2">[ subject ]</a>
+              <a href="author.html#2">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Author: rubiojr
+Date: 2004-11-09 00:43:14 +0100 (Tue, 09 Nov 2004)
+New Revision: 6
+
+Modified:
+   player-sdk/trunk/ChangeLog
+   player-sdk/trunk/examples/Makefile.am
+Log:
+* examples/Makefile.am: Added EXTRA_DIST and CLEANFILES
+
+
+
+Modified: player-sdk/trunk/ChangeLog
+===================================================================
+--- player-sdk/trunk/ChangeLog	2004-11-08 23:40:56 UTC (rev 5)
++++ player-sdk/trunk/ChangeLog	2004-11-08 23:43:14 UTC (rev 6)
+@@ -1,5 +1,9 @@
+ 2004-11-09  Sergio Rubio  &lt;<A HREF="https://lists.berlios.de/mailman/listinfo/player-sdk-checkins">sergio.rubio at hispalinux.es</A>&gt;
+ 
++	* examples/Makefile.am: Added EXTRA_DIST and CLEANFILES
++
++2004-11-09  Sergio Rubio  &lt;<A HREF="https://lists.berlios.de/mailman/listinfo/player-sdk-checkins">sergio.rubio at hispalinux.es</A>&gt;
++
+ 	* PlayerKits/Gstreamer/GstPlayer.cs: Added null or wrong file check
+ 	call g_type_init ()
+ 	
+
+Modified: player-sdk/trunk/examples/Makefile.am
+===================================================================
+--- player-sdk/trunk/examples/Makefile.am	2004-11-08 23:40:56 UTC (rev 5)
++++ player-sdk/trunk/examples/Makefile.am	2004-11-08 23:43:14 UTC (rev 6)
+@@ -13,3 +13,5 @@
+ kitmanager-test.exe: KitManagerTest.cs
+ 	mcs KitManagerTest.cs -o $@ $(REFERENCES)
+ 	
++EXTRA_DIST= *.cs test.ogg
++CLEANFILES= *.exe
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000001.html">[Player-sdk-checkins] r5 - in player-sdk/trunk: . PlayerKits/Gstreamer examples src/Playlist
+</A></li>
+	<LI>Next message: <A HREF="000003.html">[Player-sdk-checkins] r7 - player-sdk/trunk
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#2">[ date ]</a>
+              <a href="thread.html#2">[ thread ]</a>
+              <a href="subject.html#2">[ subject ]</a>
+              <a href="author.html#2">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/player-sdk-checkins">More information about the Player-sdk-checkins
+mailing list</a><br>
+</body></html>

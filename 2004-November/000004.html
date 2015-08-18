@@ -1,0 +1,3998 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [Player-sdk-checkins] r8 - in player-sdk/trunk: . src src/Nini src/Nini/Config src/Nini/Ini src/Nini/Util
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/player-sdk-checkins/2004-November/index.html" >
+   <LINK REL="made" HREF="mailto:player-sdk-checkins%40lists.berlios.de?Subject=Re%3A%20%5BPlayer-sdk-checkins%5D%20r8%20-%20in%20player-sdk/trunk%3A%20.%20src%20src/Nini%20src/Nini/Config%20src/Nini/Ini%20src/Nini/Util&In-Reply-To=%3C200411091223.iA9CNMNt019755%40sheep.berlios.de%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000003.html">
+   <LINK REL="Next"  HREF="000005.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[Player-sdk-checkins] r8 - in player-sdk/trunk: . src src/Nini src/Nini/Config src/Nini/Ini src/Nini/Util</H1>
+    <B>Sergio Rubio at BerliOS</B> 
+    <A HREF="mailto:player-sdk-checkins%40lists.berlios.de?Subject=Re%3A%20%5BPlayer-sdk-checkins%5D%20r8%20-%20in%20player-sdk/trunk%3A%20.%20src%20src/Nini%20src/Nini/Config%20src/Nini/Ini%20src/Nini/Util&In-Reply-To=%3C200411091223.iA9CNMNt019755%40sheep.berlios.de%3E"
+       TITLE="[Player-sdk-checkins] r8 - in player-sdk/trunk: . src src/Nini src/Nini/Config src/Nini/Ini src/Nini/Util">rubiojr at sheep.berlios.de
+       </A><BR>
+    <I>Tue Nov  9 13:23:22 CET 2004</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000003.html">[Player-sdk-checkins] r7 - player-sdk/trunk
+</A></li>
+        <LI>Next message: <A HREF="000005.html">[Player-sdk-checkins] r9 - in player-sdk/trunk: . DataKits/Sqlite PlayerKits/Gstreamer Plugins Plugins/test examples src src/Addins src/Configuration src/Data src/Global src/Kits src/Player src/Plugins
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#4">[ date ]</a>
+              <a href="thread.html#4">[ thread ]</a>
+              <a href="subject.html#4">[ subject ]</a>
+              <a href="author.html#4">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Author: rubiojr
+Date: 2004-11-09 13:23:21 +0100 (Tue, 09 Nov 2004)
+New Revision: 8
+
+Added:
+   player-sdk/trunk/src/Nini/
+   player-sdk/trunk/src/Nini/AssemblyInfo.cs
+   player-sdk/trunk/src/Nini/Config/
+   player-sdk/trunk/src/Nini/Config/AliasText.cs
+   player-sdk/trunk/src/Nini/Config/ArgvConfigSource.cs
+   player-sdk/trunk/src/Nini/Config/ConfigBase.cs
+   player-sdk/trunk/src/Nini/Config/ConfigCollection.cs
+   player-sdk/trunk/src/Nini/Config/ConfigSourceBase.cs
+   player-sdk/trunk/src/Nini/Config/DotNetConfigSource.cs
+   player-sdk/trunk/src/Nini/Config/IConfig.cs
+   player-sdk/trunk/src/Nini/Config/IConfigSource.cs
+   player-sdk/trunk/src/Nini/Config/IniConfigSource.cs
+   player-sdk/trunk/src/Nini/Config/RegistryConfigSource.cs
+   player-sdk/trunk/src/Nini/Config/XmlConfigSource.cs
+   player-sdk/trunk/src/Nini/Ini/
+   player-sdk/trunk/src/Nini/Ini/IniDocument.cs
+   player-sdk/trunk/src/Nini/Ini/IniException.cs
+   player-sdk/trunk/src/Nini/Ini/IniItem.cs
+   player-sdk/trunk/src/Nini/Ini/IniReader.cs
+   player-sdk/trunk/src/Nini/Ini/IniSection.cs
+   player-sdk/trunk/src/Nini/Ini/IniSectionCollection.cs
+   player-sdk/trunk/src/Nini/Ini/IniWriter.cs
+   player-sdk/trunk/src/Nini/README
+   player-sdk/trunk/src/Nini/Util/
+   player-sdk/trunk/src/Nini/Util/ArgvParser.cs
+   player-sdk/trunk/src/Nini/Util/IOrderedDictionary.cs
+   player-sdk/trunk/src/Nini/Util/OrderedList.cs
+   player-sdk/trunk/src/Nini/Util/OrderedListEnumerator.cs
+Modified:
+   player-sdk/trunk/ChangeLog
+   player-sdk/trunk/TODO
+   player-sdk/trunk/src/Makefile.am
+   player-sdk/trunk/src/sources.list
+Log:
+    * TODO: Updated
+
+    * src/Makefile.am: Removed chicken dep.
+
+    * src/Nini/*: Added Nini framework and removed Chicken dependencie.
+
+    * src/sources.list: regenerated
+
+
+
+Modified: player-sdk/trunk/ChangeLog
+===================================================================
+--- player-sdk/trunk/ChangeLog	2004-11-08 23:50:06 UTC (rev 7)
++++ player-sdk/trunk/ChangeLog	2004-11-09 12:23:21 UTC (rev 8)
+@@ -1,9 +1,19 @@
+ 2004-11-09  Sergio Rubio  &lt;<A HREF="https://lists.berlios.de/mailman/listinfo/player-sdk-checkins">sergio.rubio at hispalinux.es</A>&gt;
+ 
+ 	* TODO: Updated
++	
++	* src/Makefile.am: Removed chicken dep.
++	
++	* src/Nini/*: Added Nini framework and removed Chicken dependencie.
++	
++	* src/sources.list: regenerated
+ 
+ 2004-11-09  Sergio Rubio  &lt;<A HREF="https://lists.berlios.de/mailman/listinfo/player-sdk-checkins">sergio.rubio at hispalinux.es</A>&gt;
+ 
++	* TODO: Updated
++
++2004-11-09  Sergio Rubio  &lt;<A HREF="https://lists.berlios.de/mailman/listinfo/player-sdk-checkins">sergio.rubio at hispalinux.es</A>&gt;
++
+ 	* examples/Makefile.am: Added EXTRA_DIST and CLEANFILES
+ 
+ 2004-11-09  Sergio Rubio  &lt;<A HREF="https://lists.berlios.de/mailman/listinfo/player-sdk-checkins">sergio.rubio at hispalinux.es</A>&gt;
+
+Modified: player-sdk/trunk/TODO
+===================================================================
+--- player-sdk/trunk/TODO	2004-11-08 23:50:06 UTC (rev 7)
++++ player-sdk/trunk/TODO	2004-11-09 12:23:21 UTC (rev 8)
+@@ -1,7 +1,6 @@
+ General
+ ---------
+ * Use log4net
+-* Include the Nini framework and remove chicken dep
+ 
+ Plugins
+ --------------------
+
+Modified: player-sdk/trunk/src/Makefile.am
+===================================================================
+--- player-sdk/trunk/src/Makefile.am	2004-11-08 23:50:06 UTC (rev 7)
++++ player-sdk/trunk/src/Makefile.am	2004-11-09 12:23:21 UTC (rev 8)
+@@ -1,7 +1,7 @@
+ include sources.list
+ 
+ MISCRS = /resource:../PlayerSdk.ini,PlayerSdk.ini
+-REFERENCES = -pkg:chicken
++#REFERENCES = -pkg:chicken
+ 
+ Player.Sdk.dll: $(CSSOURCES)
+ 	mcs /out:$@ $(CSSOURCES) /target:library $(MISCRS) $(REFERENCES)
+
+Added: player-sdk/trunk/src/Nini/AssemblyInfo.cs
+===================================================================
+--- player-sdk/trunk/src/Nini/AssemblyInfo.cs	2004-11-08 23:50:06 UTC (rev 7)
++++ player-sdk/trunk/src/Nini/AssemblyInfo.cs	2004-11-09 12:23:21 UTC (rev 8)
+@@ -0,0 +1,50 @@
++#region Copyright
++//
++// Nini Configuration Project.
++// Copyright (C) 2004 Brent R. Matzelle.  All rights reserved.
++//
++// This software is published under the terms of the MIT X11 license, a copy of 
++// which has been included with this distribution in the LICENSE.txt file.
++// 
++#endregion
++
++using System.Reflection;
++using System.Runtime.CompilerServices;
++
++#if (NET_1_0)
++[assembly: AssemblyTitle(&quot;Nini for .NET Framework 1.0&quot;)]
++#elif (NET_1_1)
++[assembly: AssemblyTitle(&quot;Nini for .NET Framework 1.1&quot;)]
++#elif (MONO_1_0)
++[assembly: AssemblyTitle(&quot;Nini for Mono 1.0&quot;)]
++#else
++[assembly: AssemblyTitle(&quot;Nini&quot;)]
++#endif
++
++[assembly: AssemblyDescription(&quot;Configuration Library - <A HREF="http://nini.sourceforge.net/">http://nini.sourceforge.net/</A>&quot;)]
++[assembly: AssemblyConfiguration(&quot;&quot;)]
++[assembly: AssemblyCompany(&quot;Brent R. Matzelle&quot;)]
++[assembly: AssemblyProduct(&quot;Nini&quot;)]
++[assembly: AssemblyCopyright(&quot;Copyright (c) 2004 Brent R. Matzelle. All Rights Reserved.&quot;)]
++[assembly: AssemblyTrademark(&quot;Copyright (c) 2004 Brent R. Matzelle. All Rights Reserved.&quot;)]
++[assembly: AssemblyDefaultAlias(&quot;Nini&quot;)]
++[assembly: AssemblyCulture(&quot;&quot;)]
++
++#if STRONG
++[assembly: AssemblyDelaySign(false)]
++[assembly: AssemblyKeyFile(@&quot;..\..\Nini.snk&quot;)]
++#endif
++
++//
++// Version information for an assembly consists of the following four values:
++//
++//      Major Version
++//      Minor Version 
++//      Build Number
++//      Revision
++//
++// You can specify all the values or you can default the Revision and Build Numbers 
++// by using the '*' as shown below:
++
++[assembly: System.Reflection.AssemblyVersion(&quot;0.8.0.0&quot;)]
++
+
+Added: player-sdk/trunk/src/Nini/Config/AliasText.cs
+===================================================================
+--- player-sdk/trunk/src/Nini/Config/AliasText.cs	2004-11-08 23:50:06 UTC (rev 7)
++++ player-sdk/trunk/src/Nini/Config/AliasText.cs	2004-11-09 12:23:21 UTC (rev 8)
+@@ -0,0 +1,127 @@
++#region Copyright
++//
++// Nini Configuration Project.
++// Copyright (C) 2004 Brent R. Matzelle.  All rights reserved.
++//
++// This software is published under the terms of the MIT X11 license, a copy of 
++// which has been included with this distribution in the LICENSE.txt file.
++// 
++#endregion
++
++using System;
++using System.Collections;
++
++namespace Nini.Config
++{
++	/// &lt;include file='AliasText.xml' path='//Class[@name=&quot;AliasText&quot;]/docs/*' /&gt;
++	public class AliasText
++	{
++		#region Private variables
++		Hashtable intAlias = new Hashtable ();
++		Hashtable booleanAlias = new Hashtable ();
++		#endregion
++
++		#region Constructors
++		/// &lt;include file='AliasText.xml' path='//Constructor[@name=&quot;AliasText&quot;]/docs/*' /&gt;
++		public AliasText ()
++		{
++		}
++		#endregion
++		
++		#region Public methods
++		/// &lt;include file='AliasText.xml' path='//Method[@name=&quot;AddAliasInt&quot;]/docs/*' /&gt;
++		public void AddAlias (string key, string alias, int value)
++		{
++			string lowerAlias = alias.ToLower ();
++
++			if (intAlias.Contains (key)) {
++				Hashtable keys = (Hashtable)intAlias[key];
++				if (keys.Contains (lowerAlias))
++					throw new Exception (&quot;Alias text already exists&quot;);
++				
++				keys[lowerAlias] = value;
++			} else {
++				Hashtable keys = new Hashtable ();
++				keys[lowerAlias] = value;
++				intAlias.Add (key, keys);
++			}
++		}
++		
++		/// &lt;include file='AliasText.xml' path='//Method[@name=&quot;AddAliasBoolean&quot;]/docs/*' /&gt;
++		public void AddAlias (string alias, bool value)
++		{
++			booleanAlias.Add (alias.ToLower (), value);
++		}
++		
++		/// &lt;include file='AliasText.xml' path='//Method[@name=&quot;AddAliasEnum&quot;]/docs/*' /&gt;
++		public void AddAlias (string key, Enum enumAlias)
++		{
++			SetAliasTypes (key, enumAlias);
++		}
++		
++		/// &lt;include file='AliasText.xml' path='//Method[@name=&quot;ContainsBoolean&quot;]/docs/*' /&gt;
++		public bool ContainsBoolean (string key)
++		{
++			return booleanAlias.Contains (key.ToLower ());
++		}
++		
++		/// &lt;include file='AliasText.xml' path='//Method[@name=&quot;ContainsInt&quot;]/docs/*' /&gt;
++		public bool ContainsInt (string key, string alias)
++		{
++			bool result = false;
++
++			if (intAlias.Contains (key)) {
++				Hashtable keys = (Hashtable)intAlias[key];
++				result = (keys.Contains (alias.ToLower ()));
++			}
++			
++			return result;
++		}
++		
++		/// &lt;include file='AliasText.xml' path='//Method[@name=&quot;GetBoolean&quot;]/docs/*' /&gt;
++		public bool GetBoolean (string key)
++		{
++			string lowerAlias = key.ToLower ();
++			if (!booleanAlias.Contains (lowerAlias)) {
++				throw new Exception (&quot;Alias does not exist for text&quot;);
++			}
++			
++			return (bool)booleanAlias[lowerAlias];
++		}
++		
++		/// &lt;include file='AliasText.xml' path='//Method[@name=&quot;GetInt&quot;]/docs/*' /&gt;
++		public int GetInt (string key, string alias)
++		{
++			if (!intAlias.Contains (key)) {
++				throw new Exception (&quot;Alias does not exist for key&quot;);
++			}
++
++			string lowerAlias = alias.ToLower ();			
++			Hashtable keys = (Hashtable)intAlias[key];
++
++			if (!keys.Contains (lowerAlias)) {
++				throw new Exception (&quot;Config value does not match a &quot; +
++									 &quot;supplied alias&quot;);
++			}
++			
++			return (int)keys[lowerAlias];
++		}
++		#endregion
++		
++		#region Private methods
++		/// &lt;summary&gt;
++		/// Extracts and sets the alias types from an enumeration.
++		/// &lt;/summary&gt;
++		private void SetAliasTypes (string key, Enum enumAlias)
++		{
++			string[] names = Enum.GetNames (enumAlias.GetType ());
++			int[] values = (int[])Enum.GetValues (enumAlias.GetType ());
++			
++			for (int i = 0; i &lt; names.Length; i++)
++			{
++				AddAlias (key, names[i], values[i]);
++			}
++		}
++		#endregion
++	}
++}
+\ No newline at end of file
+
+Added: player-sdk/trunk/src/Nini/Config/ArgvConfigSource.cs
+===================================================================
+--- player-sdk/trunk/src/Nini/Config/ArgvConfigSource.cs	2004-11-08 23:50:06 UTC (rev 7)
++++ player-sdk/trunk/src/Nini/Config/ArgvConfigSource.cs	2004-11-09 12:23:21 UTC (rev 8)
+@@ -0,0 +1,95 @@
++#region Copyright
++//
++// Nini Configuration Project.
++// Copyright (C) 2004 Brent R. Matzelle.  All rights reserved.
++//
++// This software is published under the terms of the MIT X11 license, a copy of 
++// which has been included with this distribution in the LICENSE.txt file.
++// 
++#endregion
++
++using System;
++using System.IO;
++using System.Text;
++using System.Collections;
++using Nini.Util;
++
++namespace Nini.Config
++{
++	/// &lt;include file='ArgvConfigSource.xml' path='//Class[@name=&quot;ArgvConfigSource&quot;]/docs/*' /&gt;
++	public class ArgvConfigSource : ConfigSourceBase, IConfigSource
++	{
++		#region Private variables
++		ArgvParser parser = null;
++		string[] arguments = null;
++		#endregion
++
++		#region Constructors
++		/// &lt;include file='ArgvConfigSource.xml' path='//Constructor[@name=&quot;Constructor&quot;]/docs/*' /&gt;
++		public ArgvConfigSource (string[] arguments)
++		{
++			parser = new ArgvParser (arguments);
++			this.arguments = arguments;
++		}
++		#endregion
++		
++		#region Public properties
++		/// &lt;include file='ArgvConfigSource.xml' path='//Property[@name=&quot;Arguments&quot;]/docs/*' /&gt;
++		public string[] Arguments
++		{
++			get { return this.arguments; }
++		}
++		#endregion
++		
++		#region Public methods
++		/// &lt;include file='ArgvConfigSource.xml' path='//Method[@name=&quot;Save&quot;]/docs/*' /&gt;
++		public void Save ()
++		{
++			throw new Exception (&quot;Source is read only&quot;);
++		}
++		
++		/// &lt;include file='ArgvConfigSource.xml' path='//Method[@name=&quot;AddSwitch&quot;]/docs/*' /&gt;
++		public void AddSwitch (string configName, string longName)
++		{
++			AddSwitch (configName, longName, null);
++		}
++		
++		/// &lt;include file='ArgvConfigSource.xml' path='//Method[@name=&quot;AddSwitchShort&quot;]/docs/*' /&gt;
++		public void AddSwitch (string configName, string longName, 
++								string shortName)
++		{
++			IConfig config = GetConfig (configName);
++			
++			if (shortName.Length &lt; 1 || shortName.Length &gt; 2) {
++				throw new Exception (&quot;Short name may only be 1 or 2 characters&quot;);
++			}
++
++			// Look for the long name first
++			if (parser[longName] != null) {
++				config.Set (longName, parser[longName]);
++			} else if (shortName != null &amp;&amp; parser[shortName] != null) {
++				config.Set (longName, parser[shortName]);
++			}
++		}
++		#endregion
++
++		#region Private methods
++		/// &lt;summary&gt;
++		/// Returns an IConfig.  If it does not exist then it is added.
++		/// &lt;/summary&gt;
++		private IConfig GetConfig (string name)
++		{
++			IConfig result = null;
++			
++			if (this.Configs[name] == null) {
++				result = new ConfigBase (name, this);
++				this.Configs.Add (result);
++			} else {
++				result = this.Configs[name];
++			}
++			
++			return result;
++		}
++		#endregion
++	}
++}
+\ No newline at end of file
+
+Added: player-sdk/trunk/src/Nini/Config/ConfigBase.cs
+===================================================================
+--- player-sdk/trunk/src/Nini/Config/ConfigBase.cs	2004-11-08 23:50:06 UTC (rev 7)
++++ player-sdk/trunk/src/Nini/Config/ConfigBase.cs	2004-11-09 12:23:21 UTC (rev 8)
+@@ -0,0 +1,307 @@
++#region Copyright
++//
++// Nini Configuration Project.
++// Copyright (C) 2004 Brent R. Matzelle.  All rights reserved.
++//
++// This software is published under the terms of the MIT X11 license, a copy of 
++// which has been included with this distribution in the LICENSE.txt file.
++// 
++#endregion
++
++using System;
++using System.Collections;
++using Nini.Util;
++
++namespace Nini.Config
++{
++	/// &lt;include file='IConfig.xml' path='//Interface[@name=&quot;IConfig&quot;]/docs/*' /&gt;
++	public class ConfigBase : IConfig
++	{
++		#region Private variables
++		string configName = null;
++		OrderedList keys = new OrderedList ();
++		IConfigSource configSource = null;
++		AliasText aliasText = null;
++		#endregion
++		
++		#region Constructors
++		/// &lt;include file='ConfigBase.xml' path='//Constructor[@name=&quot;ConfigBase&quot;]/docs/*' /&gt;
++		public ConfigBase (string name, IConfigSource source)
++		{
++			configName = name;
++			configSource = source;
++			aliasText = new AliasText ();
++		}
++		#endregion
++
++		#region Public properties
++		/// &lt;include file='IConfig.xml' path='//Property[@name=&quot;Name&quot;]/docs/*' /&gt;
++		public string Name
++		{
++			get { return configName; }
++		}
++		
++		/// &lt;include file='IConfig.xml' path='//Property[@name=&quot;ConfigSource&quot;]/docs/*' /&gt;
++		public IConfigSource ConfigSource
++		{
++			get { return configSource; }
++		}
++		
++		/// &lt;include file='IConfig.xml' path='//Property[@name=&quot;Alias&quot;]/docs/*' /&gt;
++		public AliasText Alias
++		{
++			get { return aliasText; }
++		}
++		#endregion
++
++		#region Public methods
++		/// &lt;include file='IConfig.xml' path='//Method[@name=&quot;Get&quot;]/docs/*' /&gt;
++		public string Get (string key)
++		{
++			return GetValue (key);
++		}
++		
++		/// &lt;include file='IConfig.xml' path='//Method[@name=&quot;GetDefault&quot;]/docs/*' /&gt;
++		public string Get (string key, string defaultValue)
++		{
++			string result = Get (key);
++			
++			return (result == null) ? defaultValue : result;
++		}
++		
++		/// &lt;include file='IConfig.xml' path='//Method[@name=&quot;Get&quot;]/docs/*' /&gt;
++		public string GetString (string key)
++		{
++			return Get (key);
++		}
++		
++		/// &lt;include file='IConfig.xml' path='//Method[@name=&quot;GetDefault&quot;]/docs/*' /&gt;
++		public string GetString (string key, string defaultValue)
++		{
++			return Get (key, defaultValue);
++		}
++		
++		/// &lt;include file='IConfig.xml' path='//Method[@name=&quot;GetInt&quot;]/docs/*' /&gt;
++		public int GetInt (string key)
++		{
++			string text = GetValue (key);
++			
++			if (text == null) {
++				throw new Exception (&quot;Integer value not found&quot;);
++			}
++
++			return Convert.ToInt32 (text);
++		}
++		
++		/// &lt;include file='IConfig.xml' path='//Method[@name=&quot;GetIntAlias&quot;]/docs/*' /&gt;
++		public int GetInt (string key, bool fromAlias)
++		{
++			if (!fromAlias) {
++				return GetInt (key);
++			}
++
++			string result = Get (key);
++			
++			if (result == null) {
++				throw new Exception (&quot;Integer value not found&quot;);
++			}
++
++			return GetIntAlias (key, result);
++		}
++		
++		/// &lt;include file='IConfig.xml' path='//Method[@name=&quot;GetIntDefault&quot;]/docs/*' /&gt;
++		public int GetInt (string key, int defaultValue)
++		{
++			string result = GetValue (key);
++			
++			return (result == null) ? defaultValue : Convert.ToInt32 (result);
++		}
++		
++		/// &lt;include file='IConfig.xml' path='//Method[@name=&quot;GetIntDefaultAlias&quot;]/docs/*' /&gt;
++		public int GetInt (string key, int defaultValue, bool fromAlias)
++		{
++			if (!fromAlias) {
++				return GetInt (key, defaultValue);
++			}
++
++			string result = GetValue (key);
++			
++			return (result == null) ? defaultValue : GetIntAlias (key, result);
++		}
++		
++		/// &lt;include file='IConfig.xml' path='//Method[@name=&quot;GetLong&quot;]/docs/*' /&gt;
++		public long GetLong (string key)
++		{
++			string text = GetValue (key);
++			
++			if (text == null) {
++				throw new Exception (&quot;Long value not found&quot;);
++			}
++			
++			return Convert.ToInt64 (text);
++		}
++		
++		/// &lt;include file='IConfig.xml' path='//Method[@name=&quot;GetLongDefault&quot;]/docs/*' /&gt;
++		public long GetLong (string key, long defaultValue)
++		{
++			string result = GetValue (key);
++			
++			return (result == null) ? defaultValue : Convert.ToInt64 (result);
++		}
++		
++		/// &lt;include file='IConfig.xml' path='//Method[@name=&quot;GetBoolean&quot;]/docs/*' /&gt;
++		public bool GetBoolean (string key)
++		{
++			string text = GetValue (key);
++			
++			if (text == null) {
++				throw new Exception (&quot;Boolean value not found&quot;);
++			}
++			
++			return GetBooleanAlias (text);
++		}
++		
++		/// &lt;include file='IConfig.xml' path='//Method[@name=&quot;GetBooleanDefault&quot;]/docs/*' /&gt;
++		public bool GetBoolean (string key, bool defaultValue)
++		{
++			string text = GetValue (key);
++			
++			return (text == null) ? defaultValue : GetBooleanAlias (text);
++		}
++		
++		/// &lt;include file='IConfig.xml' path='//Method[@name=&quot;GetFloat&quot;]/docs/*' /&gt;
++		public float GetFloat (string key)
++		{
++			string text = GetValue (key);
++			
++			if (text == null) {
++				throw new Exception (&quot;Float value not found&quot;);
++			}
++			
++			return Convert.ToSingle (text);
++		}
++		
++		/// &lt;include file='IConfig.xml' path='//Method[@name=&quot;GetFloatDefault&quot;]/docs/*' /&gt;
++		public float GetFloat (string key, float defaultValue)
++		{
++			string result = GetValue (key);
++			
++			return (result == null) ? defaultValue : Convert.ToSingle (result);
++		}
++
++		/// &lt;include file='IConfig.xml' path='//Method[@name=&quot;GetDouble&quot;]/docs/*' /&gt;
++		public double GetDouble (string key)
++		{
++			string text = GetValue (key);
++			
++			if (text == null) {
++				throw new Exception (&quot;Double value not found&quot;);
++			}
++			
++			return Convert.ToDouble (text);
++		}
++		
++		/// &lt;include file='IConfig.xml' path='//Method[@name=&quot;GetDoubleDefault&quot;]/docs/*' /&gt;
++		public double GetDouble (string key, double defaultValue)
++		{
++			string result = GetValue (key);
++			
++			return (result == null) ? defaultValue : Convert.ToDouble (result);
++		}
++
++		/// &lt;include file='IConfig.xml' path='//Method[@name=&quot;GetKeys&quot;]/docs/*' /&gt;
++		public string[] GetKeys ()
++		{
++			string[] result = new string[keys.Keys.Count];
++			
++			keys.Keys.CopyTo (result, 0);
++			
++			return result;
++		}
++		
++		/// &lt;include file='ConfigBase.xml' path='//Method[@name=&quot;Add&quot;]/docs/*' /&gt;
++		public void Add (string key, string value)
++		{
++			keys.Add (key, value);
++		}
++		
++		/// &lt;include file='IConfig.xml' path='//Method[@name=&quot;Set&quot;]/docs/*' /&gt;
++		public void Set (string key, object value)
++		{
++			if (value == null) {
++				throw new ArgumentNullException (&quot;Value may not be null&quot;);
++			}
++
++			if (!keys.Contains (key)) {
++				keys.Add (key, value);
++			} else {
++				keys[key] = value.ToString ();
++			}
++
++			if (ConfigSource.AutoSave) {
++				ConfigSource.Save ();
++			}
++		}
++		
++		/// &lt;include file='IConfig.xml' path='//Method[@name=&quot;Remove&quot;]/docs/*' /&gt;
++		public void Remove (string key)
++		{
++			if (key == null) {
++				throw new ArgumentNullException (&quot;Key may not be null&quot;);
++			}
++			
++			keys.Remove (key);
++		}
++		#endregion
++		
++		#region Private methods
++		/// &lt;summary&gt;
++		/// Returns the value if the given key.
++		/// &lt;/summary&gt;
++		private string GetValue (string key)
++		{
++			string result = null;
++			
++			if (keys.Contains (key)) {
++				result = (string)keys[key];
++			}
++
++			return result;
++		}
++		
++		/// &lt;summary&gt;
++		/// Returns the integer alias first from this IConfig then 
++		/// the parent if there is none.
++		/// &lt;/summary&gt;
++		private int GetIntAlias (string key, string alias)
++		{
++			int result = -1;
++			
++			if (aliasText.ContainsInt (key, alias)) {
++				result = aliasText.GetInt (key, alias);
++			} else {
++				result = ConfigSource.GlobalAlias.GetInt (key, alias);
++			}			
++			
++			return result;
++		}
++		
++		/// &lt;summary&gt;
++		/// Returns the boolean alias first from this IConfig then 
++		/// the parent if there is none.
++		/// &lt;/summary&gt;
++		private bool GetBooleanAlias (string key)
++		{
++			bool result = false;
++			
++			if (aliasText.ContainsBoolean (key)) {
++				result = aliasText.GetBoolean (key);
++			} else {
++				result = ConfigSource.GlobalAlias.GetBoolean (key);
++			}	
++			
++			return result;
++		}
++		#endregion
++	}
++}
+\ No newline at end of file
+
+Added: player-sdk/trunk/src/Nini/Config/ConfigCollection.cs
+===================================================================
+--- player-sdk/trunk/src/Nini/Config/ConfigCollection.cs	2004-11-08 23:50:06 UTC (rev 7)
++++ player-sdk/trunk/src/Nini/Config/ConfigCollection.cs	2004-11-09 12:23:21 UTC (rev 8)
+@@ -0,0 +1,112 @@
++#region Copyright
++//
++// Nini Configuration Project.
++// Copyright (C) 2004 Brent R. Matzelle.  All rights reserved.
++//
++// This software is published under the terms of the MIT X11 license, a copy of 
++// which has been included with this distribution in the LICENSE.txt file.
++// 
++#endregion
++
++using System;
++using System.Collections;
++
++namespace Nini.Config
++{
++	/// &lt;include file='ConfigCollection.xml' path='//Class[@name=&quot;ConfigCollection&quot;]/docs/*' /&gt;
++	public class ConfigCollection : ICollection, IEnumerable
++	{
++		#region Private variables
++		ArrayList configList = new ArrayList ();
++		#endregion
++		
++		#region Public properties
++		/// &lt;include file='ConfigCollection.xml' path='//Property[@name=&quot;Count&quot;]/docs/*' /&gt;
++		public int Count
++		{
++			get { return configList.Count; }
++		}
++		
++		/// &lt;include file='ConfigCollection.xml' path='//Property[@name=&quot;IsSynchronized&quot;]/docs/*' /&gt;
++		public bool IsSynchronized
++		{
++			get { return false; }
++		}
++		
++		/// &lt;include file='ConfigCollection.xml' path='//Property[@name=&quot;SyncRoot&quot;]/docs/*' /&gt;
++		public object SyncRoot
++		{
++			get { return this; }
++		}
++		
++		/// &lt;include file='ConfigCollection.xml' path='//Property[@name=&quot;ItemIndex&quot;]/docs/*' /&gt;
++		public IConfig this[int index]
++		{
++			get { return (IConfig)configList[index]; }
++		}
++		
++		/// &lt;include file='ConfigCollection.xml' path='//Property[@name=&quot;ItemName&quot;]/docs/*' /&gt;
++		public IConfig this[string configName]
++		{
++			get
++			{
++				IConfig result = null;
++
++				foreach (IConfig config in configList)
++				{
++					if (config.Name == configName) {
++						result = config;
++						break;
++					}
++				}
++				
++				return result;
++			}
++		}
++
++		#endregion
++		
++		#region Public methods
++		/// &lt;include file='ConfigCollection.xml' path='//Method[@name=&quot;Add&quot;]/docs/*' /&gt;
++		public void Add (IConfig config)
++		{
++			if (configList.Contains (config)) {
++				throw new ArgumentException (&quot;IConfig already exists&quot;);
++			}
++			IConfig existingConfig = this[config.Name];
++
++			if (existingConfig != null) {
++				// Set all new keys
++				string[] keys = config.GetKeys ();
++				for (int i = 0; i &lt; keys.Length; i++)
++				{
++					existingConfig.Set (keys[i], config.Get (keys[i]));
++				}
++			} else {
++				configList.Add (config);
++			}
++		}
++		
++		/// &lt;include file='ConfigCollection.xml' path='//Method[@name=&quot;Remove&quot;]/docs/*' /&gt;
++		public void Remove (IConfig config)
++		{
++			configList.Remove (config);
++		}
++		
++		/// &lt;include file='ConfigCollection.xml' path='//Method[@name=&quot;GetEnumerator&quot;]/docs/*' /&gt;
++		public IEnumerator GetEnumerator ()
++		{
++			return configList.GetEnumerator ();
++		}
++		
++		/// &lt;include file='ConfigCollection.xml' path='//Method[@name=&quot;CopyTo&quot;]/docs/*' /&gt;
++		public void CopyTo (Array array, int index)
++		{
++			configList.CopyTo (array, index);
++		}
++		#endregion
++		
++		#region Private methods
++		#endregion
++	}
++}
+\ No newline at end of file
+
+Added: player-sdk/trunk/src/Nini/Config/ConfigSourceBase.cs
+===================================================================
+--- player-sdk/trunk/src/Nini/Config/ConfigSourceBase.cs	2004-11-08 23:50:06 UTC (rev 7)
++++ player-sdk/trunk/src/Nini/Config/ConfigSourceBase.cs	2004-11-09 12:23:21 UTC (rev 8)
+@@ -0,0 +1,165 @@
++#region Copyright
++//
++// Nini Configuration Project.
++// Copyright (C) 2004 Brent R. Matzelle.  All rights reserved.
++//
++// This software is published under the terms of the MIT X11 license, a copy of 
++// which has been included with this distribution in the LICENSE.txt file.
++// 
++#endregion
++
++using System;
++using System.Text;
++using System.Collections;
++
++namespace Nini.Config
++{
++	/// &lt;include file='IConfigSource.xml' path='//Interface[@name=&quot;IConfigSource&quot;]/docs/*' /&gt;
++	public abstract class ConfigSourceBase
++	{
++		#region Private variables
++		ArrayList sourceList = new ArrayList ();
++		ConfigCollection configList = new ConfigCollection ();
++		bool autoSave = false;
++		AliasText globalAlias = new AliasText ();
++		#endregion
++
++		#region Constructors
++		#endregion
++		
++		#region Public properties
++		/// &lt;include file='IConfigSource.xml' path='//Property[@name=&quot;Configs&quot;]/docs/*' /&gt;
++		public ConfigCollection Configs
++		{
++			get { return configList; }
++		}
++		
++		/// &lt;include file='IConfigSource.xml' path='//Property[@name=&quot;AutoSave&quot;]/docs/*' /&gt;
++		public bool AutoSave
++		{
++			get { return autoSave; }
++			set { autoSave = value; }
++		}
++		
++		/// &lt;include file='IConfigSource.xml' path='//Property[@name=&quot;GlobalAlias&quot;]/docs/*' /&gt;
++		public AliasText GlobalAlias
++		{
++			get { return globalAlias; }
++		}
++		#endregion
++		
++		#region Public methods
++		/// &lt;include file='IConfigSource.xml' path='//Method[@name=&quot;Merge&quot;]/docs/*' /&gt;
++		public void Merge (IConfigSource source)
++		{
++			if (!sourceList.Contains (source))  {
++				sourceList.Add (source);
++			}
++			
++			foreach (IConfig config in source.Configs)
++			{
++				this.Configs.Add (config);
++			}
++		}
++		
++		/// &lt;include file='IConfigSource.xml' path='//Method[@name=&quot;AddConfig&quot;]/docs/*' /&gt;
++		public IConfig AddConfig (string name)
++		{
++			ConfigBase result = null;
++
++			if (configList[name] == null) {
++				result = new ConfigBase (name, (IConfigSource)this);
++				configList.Add (result);
++			} else {
++				throw new Exception (&quot;An IConfig of that name already exists&quot;);
++			}
++			
++			return result;
++		}
++		#endregion
++
++		#region Protected methods
++		/// &lt;summary&gt;
++		/// This performs a total lazy replace of all text.
++		/// &lt;/summary&gt;
++		protected void ReplaceTextAll ()
++		{
++			string[] keys = null;
++
++			foreach (IConfig config in configList)
++			{
++				keys = config.GetKeys ();
++				for (int i = 0; i &lt; keys.Length; i++)
++				{
++					Replace (config, keys[i]);
++				}
++			}
++		}
++		#endregion
++
++		#region Private methods		
++		/// &lt;summary&gt;
++		/// Recursively replaces text.
++		/// &lt;/summary&gt;
++		private void Replace (IConfig config, string key)
++		{
++			string text = config.Get (key);
++			if (text == null) {
++				throw new Exception (String.Format (&quot;[{0}] not found in [{1}]&quot;,
++										key, config.Name));
++			}
++			int startIndex = text.IndexOf (&quot;${&quot;, 0);
++
++			if (startIndex != -1) {
++				int endIndex = text.IndexOf (&quot;}&quot;);
++				if (endIndex != -1) {
++					string search = text.Substring (startIndex + 2, 
++													endIndex - (startIndex + 2));
++
++					string replace = ReplaceValue (config, search);
++
++					// Assemble the result string
++					StringBuilder builder = new StringBuilder ();
++					for (int i = 0; i &lt; startIndex; i++)
++					{
++						builder.Append (text[i]);
++					}
++					builder.Append (replace);
++					for (int i = endIndex + 1; i &lt; text.Length; i++)
++					{
++						builder.Append (text[i]);
++					}
++					
++					config.Set (key, builder.ToString ());
++					Replace (config, key); // recurse
++				}
++			}
++		}
++		
++		/// &lt;summary&gt;
++		/// Returns the replacement value of a config.
++		/// &lt;/summary&gt;
++		private string ReplaceValue (IConfig config, string search)
++		{
++			string result = null;
++			
++			string[] replaces = search.Split ('|');
++			
++			if (replaces.Length &gt; 1) {
++				IConfig newConfig = this.Configs[replaces[0]];
++				if (newConfig == null) {
++					throw new Exception (&quot;IConfig not found: &quot; + replaces[0]);
++				}
++				result = newConfig.Get (replaces[1]);
++				if (result == null) {
++					throw new Exception (&quot;Key not found: &quot; + result);
++				}
++			} else {
++				result = config.Get (search);
++			}
++			
++			return result;
++		}
++		#endregion
++	}
++}
+
+Added: player-sdk/trunk/src/Nini/Config/DotNetConfigSource.cs
+===================================================================
+--- player-sdk/trunk/src/Nini/Config/DotNetConfigSource.cs	2004-11-08 23:50:06 UTC (rev 7)
++++ player-sdk/trunk/src/Nini/Config/DotNetConfigSource.cs	2004-11-09 12:23:21 UTC (rev 8)
+@@ -0,0 +1,380 @@
++#region Copyright
++//
++// Nini Configuration Project.
++// Copyright (C) 2004 Brent R. Matzelle.  All rights reserved.
++//
++// This software is published under the terms of the MIT X11 license, a copy of 
++// which has been included with this distribution in the LICENSE.txt file.
++// 
++#endregion
++
++using System;
++using System.IO;
++using System.Xml;
++using System.Reflection;
++using System.Collections;
++using System.Configuration;
++using System.Collections.Specialized;
++
++namespace Nini.Config
++{
++	/// &lt;include file='DotNetConfigSource.xml' path='//Class[@name=&quot;DotNetConfigSource&quot;]/docs/*' /&gt;
++	public class DotNetConfigSource : ConfigSourceBase, IConfigSource
++	{
++		#region Private variables
++		string[] sections = null;
++		XmlDocument configDoc = new XmlDocument ();
++		string savePath = null;
++		#endregion
++
++		#region Constructors
++		/// &lt;include file='DotNetConfigSource.xml' path='//Constructor[@name=&quot;ConstructorWeb&quot;]/docs/*' /&gt;
++		public DotNetConfigSource (string[] sections)
++		{
++			this.sections = sections;
++			Load ();
++		}
++
++		/// &lt;include file='DotNetConfigSource.xml' path='//Constructor[@name=&quot;ConstructorFile&quot;]/docs/*' /&gt;
++		public DotNetConfigSource ()
++		{
++			savePath = ConfigFileName ();
++			configDoc.Load (savePath);
++			PerformLoad (configDoc);
++		}
++		
++		/// &lt;include file='DotNetConfigSource.xml' path='//Constructor[@name=&quot;ConstructorPath&quot;]/docs/*' /&gt;
++		public DotNetConfigSource (string path)
++		{
++			savePath = path;
++			configDoc.Load (savePath);
++			PerformLoad (configDoc);
++		}
++		
++		/// &lt;include file='DotNetConfigSource.xml' path='//Constructor[@name=&quot;ConstructorDoc&quot;]/docs/*' /&gt;
++		public DotNetConfigSource (XmlDocument document)
++		{
++			configDoc = document;
++			PerformLoad (configDoc);
++		}
++		#endregion
++		
++		#region Public properties
++		/// &lt;include file='DotNetConfigSource.xml' path='//Property[@name=&quot;SavePath&quot;]/docs/*' /&gt;
++		public string SavePath
++		{
++			get { return savePath; }
++		}
++		#endregion
++		
++		#region Public methods
++		/// &lt;include file='DotNetConfigSource.xml' path='//Method[@name=&quot;Save&quot;]/docs/*' /&gt;
++		public void Save ()
++		{
++			if (!IsSavable ()) {
++				throw new Exception (&quot;Source cannot be saved in this state&quot;);
++			}
++			MergeConfigsIntoDocument ();
++		
++			configDoc.Save (savePath);
++		}
++		
++		/// &lt;include file='DotNetConfigSource.xml' path='//Method[@name=&quot;SavePath&quot;]/docs/*' /&gt;
++		public void Save (string path)
++		{
++			if (!IsSavable ()) {
++				throw new Exception (&quot;Source cannot be saved in this state&quot;);
++			}
++
++			savePath = path;
++			this.Save ();
++		}
++		
++		/// &lt;include file='DotNetConfigSource.xml' path='//Method[@name=&quot;SaveTextWriter&quot;]/docs/*' /&gt;
++		public void Save (TextWriter writer)
++		{
++			MergeConfigsIntoDocument ();
++			configDoc.Save (writer);
++			savePath = null;
++		}
++		#endregion
++
++		#region Private methods
++		/// &lt;summary&gt;
++		/// Merges all of the configs from the config collection into the 
++		/// XmlDocument.
++		/// &lt;/summary&gt;
++		private void MergeConfigsIntoDocument ()
++		{
++			RemoveConfigs ();
++			foreach (IConfig config in this.Configs)
++			{
++				string[] keys = config.GetKeys ();
++				
++				string search = &quot;/configuration/&quot; + config.Name;
++				XmlNode node = configDoc.SelectSingleNode (search);
++				if (node == null) {
++					node = SectionNode (config.Name);
++				}
++				RemoveKeys (config.Name);
++				
++				for (int i = 0; i &lt; keys.Length; i++)
++				{
++					SetKey (node, keys[i], config.Get (keys[i]));
++				}
++			}
++		}
++
++		/// &lt;summary&gt;
++		/// Loads all collection classes.
++		/// &lt;/summary&gt;
++		private void Load ()
++		{
++			this.Merge (this); // required for SaveAll
++			for (int i = 0; i &lt; sections.Length; i++)
++			{
++				LoadCollection (sections[i], (NameValueCollection)ConfigurationSettings
++								.GetConfig (sections[i]));
++			}
++			base.ReplaceTextAll ();
++		}
++		
++		/// &lt;summary&gt;
++		/// Loads all sections and keys.
++		/// &lt;/summary&gt;
++		private void PerformLoad (XmlDocument doc)
++		{
++			this.Merge (this); // required for SaveAll
++			configDoc = doc;
++			
++			XmlNode rootNode = configDoc.SelectSingleNode (&quot;/configuration&quot;);
++			
++			if (rootNode == null) {
++				throw new Exception (&quot;Could not find root node&quot;);
++			}
++			
++			LoadSections (rootNode);
++			base.ReplaceTextAll ();
++		}
++		
++		/// &lt;summary&gt;
++		/// Loads all configuration sections.
++		/// &lt;/summary&gt;
++		private void LoadSections (XmlNode rootNode)
++		{
++			XmlNodeList nodeList = rootNode.SelectNodes (&quot;configSections/section&quot;);
++			ConfigBase config = null;
++			
++			for (int i = 0; i &lt; nodeList.Count; i++)
++			{
++				config = new ConfigBase (nodeList[i].Attributes[&quot;name&quot;].Value, this);
++				
++				this.Configs.Add (config);
++				LoadKeys (rootNode, config);
++			}
++			LoadOtherSection (rootNode, &quot;appSettings&quot;);
++		}
++		
++		/// &lt;summary&gt;
++		/// Loads special sections that are not loaded in the configSections
++		/// node.  This includes such sections such as appSettings.
++		/// &lt;/summary&gt;
++		private void LoadOtherSection (XmlNode rootNode, string nodeName)
++		{
++			XmlNode node = rootNode.SelectSingleNode (nodeName);
++			ConfigBase config = null;
++			
++			if (node != null) {
++				config = new ConfigBase (nodeName, this);
++				
++				this.Configs.Add (config);
++				LoadKeys (rootNode, config);
++			}
++		}
++		
++		/// &lt;summary&gt;
++		/// Loads all keys for a config.
++		/// &lt;/summary&gt;
++		private void LoadKeys (XmlNode rootNode, ConfigBase config)
++		{
++			XmlNodeList nodeList = rootNode.SelectNodes (config.Name + &quot;/add&quot;);
++
++			for (int i = 0; i &lt; nodeList.Count; i++)
++			{
++				config.Add (nodeList[i].Attributes[&quot;key&quot;].Value,
++							nodeList[i].Attributes[&quot;value&quot;].Value);
++			}
++		}
++		
++		/// &lt;summary&gt;
++		/// Removes all XML sections that were removed as configs.
++		/// &lt;/summary&gt;
++		private void RemoveConfigs ()
++		{
++			XmlAttribute attr = null;
++			XmlNodeList list = configDoc.SelectNodes (&quot;/configuration/configSections/section&quot;);
++			
++			// TODO, remove the other section node as well - /configuration/sectionname
++
++			foreach (XmlNode node in list)
++			{
++				attr = node.Attributes[&quot;name&quot;];
++				if (attr != null) {
++					if (this.Configs[attr.Value] == null) {
++						node.ParentNode.RemoveChild (node);
++					}
++				} else {
++					throw new Exception (&quot;Section name attribute not found&quot;);
++				}
++			}
++		}
++		
++		/// &lt;summary&gt;
++		/// Removes all XML keys that were removed as config keys.
++		/// &lt;/summary&gt;
++		private void RemoveKeys (string sectionName)
++		{
++			string search = &quot;/configuration/&quot; + sectionName;
++			XmlNode node = configDoc.SelectSingleNode (search);
++			XmlAttribute keyName = null;
++			
++			if (node != null) {
++				foreach (XmlNode key in node.SelectNodes (&quot;add&quot;))
++				{
++					keyName = key.Attributes[&quot;key&quot;];
++					if (keyName != null) {
++						if (this.Configs[sectionName].Get (keyName.Value) == null) {
++							node.RemoveChild (key);
++						}
++					} else {
++						throw new Exception (&quot;Key attribute not found in node&quot;);
++					}
++				}
++			}
++		}
++		
++		/// &lt;summary&gt;
++		/// Sets an XML key.  If it does not exist then it is created.
++		/// &lt;/summary&gt;
++		private void SetKey (XmlNode sectionNode, string key, string value)
++		{
++			string search = &quot;add[@key='&quot; + key + &quot;']&quot;;
++			XmlNode node = sectionNode.SelectSingleNode (search);
++			
++			if (node == null) {
++				CreateKey (sectionNode, key, value);
++			} else {
++				node.Attributes[&quot;value&quot;].Value = value;
++			}
++		}
++		
++		/// &lt;summary&gt;
++		/// Creates a key node and adds it to the collection at the end.
++		/// &lt;/summary&gt;
++		private void CreateKey (XmlNode sectionNode, string key, string value)
++		{
++			XmlNode node = configDoc.CreateElement (&quot;add&quot;);
++			XmlAttribute keyAttr = configDoc.CreateAttribute (&quot;key&quot;);
++			XmlAttribute valueAttr = configDoc.CreateAttribute (&quot;value&quot;);
++			keyAttr.Value = key;
++			valueAttr.Value = value;
++
++			node.Attributes.Append (keyAttr);
++			node.Attributes.Append (valueAttr);
++
++			sectionNode.AppendChild (node);
++		}
++
++		/// &lt;summary&gt;
++		/// Loads a collection class.
++		/// &lt;/summary&gt;
++		private void LoadCollection (string name, NameValueCollection collection)
++		{
++			ConfigBase config = new ConfigBase (name, this);
++
++			if (collection == null) {
++				throw new Exception (&quot;Section was not found&quot;);
++			}
++
++			if (collection != null) {
++				for (int i = 0; i &lt; collection.Count; i++)
++				{
++					config.Add (collection.Keys[i], collection[i]);
++				}
++				
++				this.Configs.Add (config);
++			}
++		}
++		
++		/// &lt;summary&gt;
++		/// Loads all of the sections from an XML node.
++		/// &lt;/summary&gt;
++		private string[] SectionList (XmlNode docNode)
++		{
++			ArrayList list = new ArrayList ();
++			XmlDocument doc = new XmlDocument ();
++			
++			XmlNode node = docNode.SelectSingleNode (&quot;/configuration/appSettings&quot;);
++			if (node != null) {
++				list.Add (&quot;appSettings&quot;);
++			}
++			
++			XmlNodeList nodeList = docNode.SelectNodes (&quot;/configuration/configSections/section&quot;);
++			
++			for (int i = 0; i &lt; nodeList.Count; i++)
++			{
++				XmlNode attr = nodeList[i].Attributes[&quot;name&quot;];
++				if (attr != null) {
++					list.Add (attr.Value);
++				}
++			}
++			
++			string[] result = new string[list.Count];
++			list.CopyTo (result, 0);
++			
++			return result;
++		}
++		
++		/// &lt;summary&gt;
++		/// Returns a new section node.
++		/// &lt;/summary&gt;
++		private XmlNode SectionNode (string name)
++		{
++			// Add node for configSections node
++			XmlNode node = configDoc.CreateElement (&quot;section&quot;);
++			XmlAttribute attr = configDoc.CreateAttribute (&quot;name&quot;);
++			attr.Value = name;
++			node.Attributes.Append (attr);
++			
++			attr = configDoc.CreateAttribute (&quot;type&quot;);
++			attr.Value = &quot;System.Configuration.NameValueSectionHandler&quot;;
++			node.Attributes.Append (attr);
++			string search = &quot;/configuration/configSections&quot;; 
++			configDoc.SelectSingleNode (search).AppendChild (node);
++		
++			// Add node for configuration node
++			XmlNode result = configDoc.CreateElement (name);
++			configDoc.DocumentElement.AppendChild (result);
++			
++			return result;
++		}
++		
++		/// &lt;summary&gt;
++		/// Returns the name of the configuration file for this application.
++		/// &lt;/summary&gt;
++		private string ConfigFileName ()
++		{
++			return ((Assembly.GetEntryAssembly ()).GetName ()).Name +
++					&quot;.exe.config&quot;;
++		}
++		
++		/// &lt;summary&gt;
++		/// Returns true if this instance is savable.
++		/// &lt;/summary&gt;
++		private bool IsSavable ()
++		{
++			return (this.savePath != null);
++		}
++		#endregion
++	}
++}
+\ No newline at end of file
+
+Added: player-sdk/trunk/src/Nini/Config/IConfig.cs
+===================================================================
+--- player-sdk/trunk/src/Nini/Config/IConfig.cs	2004-11-08 23:50:06 UTC (rev 7)
++++ player-sdk/trunk/src/Nini/Config/IConfig.cs	2004-11-09 12:23:21 UTC (rev 8)
+@@ -0,0 +1,84 @@
++#region Copyright
++//
++// Nini Configuration Project.
++// Copyright (C) 2004 Brent R. Matzelle.  All rights reserved.
++//
++// This software is published under the terms of the MIT X11 license, a copy of 
++// which has been included with this distribution in the LICENSE.txt file.
++// 
++#endregion
++
++using System;
++
++namespace Nini.Config
++{
++	/// &lt;include file='IConfig.xml' path='//Interface[@name=&quot;IConfig&quot;]/docs/*' /&gt;
++	public interface IConfig
++	{
++		/// &lt;include file='IConfig.xml' path='//Property[@name=&quot;ConfigSource&quot;]/docs/*' /&gt;
++		IConfigSource ConfigSource { get; }
++		
++		/// &lt;include file='IConfig.xml' path='//Property[@name=&quot;Name&quot;]/docs/*' /&gt;
++		string Name { get; }
++		
++		/// &lt;include file='IConfig.xml' path='//Property[@name=&quot;Alias&quot;]/docs/*' /&gt;
++		AliasText Alias { get; }
++
++		/// &lt;include file='IConfig.xml' path='//Method[@name=&quot;Get&quot;]/docs/*' /&gt;
++		string Get (string key);
++		
++		/// &lt;include file='IConfig.xml' path='//Method[@name=&quot;GetDefault&quot;]/docs/*' /&gt;
++		string Get (string key, string defaultValue);
++		
++		/// &lt;include file='IConfig.xml' path='//Method[@name=&quot;Get&quot;]/docs/*' /&gt;
++		string GetString (string key);
++		
++		/// &lt;include file='IConfig.xml' path='//Method[@name=&quot;GetDefault&quot;]/docs/*' /&gt;
++		string GetString (string key, string defaultValue);
++		
++		/// &lt;include file='IConfig.xml' path='//Method[@name=&quot;GetInt&quot;]/docs/*' /&gt;
++		int GetInt (string key);
++		
++		/// &lt;include file='IConfig.xml' path='//Method[@name=&quot;GetIntAlias&quot;]/docs/*' /&gt;
++		int GetInt (string key, bool fromAlias);
++		
++		/// &lt;include file='IConfig.xml' path='//Method[@name=&quot;GetIntDefault&quot;]/docs/*' /&gt;
++		int GetInt (string key, int defaultValue);
++		
++		/// &lt;include file='IConfig.xml' path='//Method[@name=&quot;GetIntDefaultAlias&quot;]/docs/*' /&gt;
++		int GetInt (string key, int defaultValue, bool fromAlias);
++		
++		/// &lt;include file='IConfig.xml' path='//Method[@name=&quot;GetLong&quot;]/docs/*' /&gt;
++		long GetLong (string key);
++		
++		/// &lt;include file='IConfig.xml' path='//Method[@name=&quot;GetLongDefault&quot;]/docs/*' /&gt;
++		long GetLong (string key, long defaultValue);
++		
++		/// &lt;include file='IConfig.xml' path='//Method[@name=&quot;GetBoolean&quot;]/docs/*' /&gt;
++		bool GetBoolean (string key);
++		
++		/// &lt;include file='IConfig.xml' path='//Method[@name=&quot;GetBooleanDefault&quot;]/docs/*' /&gt;
++		bool GetBoolean (string key, bool defaultValue);
++
++		/// &lt;include file='IConfig.xml' path='//Method[@name=&quot;GetFloat&quot;]/docs/*' /&gt;
++		float GetFloat (string key);
++
++		/// &lt;include file='IConfig.xml' path='//Method[@name=&quot;GetFloatDefault&quot;]/docs/*' /&gt;
++		float GetFloat (string key, float defaultValue);
++		
++		/// &lt;include file='IConfig.xml' path='//Method[@name=&quot;GetDouble&quot;]/docs/*' /&gt;
++		double GetDouble (string key);
++
++		/// &lt;include file='IConfig.xml' path='//Method[@name=&quot;GetDoubleDefault&quot;]/docs/*' /&gt;
++		double GetDouble (string key, double defaultValue);
++		
++		/// &lt;include file='IConfig.xml' path='//Method[@name=&quot;GetKeys&quot;]/docs/*' /&gt;
++		string[] GetKeys ();
++		
++		/// &lt;include file='IConfig.xml' path='//Method[@name=&quot;Set&quot;]/docs/*' /&gt;
++		void Set (string key, object value);
++		
++		/// &lt;include file='IConfig.xml' path='//Method[@name=&quot;Remove&quot;]/docs/*' /&gt;
++		void Remove (string key);
++	}
++}
+\ No newline at end of file
+
+Added: player-sdk/trunk/src/Nini/Config/IConfigSource.cs
+===================================================================
+--- player-sdk/trunk/src/Nini/Config/IConfigSource.cs	2004-11-08 23:50:06 UTC (rev 7)
++++ player-sdk/trunk/src/Nini/Config/IConfigSource.cs	2004-11-09 12:23:21 UTC (rev 8)
+@@ -0,0 +1,37 @@
++#region Copyright
++//
++// Nini Configuration Project.
++// Copyright (C) 2004 Brent R. Matzelle.  All rights reserved.
++//
++// This software is published under the terms of the MIT X11 license, a copy of 
++// which has been included with this distribution in the LICENSE.txt file.
++// 
++#endregion
++
++using System;
++using System.IO;
++
++namespace Nini.Config
++{
++	/// &lt;include file='IConfigSource.xml' path='//Interface[@name=&quot;IConfigSource&quot;]/docs/*' /&gt;
++	public interface IConfigSource
++	{
++		/// &lt;include file='IConfigSource.xml' path='//Property[@name=&quot;Configs&quot;]/docs/*' /&gt;
++		ConfigCollection Configs { get; }
++		
++		/// &lt;include file='IConfigSource.xml' path='//Property[@name=&quot;AutoSave&quot;]/docs/*' /&gt;
++		bool AutoSave { get; set; }
++		
++		/// &lt;include file='IConfigSource.xml' path='//Property[@name=&quot;GlobalAlias&quot;]/docs/*' /&gt;
++		AliasText GlobalAlias { get; }
++		
++		/// &lt;include file='IConfigSource.xml' path='//Method[@name=&quot;Merge&quot;]/docs/*' /&gt;
++		void Merge (IConfigSource source);
++		
++		/// &lt;include file='IConfigSource.xml' path='//Method[@name=&quot;Save&quot;]/docs/*' /&gt;
++		void Save ();
++		
++		/// &lt;include file='IConfigSource.xml' path='//Method[@name=&quot;AddConfig&quot;]/docs/*' /&gt;
++		IConfig AddConfig (string name);
++	}
++}
+\ No newline at end of file
+
+Added: player-sdk/trunk/src/Nini/Config/IniConfigSource.cs
+===================================================================
+--- player-sdk/trunk/src/Nini/Config/IniConfigSource.cs	2004-11-08 23:50:06 UTC (rev 7)
++++ player-sdk/trunk/src/Nini/Config/IniConfigSource.cs	2004-11-09 12:23:21 UTC (rev 8)
+@@ -0,0 +1,184 @@
++#region Copyright
++//
++// Nini Configuration Project.
++// Copyright (C) 2004 Brent R. Matzelle.  All rights reserved.
++//
++// This software is published under the terms of the MIT X11 license, a copy of 
++// which has been included with this distribution in the LICENSE.txt file.
++// 
++#endregion
++
++using System;
++using System.IO;
++using System.Collections;
++using Nini.Ini;
++
++namespace Nini.Config
++{
++	/// &lt;include file='IniConfigSource.xml' path='//Class[@name=&quot;IniConfigSource&quot;]/docs/*' /&gt;
++	public class IniConfigSource : ConfigSourceBase, IConfigSource
++	{
++		#region Private variables
++		IniDocument iniDocument = null;
++		string savePath = null;
++		#endregion
++		
++		#region Public properties
++		#endregion
++
++		#region Constructors
++		/// &lt;include file='IniConfigSource.xml' path='//Constructor[@name=&quot;ConstructorPath&quot;]/docs/*' /&gt;
++		public IniConfigSource (string filePath)
++			: this (new StreamReader (filePath))
++		{
++			this.savePath = filePath;
++		}
++		
++		/// &lt;include file='IniConfigSource.xml' path='//Constructor[@name=&quot;ConstructorTextReader&quot;]/docs/*' /&gt;
++		public IniConfigSource (TextReader reader)
++		{
++			this.Merge (this); // required for SaveAll
++			iniDocument = new IniDocument (reader);
++			Load ();
++		}
++		
++		/// &lt;include file='IniConfigSource.xml' path='//Constructor[@name=&quot;ConstructorStream&quot;]/docs/*' /&gt;
++		public IniConfigSource (Stream stream)
++			: this (new StreamReader (stream))
++		{
++		}
++		#endregion
++		
++		#region Public properties
++		/// &lt;include file='IniConfigSource.xml' path='//Property[@name=&quot;SavePath&quot;]/docs/*' /&gt;
++		public string SavePath
++		{
++			get { return savePath; }
++		}
++		#endregion
++		
++		#region Public methods
++		/// &lt;include file='IniConfigSource.xml' path='//Method[@name=&quot;Save&quot;]/docs/*' /&gt;
++		public void Save ()
++		{
++			if (!IsSavable ()) {
++				throw new Exception (&quot;Source cannot be saved in this state&quot;);
++			}
++
++			MergeConfigsIntoDocument ();
++			
++			iniDocument.Save (this.savePath);
++		}
++		
++		/// &lt;include file='IniConfigSource.xml' path='//Method[@name=&quot;SavePath&quot;]/docs/*' /&gt;
++		public void Save (string path)
++		{
++			this.savePath = path;
++			this.Save ();
++		}
++		
++		/// &lt;include file='IniConfigSource.xml' path='//Method[@name=&quot;SaveTextWriter&quot;]/docs/*' /&gt;
++		public void Save (TextWriter writer)
++		{
++			MergeConfigsIntoDocument ();
++			iniDocument.Save (writer);
++			savePath = null;
++		}
++		#endregion
++		
++		#region Private methods
++		/// &lt;summary&gt;
++		/// Merges all of the configs from the config collection into the 
++		/// IniDocument.
++		/// &lt;/summary&gt;
++		private void MergeConfigsIntoDocument ()
++		{
++			RemoveConfigs ();
++			foreach (IConfig config in this.Configs)
++			{
++				string[] keys = config.GetKeys ();
++
++				// Create a new section if one doesn't exist
++				if (iniDocument.Sections[config.Name] == null) {
++					IniSection section = new IniSection (config.Name);
++					iniDocument.Sections.Add (section);
++				}
++				RemoveKeys (config.Name);
++
++				for (int i = 0; i &lt; keys.Length; i++)
++				{
++					iniDocument.Sections[config.Name].Set (keys[i], config.Get (keys[i]));
++				}
++			}
++		}
++		
++		/// &lt;summary&gt;
++		/// Removes all INI sections that were removed as configs.
++		/// &lt;/summary&gt;
++		private void RemoveConfigs ()
++		{
++			IniSection section = null;
++			for (int i = 0; i &lt; iniDocument.Sections.Count; i++)
++			{
++				section = iniDocument.Sections[i];
++				if (this.Configs[section.Name] == null) {
++					iniDocument.Sections.Remove (section.Name);
++				}
++			}
++		}
++		
++		/// &lt;summary&gt;
++		/// Removes all INI keys that were removed as config keys.
++		/// &lt;/summary&gt;
++		private void RemoveKeys (string sectionName)
++		{
++			IniSection section = iniDocument.Sections[sectionName];
++
++			if (section != null) {
++				foreach (string key in section.GetKeys ())
++				{
++					if (this.Configs[sectionName].Get (key) == null) {
++						section.Remove (key);
++					}
++				}
++			}
++		}
++
++		/// &lt;summary&gt;
++		/// Loads the configuration file.
++		/// &lt;/summary&gt;
++		private void Load ()
++		{
++			ConfigBase config = null;
++			IniSection section = null;
++			IniItem item = null;
++
++			for (int j = 0; j &lt; iniDocument.Sections.Count; j++)
++			{
++				section = iniDocument.Sections[j];
++				config = new ConfigBase (section.Name, this);
++
++				for (int i = 0; i &lt; section.ItemCount; i++)
++				{
++					item = section.GetItem (i);
++					
++					if  (item.Type == IniType.Key) {
++						config.Add (item.Name, item.Value);
++					}
++				}
++				
++				this.Configs.Add (config);
++			}
++			base.ReplaceTextAll ();
++		}
++		
++		/// &lt;summary&gt;
++		/// Returns true if this instance is savable.
++		/// &lt;/summary&gt;
++		private bool IsSavable ()
++		{
++			return (this.savePath != null);
++		}
++		#endregion
++	}
++}
+\ No newline at end of file
+
+Added: player-sdk/trunk/src/Nini/Config/RegistryConfigSource.cs
+===================================================================
+--- player-sdk/trunk/src/Nini/Config/RegistryConfigSource.cs	2004-11-08 23:50:06 UTC (rev 7)
++++ player-sdk/trunk/src/Nini/Config/RegistryConfigSource.cs	2004-11-09 12:23:21 UTC (rev 8)
+@@ -0,0 +1,165 @@
++#region Copyright
++//
++// Nini Configuration Project.
++// Copyright (C) 2004 Brent R. Matzelle.  All rights reserved.
++//
++// This software is published under the terms of the MIT X11 license, a copy of 
++// which has been included with this distribution in the LICENSE.txt file.
++// 
++#endregion
++
++using System;
++using System.IO;
++using System.Collections;
++using Microsoft.Win32;
++using Nini.Ini;
++
++namespace Nini.Config
++{
++	/// &lt;include file='RegistryConfigSource.xml' path='//Enum[@name=&quot;RegistryRecurse&quot;]/docs/*' /&gt;
++	public enum RegistryRecurse
++	{
++		/// &lt;include file='RegistryConfigSource.xml' path='//Enum[@name=&quot;RegistryRecurse&quot;]/Value[@name=&quot;None&quot;]/docs/*' /&gt;
++		None,
++		/// &lt;include file='RegistryConfigSource.xml' path='//Enum[@name=&quot;RegistryRecurse&quot;]/Value[@name=&quot;Flattened&quot;]/docs/*' /&gt;
++		Flattened,
++		/// &lt;include file='RegistryConfigSource.xml' path='//Enum[@name=&quot;RegistryRecurse&quot;]/Value[@name=&quot;Namespacing&quot;]/docs/*' /&gt;
++		Namespacing
++	}
++
++	/// &lt;include file='RegistryConfigSource.xml' path='//Class[@name=&quot;RegistryConfigSource&quot;]/docs/*' /&gt;
++	public class RegistryConfigSource : ConfigSourceBase, IConfigSource
++	{
++		#region Private variables
++		#endregion
++		
++		#region Public properties
++		#endregion
++
++		#region Constructors
++		#endregion
++		
++		#region Public methods
++		/// &lt;include file='RegistryConfigSource.xml' path='//Method[@name=&quot;AddMapping&quot;]/docs/*' /&gt;
++		public void AddMapping (RegistryKey registryKey, string path)
++		{
++			RegistryKey key = registryKey.OpenSubKey (path, true);
++			
++			if (key == null) {
++				throw new ArgumentException (&quot;The specified key does not exist&quot;);
++			}
++			
++			LoadKeyValues (key, ShortKeyName (key));
++		}
++		
++		/// &lt;include file='RegistryConfigSource.xml' path='//Method[@name=&quot;AddMappingRecurse&quot;]/docs/*' /&gt;
++		public void AddMapping (RegistryKey registryKey, 
++								string path, 
++								RegistryRecurse recurse)
++		{
++			RegistryKey key = registryKey.OpenSubKey (path, true);
++			
++			if (key == null) {
++				throw new ArgumentException (&quot;The specified key does not exist&quot;);
++			}
++			
++			if (recurse == RegistryRecurse.Namespacing) {
++				LoadKeyValues (key, path);
++			} else {
++				LoadKeyValues (key, ShortKeyName (key));
++			}
++			
++			string[] subKeys = key.GetSubKeyNames ();
++			for (int i = 0; i &lt; subKeys.Length; i++)
++			{
++				switch (recurse)
++				{
++				case RegistryRecurse.None:
++					// no recursion
++					break;
++				case RegistryRecurse.Namespacing:
++					AddMapping (registryKey, path + &quot;\\&quot; + subKeys[i], recurse);
++					break;
++				case RegistryRecurse.Flattened:
++					AddMapping (key, subKeys[i], recurse);
++					break;
++				}
++			}
++		}
++		
++		/// &lt;include file='RegistryConfigSource.xml' path='//Method[@name=&quot;Save&quot;]/docs/*' /&gt;
++		public void Save ()
++		{
++			for (int i = 0; i &lt; this.Configs.Count; i++)
++			{
++				// New merged configs are not RegistryConfigs
++				if (this.Configs[i] is RegistryConfig) {
++					RegistryConfig config = (RegistryConfig)this.Configs[i];
++					string[] keys = config.GetKeys ();
++					
++					for (int j = 0; j &lt; keys.Length; j++)
++					{
++						 config.Key.SetValue (keys[j], config.Get (keys[j]));
++					}
++				}
++			}
++		}
++		#endregion
++		
++		#region Private methods
++		/// &lt;summary&gt;
++		/// Loads all values in a Registry keyS
++		/// &lt;/summary&gt;
++		private void LoadKeyValues (RegistryKey key, string keyName)
++		{
++			string[] values = key.GetValueNames ();
++
++			RegistryConfig config = new RegistryConfig (keyName, this);
++			config.Key = key;
++
++			foreach (string value in values)
++			{
++				config.Add (value, key.GetValue (value).ToString ());
++			}
++			this.Configs.Add (config);
++			base.ReplaceTextAll ();
++		}
++		
++		/// &lt;summary&gt;
++		/// Returns the key name without the fully qualified path.
++		/// e.g. no HKEY_LOCAL_MACHINE\\MyKey, just MyKey
++		/// &lt;/summary&gt;
++		private string ShortKeyName (RegistryKey key)
++		{
++			int index = key.Name.LastIndexOf (&quot;\\&quot;);
++
++			return (index == -1) ? key.Name : key.Name.Substring (index + 1);
++		}
++		
++		/// &lt;summary&gt;
++		/// Registry Config class.
++		/// &lt;/summary&gt;
++		private class RegistryConfig : ConfigBase
++		{
++			RegistryKey key = null;
++			
++			/// &lt;summary&gt;
++			/// Constructor.
++			/// &lt;/summary&gt;
++			public RegistryConfig (string name, IConfigSource source)
++				: base (name, source)
++			{
++			}
++			
++			/// &lt;summary&gt;
++			/// Registry key for the Config.
++			/// &lt;/summary&gt;
++			public RegistryKey Key
++			{
++				get { return key; }
++				set { key = value; }
++			}
++		}
++		#endregion
++	}
++}
+
+Added: player-sdk/trunk/src/Nini/Config/XmlConfigSource.cs
+===================================================================
+--- player-sdk/trunk/src/Nini/Config/XmlConfigSource.cs	2004-11-08 23:50:06 UTC (rev 7)
++++ player-sdk/trunk/src/Nini/Config/XmlConfigSource.cs	2004-11-09 12:23:21 UTC (rev 8)
+@@ -0,0 +1,254 @@
++#region Copyright
++//
++// Nini Configuration Project.
++// Copyright (C) 2004 Brent R. Matzelle.  All rights reserved.
++//
++// This software is published under the terms of the MIT X11 license, a copy of 
++// which has been included with this distribution in the LICENSE.txt file.
++// 
++#endregion
++
++using System;
++using System.IO;
++using System.Xml;
++using System.Collections;
++
++namespace Nini.Config
++{
++	/// &lt;include file='XmlConfigSource.xml' path='//Class[@name=&quot;XmlConfigSource&quot;]/docs/*' /&gt;
++	public class XmlConfigSource : ConfigSourceBase, IConfigSource
++	{
++		#region Private variables
++		XmlDocument configDoc = null;
++		string savePath = null;
++		#endregion
++
++		#region Constructors
++		/// &lt;include file='XmlConfigSource.xml' path='//Constructor[@name=&quot;ConstructorPath&quot;]/docs/*' /&gt;
++		public XmlConfigSource (string path)
++		{
++			savePath = path;
++			XmlDocument document = new XmlDocument ();
++			document.Load (path);
++			PerformLoad (document);
++		}
++
++		/// &lt;include file='XmlConfigSource.xml' path='//Constructor[@name=&quot;ConstructorXmlDoc&quot;]/docs/*' /&gt;
++		public XmlConfigSource (XmlDocument document)
++		{
++			PerformLoad (document);
++		}
++		#endregion
++		
++		#region Public properties
++		/// &lt;include file='XmlConfigSource.xml' path='//Property[@name=&quot;SavePath&quot;]/docs/*' /&gt;
++		public string SavePath
++		{
++			get { return savePath; }
++		}
++		#endregion
++		
++		#region Public methods
++		/// &lt;include file='XmlConfigSource.xml' path='//Method[@name=&quot;Save&quot;]/docs/*' /&gt;
++		public void Save ()
++		{
++			if (!IsSavable ()) {
++				throw new Exception (&quot;Source cannot be saved in this state&quot;);
++			}
++
++			MergeConfigsIntoDocument ();
++			
++			configDoc.Save (savePath);
++		}
++		
++		/// &lt;include file='XmlConfigSource.xml' path='//Method[@name=&quot;SavePath&quot;]/docs/*' /&gt;
++		public void Save (string path)
++		{
++			this.savePath = path;
++			this.Save ();
++		}
++		
++		/// &lt;include file='XmlConfigSource.xml' path='//Method[@name=&quot;SaveTextWriter&quot;]/docs/*' /&gt;
++		public void Save (TextWriter writer)
++		{
++			MergeConfigsIntoDocument ();
++			configDoc.Save (writer);
++			savePath = null;
++		}
++		#endregion
++
++		#region Private methods
++		/// &lt;summary&gt;
++		/// Merges all of the configs from the config collection into the 
++		/// XmlDocument.
++		/// &lt;/summary&gt;
++		private void MergeConfigsIntoDocument ()
++		{
++			RemoveConfigs ();
++			foreach (IConfig config in this.Configs)
++			{
++				string[] keys = config.GetKeys ();
++				
++				string search = &quot;Nini/Section[@Name='&quot; + config.Name + &quot;']&quot;;
++				XmlNode node = configDoc.SelectSingleNode (search);
++				if (node == null) {
++					node = SectionNode (config.Name);
++					configDoc.DocumentElement.AppendChild (node);
++				}
++				RemoveKeys (config.Name);
++				
++				for (int i = 0; i &lt; keys.Length; i++)
++				{
++					SetKey (node, keys[i], config.Get (keys[i]));
++				}
++			}
++		}
++		
++		/// &lt;summary&gt;
++		/// Removes all XML sections that were removed as configs.
++		/// &lt;/summary&gt;
++		private void RemoveConfigs ()
++		{
++			XmlAttribute attr = null;
++			XmlNodeList list = configDoc.SelectNodes (&quot;Nini/Section&quot;);
++			foreach (XmlNode node in list)
++			{
++				attr = node.Attributes[&quot;Name&quot;];
++				if (attr != null) {
++					if (this.Configs[attr.Value] == null) {
++						configDoc.DocumentElement.RemoveChild (node);
++					}
++				} else {
++					throw new Exception (&quot;Section name attribute not found&quot;);
++				}
++			}
++		}
++		
++		/// &lt;summary&gt;
++		/// Removes all XML keys that were removed as config keys.
++		/// &lt;/summary&gt;
++		private void RemoveKeys (string sectionName)
++		{
++			string search = &quot;Nini/Section[@Name='&quot; + sectionName + &quot;']&quot;;
++			XmlNode node = configDoc.SelectSingleNode (search);
++			XmlAttribute keyName = null;
++			
++			if (node != null) {
++				foreach (XmlNode key in node.SelectNodes (&quot;Key&quot;))
++				{
++					keyName = node.Attributes[&quot;Name&quot;];
++					if (keyName != null) {
++						if (this.Configs[sectionName].Get (keyName.Value) == null) {
++							node.RemoveChild (key);
++						}
++					} else {
++						throw new Exception (&quot;Name attribute not found in key&quot;);
++					}
++				}
++			}
++		}
++
++		/// &lt;summary&gt;
++		/// Loads all sections and keys.
++		/// &lt;/summary&gt;
++		private void PerformLoad (XmlDocument doc)
++		{
++			this.Merge (this); // required for SaveAll
++			configDoc = doc;
++			
++			XmlNode rootNode = configDoc.SelectSingleNode (&quot;/Nini&quot;);
++			
++			if (rootNode == null) {
++				throw new Exception (&quot;Did not find NiniXml root node&quot;);
++			}
++			
++			LoadSections (rootNode);
++			base.ReplaceTextAll ();
++		}
++		
++		/// &lt;summary&gt;
++		/// Loads all configuration sections.
++		/// &lt;/summary&gt;
++		private void LoadSections (XmlNode rootNode)
++		{
++			XmlNodeList nodeList = rootNode.SelectNodes (&quot;Section&quot;);
++			ConfigBase config = null;
++			
++			for (int i = 0; i &lt; nodeList.Count; i++)
++			{
++				config = new ConfigBase (nodeList[i].Attributes[&quot;Name&quot;].Value, this);
++				
++				this.Configs.Add (config);
++				LoadKeys (nodeList[i], config);
++			}
++		}
++		
++		/// &lt;summary&gt;
++		/// Loads all keys for a config.
++		/// &lt;/summary&gt;
++		private void LoadKeys (XmlNode node, ConfigBase config)
++		{
++			XmlNodeList nodeList = node.SelectNodes (&quot;Key&quot;);
++
++			for (int i = 0; i &lt; nodeList.Count; i++)
++			{
++				config.Add (nodeList[i].Attributes[&quot;Name&quot;].Value,
++							nodeList[i].Attributes[&quot;Value&quot;].Value);
++			}
++		}
++		
++		/// &lt;summary&gt;
++		/// Sets an XML key.  If it does not exist then it is created.
++		/// &lt;/summary&gt;
++		private void SetKey (XmlNode sectionNode, string key, string value)
++		{
++			string search = &quot;Key[@Name='&quot; + key + &quot;']&quot;;
++			XmlNode node = sectionNode.SelectSingleNode (search);
++			
++			if (node == null) {
++				CreateKey (sectionNode, key, value);
++			} else {
++				node.Attributes[&quot;Value&quot;].Value = value;
++			}
++		}
++		
++		/// &lt;summary&gt;
++		/// Creates a key node and adds it to the collection at the end.
++		/// &lt;/summary&gt;
++		private void CreateKey (XmlNode sectionNode, string key, string value)
++		{
++			XmlNode node = configDoc.CreateElement (&quot;Key&quot;);
++			XmlAttribute keyAttr = configDoc.CreateAttribute (&quot;Name&quot;);
++			XmlAttribute valueAttr = configDoc.CreateAttribute (&quot;Value&quot;);
++			keyAttr.Value = key;
++			valueAttr.Value = value;
++
++			node.Attributes.Append (keyAttr);
++			node.Attributes.Append (valueAttr);
++
++			sectionNode.AppendChild (node);
++		}
++		
++		/// &lt;summary&gt;
++		/// Returns a new section node.
++		/// &lt;/summary&gt;
++		private XmlNode SectionNode (string name)
++		{
++			XmlNode result = configDoc.CreateElement (&quot;Section&quot;);
++			XmlAttribute nameAttr = configDoc.CreateAttribute (&quot;Name&quot;);
++			nameAttr.Value = name;
++			result.Attributes.Append (nameAttr);
++			
++			return result;
++		}
++		
++		/// &lt;summary&gt;
++		/// Returns true if this instance is savable.
++		/// &lt;/summary&gt;
++		private bool IsSavable ()
++		{
++			return (this.savePath != null);
++		}
++		#endregion
++	}
++}
+\ No newline at end of file
+
+Added: player-sdk/trunk/src/Nini/Ini/IniDocument.cs
+===================================================================
+--- player-sdk/trunk/src/Nini/Ini/IniDocument.cs	2004-11-08 23:50:06 UTC (rev 7)
++++ player-sdk/trunk/src/Nini/Ini/IniDocument.cs	2004-11-09 12:23:21 UTC (rev 8)
+@@ -0,0 +1,142 @@
++#region Copyright
++//
++// Nini Configuration Project.
++// Copyright (C) 2004 Brent R. Matzelle.  All rights reserved.
++//
++// This software is published under the terms of the MIT X11 license, a copy of 
++// which has been included with this distribution in the LICENSE.txt file.
++// 
++#endregion
++
++using System;
++using System.IO;
++using System.Collections;
++using Nini.Util;
++
++namespace Nini.Ini
++{
++	/// &lt;include file='IniDocument.xml' path='//Class[@name=&quot;IniDocument&quot;]/docs/*' /&gt;
++	public class IniDocument
++	{
++		#region Private variables
++		IniSectionCollection sections = new IniSectionCollection ();
++		ArrayList initialComment = new ArrayList ();
++		#endregion
++		
++		#region Public properties
++		#endregion
++
++		#region Constructors
++		/// &lt;include file='IniDocument.xml' path='//Constructor[@name=&quot;ConstructorPath&quot;]/docs/*' /&gt;
++		public IniDocument (string filePath)
++			: this (new StreamReader (filePath))
++		{
++		}
++		
++		/// &lt;include file='IniDocument.xml' path='//Constructor[@name=&quot;ConstructorTextReader&quot;]/docs/*' /&gt;
++		public IniDocument (TextReader reader)
++		{
++			Load (new IniReader (reader));
++		}
++		
++		/// &lt;include file='IniDocument.xml' path='//Constructor[@name=&quot;ConstructorStream&quot;]/docs/*' /&gt;
++		public IniDocument (Stream stream)
++			: this (new StreamReader (stream))
++		{
++		}
++		
++		/// &lt;include file='IniDocument.xml' path='//Constructor[@name=&quot;Constructor&quot;]/docs/*' /&gt;
++		public IniDocument ()
++		{
++		}
++		#endregion
++		
++		#region Public methods
++		/// &lt;include file='IniSection.xml' path='//Property[@name=&quot;Comment&quot;]/docs/*' /&gt;
++		public IniSectionCollection Sections
++		{
++			get { return sections; }
++		}
++
++		/// &lt;include file='IniDocument.xml' path='//Method[@name=&quot;SaveTextWriter&quot;]/docs/*' /&gt;
++		public void Save (TextWriter textWriter)
++		{
++			IniWriter writer = new IniWriter (textWriter);
++			IniItem item = null;
++			IniSection section = null;
++			
++			foreach (string comment in initialComment)
++			{
++				writer.WriteEmpty  (comment);
++			}
++
++			for (int j = 0; j &lt; sections.Count; j++)
++			{
++				section = sections[j];
++				writer.WriteSection (section.Name, section.Comment);
++				for (int i = 0; i &lt; section.ItemCount; i++)
++				{
++					item = section.GetItem (i);
++					switch (item.Type)
++					{
++					case IniType.Key:
++						writer.WriteKey (item.Name, item.Value, item.Comment);
++						break;
++					case IniType.Empty:
++						writer.WriteEmpty (item.Comment);
++						break;
++					}
++				}
++			}
++
++			writer.Close ();
++		}
++		
++		/// &lt;include file='IniDocument.xml' path='//Method[@name=&quot;SavePath&quot;]/docs/*' /&gt;
++		public void Save (string filePath)
++		{
++			StreamWriter writer = new StreamWriter (filePath);
++			Save (writer);
++			writer.Close ();
++		}
++		#endregion
++		
++		#region Private methods
++		/// &lt;summary&gt;
++		/// Loads the file not saving comments.
++		/// &lt;/summary&gt;
++		private void Load (IniReader reader)
++		{
++			reader.IgnoreComments = false;
++			bool sectionFound = false;
++			IniSection section = null;
++			
++			while (reader.Read ())
++			{
++				switch (reader.Type)
++				{
++				case IniType.Empty:
++					if (!sectionFound) {
++						initialComment.Add (reader.Comment);
++					} else {
++						section.Set (reader.Comment);
++					}
++
++					break;
++				case IniType.Section:
++					sectionFound = true;
++					section = new IniSection (reader.Name, reader.Comment);
++					sections.Add (section);
++					break;
++				case IniType.Key:
++					section.Set (reader.Name, reader.Value, reader.Comment);
++					break;
++				}
++			}
++
++			reader.Close ();
++		}
++		#endregion
++	}
++}
++
+
+Added: player-sdk/trunk/src/Nini/Ini/IniException.cs
+===================================================================
+--- player-sdk/trunk/src/Nini/Ini/IniException.cs	2004-11-08 23:50:06 UTC (rev 7)
++++ player-sdk/trunk/src/Nini/Ini/IniException.cs	2004-11-09 12:23:21 UTC (rev 8)
+@@ -0,0 +1,64 @@
++#region Copyright
++//
++// Nini Configuration Project.
++// Copyright (C) 2004 Brent R. Matzelle.  All rights reserved.
++//
++// This software is published under the terms of the MIT X11 license, a copy of 
++// which has been included with this distribution in the LICENSE.txt file.
++// 
++#endregion
++
++using System;
++
++namespace Nini.Ini
++{
++	/// &lt;include file='IniException.xml' path='//Class[@name=&quot;IniException&quot;]/docs/*' /&gt;
++	public class IniException : Exception
++	{
++		#region Private variables
++		IniReader iniReader = null;
++		string message = &quot;&quot;;
++		#endregion
++
++		#region Public properties
++		/// &lt;include file='IniException.xml' path='//Property[@name=&quot;LinePosition&quot;]/docs/*' /&gt;
++		public int LinePosition
++		{
++			get
++			{
++				return (iniReader == null) ? 0 : iniReader.LinePosition;
++			}
++		}
++		
++		/// &lt;include file='IniException.xml' path='//Property[@name=&quot;LineNumber&quot;]/docs/*' /&gt;
++		public int LineNumber
++		{
++			get
++			{
++				return (iniReader == null) ? 0 : iniReader.LineNumber;
++			}
++		}
++		
++		/// &lt;include file='IniException.xml' path='//Property[@name=&quot;Message&quot;]/docs/*' /&gt;
++		public override string Message
++		{
++			get { return this.message; }
++		}
++		#endregion
++
++		#region Constructors
++		/// &lt;include file='IniException.xml' path='//Constructor[@name=&quot;ConstructorMessage&quot;]/docs/*' /&gt;
++		public IniException (string message)
++		{
++			this.message  = message;
++		}
++		
++		/// &lt;include file='IniException.xml' path='//Constructor[@name=&quot;ConstructorTextReader&quot;]/docs/*' /&gt;
++		internal IniException (IniReader reader, string message)
++		{
++			iniReader = reader;
++			this.message = message;
++		}
++		#endregion
++	}
++}
+\ No newline at end of file
+
+Added: player-sdk/trunk/src/Nini/Ini/IniItem.cs
+===================================================================
+--- player-sdk/trunk/src/Nini/Ini/IniItem.cs	2004-11-08 23:50:06 UTC (rev 7)
++++ player-sdk/trunk/src/Nini/Ini/IniItem.cs	2004-11-09 12:23:21 UTC (rev 8)
+@@ -0,0 +1,54 @@
++using System;
++
++namespace Nini.Ini
++{
++		/// &lt;include file='IniItem.xml' path='//Class[@name=&quot;IniItem&quot;]/docs/*' /&gt;
++		public class IniItem
++		{
++			#region Private variables
++			IniType iniType = IniType.Empty;
++			string iniName = &quot;&quot;;
++			string iniValue = &quot;&quot;;
++			string iniComment = null;
++			#endregion
++			
++			#region Public properties
++			/// &lt;include file='IniItem.xml' path='//Property[@name=&quot;Type&quot;]/docs/*' /&gt;
++			public IniType Type
++			{
++				get { return iniType; }
++				set { iniType = value; }
++			}
++			
++			/// &lt;include file='IniItem.xml' path='//Property[@name=&quot;Value&quot;]/docs/*' /&gt;
++			public string Value
++			{
++				get { return iniValue; }
++				set { iniValue = value; }
++			}
++			
++			/// &lt;include file='IniItem.xml' path='//Property[@name=&quot;Name&quot;]/docs/*' /&gt;
++			public string Name
++			{
++				get { return iniName; }
++			}
++			
++			/// &lt;include file='IniItem.xml' path='//Property[@name=&quot;Comment&quot;]/docs/*' /&gt;
++			public string Comment
++			{
++				get { return iniComment; }
++				set { iniComment = value; }
++			}
++			#endregion
++			
++			/// &lt;include file='IniItem.xml' path='//Constructor[@name=&quot;Constructor&quot;]/docs/*' /&gt;
++			internal protected IniItem (string name, string value, IniType type, string comment)
++			{
++				iniName = name;
++				iniValue = value;
++				iniType = type;
++				iniComment = comment;
++			}
++		}
++}
++
+
+Added: player-sdk/trunk/src/Nini/Ini/IniReader.cs
+===================================================================
+--- player-sdk/trunk/src/Nini/Ini/IniReader.cs	2004-11-08 23:50:06 UTC (rev 7)
++++ player-sdk/trunk/src/Nini/Ini/IniReader.cs	2004-11-09 12:23:21 UTC (rev 8)
+@@ -0,0 +1,506 @@
++#region Copyright
++//
++// Nini Configuration Project.
++// Copyright (C) 2004 Brent R. Matzelle.  All rights reserved.
++//
++// This software is published under the terms of the MIT X11 license, a copy of 
++// which has been included with this distribution in the LICENSE.txt file.
++// 
++#endregion
++
++using System;
++using System.IO;
++using System.Text;
++using System.Collections;
++
++namespace Nini.Ini
++{
++	/// &lt;include file='IniReader.xml' path='//Enum[@name=&quot;IniReadState&quot;]/docs/*' /&gt;
++	public enum IniReadState : int
++	{
++		/// &lt;include file='IniReader.xml' path='//Enum[@name=&quot;IniReadState&quot;]/Value[@name=&quot;Closed&quot;]/docs/*' /&gt;
++		Closed,
++		/// &lt;include file='IniReader.xml' path='//Enum[@name=&quot;IniReadState&quot;]/Value[@name=&quot;EndOfFile&quot;]/docs/*' /&gt;
++		EndOfFile,
++		/// &lt;include file='IniReader.xml' path='//Enum[@name=&quot;IniReadState&quot;]/Value[@name=&quot;Error&quot;]/docs/*' /&gt;
++		Error,
++		/// &lt;include file='IniReader.xml' path='//Enum[@name=&quot;IniReadState&quot;]/Value[@name=&quot;Initial&quot;]/docs/*' /&gt;
++		Initial,
++		/// &lt;include file='IniReader.xml' path='//Enum[@name=&quot;IniReadState&quot;]/Value[@name=&quot;Interactive&quot;]/docs/*' /&gt;
++		Interactive
++	};
++
++	/// &lt;include file='IniReader.xml' path='//Enum[@name=&quot;IniType&quot;]/docs/*' /&gt;
++	public enum IniType : int
++	{
++		/// &lt;include file='IniReader.xml' path='//Enum[@name=&quot;IniType&quot;]/Value[@name=&quot;Section&quot;]/docs/*' /&gt;
++		Section,
++		/// &lt;include file='IniReader.xml' path='//Enum[@name=&quot;IniType&quot;]/Value[@name=&quot;Key&quot;]/docs/*' /&gt;
++		Key,
++		/// &lt;include file='IniReader.xml' path='//Enum[@name=&quot;IniType&quot;]/Value[@name=&quot;Empty&quot;]/docs/*' /&gt;
++		Empty
++	}
++
++	/// &lt;include file='IniReader.xml' path='//Class[@name=&quot;IniReader&quot;]/docs/*' /&gt;
++	public class IniReader
++	{
++		#region Private variables
++		int lineNumber = 1;
++		int column = 1;
++		IniType iniType = IniType.Empty;
++		TextReader textReader = null;
++		bool ignoreComments = false;
++		StringBuilder name = new StringBuilder ();
++		StringBuilder value = new StringBuilder ();
++		StringBuilder comment = new StringBuilder ();
++		IniReadState readState = IniReadState.Initial;
++		Hashtable keyList = new Hashtable ();
++		Hashtable sectionList = new Hashtable ();
++		bool hasComment = false;
++		#endregion
++
++		#region Public properties
++		/// &lt;include file='IniReader.xml' path='//Property[@name=&quot;Name&quot;]/docs/*' /&gt;
++		public string Name
++		{
++			get { return this.name.ToString (); }
++		}
++		
++		/// &lt;include file='IniReader.xml' path='//Property[@name=&quot;Value&quot;]/docs/*' /&gt;
++		public string Value
++		{
++			get { return this.value.ToString (); }
++		}
++		
++		/// &lt;include file='IniReader.xml' path='//Property[@name=&quot;Type&quot;]/docs/*' /&gt;
++		public IniType Type
++		{
++			get { return iniType; }
++		}
++		
++		/// &lt;include file='IniReader.xml' path='//Property[@name=&quot;Comment&quot;]/docs/*' /&gt;
++		public string Comment
++		{
++			get { return (hasComment) ? this.comment.ToString () : null; }
++		}
++		
++		/// &lt;include file='IniReader.xml' path='//Property[@name=&quot;LineNumber&quot;]/docs/*' /&gt;
++		public int LineNumber
++		{
++			get { return lineNumber; }
++		}
++		
++		/// &lt;include file='IniReader.xml' path='//Property[@name=&quot;LinePosition&quot;]/docs/*' /&gt;
++		public int LinePosition
++		{
++			get { return column; }
++		}
++		
++		/// &lt;include file='IniReader.xml' path='//Property[@name=&quot;IgnoreComments&quot;]/docs/*' /&gt;
++		public bool IgnoreComments
++		{
++			get { return ignoreComments; }
++			set { ignoreComments = value; }
++		}
++		
++		/// &lt;include file='IniReader.xml' path='//Property[@name=&quot;ReadState&quot;]/docs/*' /&gt;
++		public IniReadState ReadState
++		{
++			get { return readState; }
++		}
++		#endregion
++		
++		#region Constructors
++		/// &lt;include file='IniReader.xml' path='//Constructor[@name=&quot;ConstructorPath&quot;]/docs/*' /&gt;
++		public IniReader (string filePath)
++		{
++			textReader = new StreamReader (filePath);
++		}
++		
++		/// &lt;include file='IniReader.xml' path='//Constructor[@name=&quot;ConstructorTextReader&quot;]/docs/*' /&gt;
++		public IniReader (TextReader reader)
++		{
++			textReader = reader;
++		}
++		
++		/// &lt;include file='IniReader.xml' path='//Constructor[@name=&quot;ConstructorStream&quot;]/docs/*' /&gt;
++		public IniReader (Stream stream)
++			: this (new StreamReader (stream))
++		{
++		}
++		#endregion
++		
++		#region Public methods
++		/// &lt;include file='IniReader.xml' path='//Method[@name=&quot;Read&quot;]/docs/*' /&gt;
++		public bool Read ()
++		{
++			bool result = false;
++			
++			if (readState != IniReadState.EndOfFile 
++				|| readState != IniReadState.Closed) {
++				readState = IniReadState.Interactive;
++				result = ReadNext ();
++			}
++			
++			return result;
++		}
++		
++		/// &lt;include file='IniReader.xml' path='//Method[@name=&quot;MoveToNextSection&quot;]/docs/*' /&gt;
++		public bool MoveToNextSection ()
++		{
++			bool result = false;
++			
++			while (true)
++			{
++				result = Read ();
++
++				if (iniType == IniType.Section || !result) {
++					break;
++				}
++			}
++			
++			return result;
++		}
++		
++		/// &lt;include file='IniReader.xml' path='//Method[@name=&quot;MoveToNextKey&quot;]/docs/*' /&gt;
++		public bool MoveToNextKey ()
++		{
++			bool result = false;
++			
++			while (true)
++			{
++				result = Read ();
++
++				if (iniType == IniType.Section) {
++					result = false;
++					break;
++				}
++				if (iniType == IniType.Key || !result) {
++					break;
++				}
++			}
++			
++			return result;
++		}
++		
++		/// &lt;include file='IniReader.xml' path='//Method[@name=&quot;Close&quot;]/docs/*' /&gt;
++		public void Close ()
++		{
++			Reset ();
++			readState = IniReadState.Closed;
++			
++			if (textReader != null) {
++				textReader.Close ();
++			}
++		}
++		#endregion
++		
++		#region Private methods
++		/// &lt;summary&gt;
++		/// Destructor.
++		/// &lt;/summary&gt;
++		~IniReader ()
++		{
++			Close ();
++		}
++
++		/// &lt;summary&gt;
++		/// Resets all of the current INI line data.
++		/// &lt;/summary&gt;
++		private void Reset ()
++		{
++			this.name.Remove (0, this.name.Length);
++			this.value.Remove (0, this.value.Length);
++			this.comment.Remove (0, this.comment.Length);
++			iniType = IniType.Empty;
++			hasComment = false;
++		}
++		
++		/// &lt;summary&gt;
++		/// Reads the next INI line item.
++		/// &lt;/summary&gt;
++		private bool ReadNext ()
++		{
++			bool result = true;
++			int ch = PeekChar ();
++			Reset ();
++
++			switch (ch)
++			{
++				case '#':
++				case ';':
++					iniType = IniType.Empty;
++					ReadChar (); // consume comment character
++					ReadComment ();
++					break;
++				case ' ':
++				case '\t':
++				case '\r':
++					SkipWhitespace ();
++					ReadNext ();
++					break;
++				case '\n':
++					ReadChar ();
++					break;
++				case '[':
++					ReadSection ();
++					break;
++				case -1:
++					readState = IniReadState.EndOfFile;
++					result = false;
++					break;
++				default:
++					ReadKey ();
++					break;
++			}
++			
++			return result;
++		}
++		
++		/// &lt;summary&gt;
++		/// Reads a comment. Must start after the comment delimiter.
++		/// &lt;/summary&gt;
++		private void ReadComment  ()
++		{
++			int ch = -1;
++			SkipWhitespace ();
++			hasComment = true;
++
++			do
++			{
++				ch = ReadChar ();
++				this.comment.Append ((char)ch);
++			} while (!EndOfLine (ch));
++			
++			RemoveTrailingWhitespace (this.comment);
++		}
++		
++		/// &lt;summary&gt;
++		/// Removes trailing whitespace from a StringBuilder.
++		/// &lt;/summary&gt;
++		private void RemoveTrailingWhitespace (StringBuilder builder)
++		{
++			string temp = builder.ToString ();
++		
++			builder.Remove (0, builder.Length);
++			builder.Append (temp.TrimEnd (null));
++		}
++		
++		/// &lt;summary&gt;
++		/// Reads a key.
++		/// &lt;/summary&gt;
++		private void ReadKey ()
++		{
++			int ch = -1;
++			iniType = IniType.Key;
++
++			while (true)
++			{
++				ch = PeekChar ();
++
++				if (ch == '=') { // or ':'
++					ReadChar ();
++					break;
++				}
++				
++				if (EndOfLine (ch)) {
++					throw new IniException (this, &quot;Expected '='&quot;);
++				}
++
++				this.name.Append ((char)ReadChar ());
++			}
++			
++			ReadKeyValue ();
++			SearchForComment ();
++			
++			RemoveTrailingWhitespace (this.name);
++
++			if (keyList.Contains (this.name.ToString ())) {
++				throw new IniException (this, &quot;Key found [&quot; + this.name.ToString () +
++										&quot;] with identical name in same section&quot;);
++			} else {
++				keyList.Add (this.name.ToString (), null);
++			}
++			
++		}
++		
++		/// &lt;summary&gt;
++		/// Reads the value of a key.
++		/// &lt;/summary&gt;
++		private void ReadKeyValue ()
++		{
++			int ch = -1;
++			bool foundQuote = false;
++			int characters = 0;
++			SkipWhitespace ();
++
++			while (true)
++			{
++				ch = PeekChar ();
++
++				if (!IsWhitespace (ch)) {
++					characters++;
++				}
++				
++				if (ch == '&quot;') {
++					ReadChar ();
++
++					if (!foundQuote &amp;&amp; characters == 1) {				
++						foundQuote = true;
++						continue;
++					} else {
++						break;
++					}
++				}
++				
++				if (foundQuote &amp;&amp; EndOfLine (ch)) {
++					throw new IniException (this, &quot;Expected '\&quot;'&quot;);
++				}
++
++				if (IsComment (ch) || EndOfLine (ch)) {
++					break;
++				}
++
++				this.value.Append ((char)ReadChar ());
++			}
++			
++			if (!foundQuote) {
++				RemoveTrailingWhitespace (this.value);
++			}
++		}
++		
++		/// &lt;summary&gt;
++		/// Reads an INI section.
++		/// &lt;/summary&gt;
++		private void ReadSection ()
++		{
++			int ch = -1;
++			iniType = IniType.Section;
++			ch = ReadChar (); // consume &quot;[&quot;
++			keyList.Clear ();
++
++			while (true)
++			{
++				ch = PeekChar ();
++				if (ch == ']') {
++					break;
++				}
++				if (EndOfLine (ch)) {
++					throw new IniException (this, &quot;Expected ']'&quot;);
++				}
++
++				this.name.Append ((char)ReadChar ());
++			}
++			
++			SearchForComment ();
++			
++			RemoveTrailingWhitespace (this.name);
++			
++			if (sectionList.Contains (this.name.ToString ())) {
++				throw new IniException (this, &quot;Section found with identical name&quot;);
++			} else {
++				sectionList.Add (this.name.ToString (), null);
++			}
++		}
++		
++		/// &lt;summary&gt;
++		/// Looks for a comment.
++		/// &lt;/summary&gt;
++		private void SearchForComment ()
++		{
++			int ch = ReadChar ();
++			
++			while (!EndOfLine (ch))
++			{
++				if (IsComment (ch)) {
++					if (ignoreComments) {
++						ConsumeToEnd ();
++					} else {
++						ReadComment ();
++					}
++					break;
++				}
++				ch = ReadChar ();
++			}
++		}
++
++		/// &lt;summary&gt;
++		/// Consumes all data until the end of a line. 
++		/// &lt;/summary&gt;		
++		private void ConsumeToEnd ()
++		{
++			int ch = -1;
++
++			do
++			{
++				ch = ReadChar ();
++			} while (!EndOfLine (ch));
++		}
++		
++		/// &lt;summary&gt;
++		/// Returns and consumes the next character from the stream.
++		/// &lt;/summary&gt;
++		private int ReadChar ()
++		{
++			int result = textReader.Read ();
++			
++			if (result == '\n') {
++				lineNumber++;
++				column = 1;
++			} else {
++				column++;
++			}
++			
++			return result;
++		}
++		
++		/// &lt;summary&gt;
++		/// Returns the next upcoming character from the stream.
++		/// &lt;/summary&gt;
++		private int PeekChar ()
++		{
++			return textReader.Peek ();
++		}
++		
++		/// &lt;summary&gt;
++		/// Returns true if a comment character is found.
++		/// &lt;/summary&gt;
++		private bool IsComment (int ch)
++		{
++			return (ch == ';' || ch == '#');
++		}
++		
++		/// &lt;summary&gt;
++		/// Returns true if a value is whitespace.
++		/// &lt;/summary&gt;
++		private bool IsWhitespace (int ch)
++		{
++			return ch == 0x20 || ch == 0x9 || ch == 0xD || ch == 0xA;
++		}
++		
++		/// &lt;summary&gt;
++		/// Skips all whitespace.
++		/// &lt;/summary&gt;
++		private void SkipWhitespace ()
++		{
++			while (IsWhitespace (PeekChar ()))
++			{
++				if (EndOfLine (PeekChar ())) {
++					break;
++				}
++
++				ReadChar ();
++			}
++		}
++
++		/// &lt;summary&gt;
++		/// Returns true if an end of line is found.  End of line
++		/// includes both an end of line or end of file.
++		/// &lt;/summary&gt;
++		private bool EndOfLine (int ch)
++		{
++			return (ch == '\n' || ch == -1);
++		}
++		#endregion
++	}
++}
+\ No newline at end of file
+
+Added: player-sdk/trunk/src/Nini/Ini/IniSection.cs
+===================================================================
+--- player-sdk/trunk/src/Nini/Ini/IniSection.cs	2004-11-08 23:50:06 UTC (rev 7)
++++ player-sdk/trunk/src/Nini/Ini/IniSection.cs	2004-11-09 12:23:21 UTC (rev 8)
+@@ -0,0 +1,164 @@
++#region Copyright
++//
++// Nini Configuration Project.
++// Copyright (C) 2004 Brent R. Matzelle.  All rights reserved.
++//
++// This software is published under the terms of the MIT X11 license, a copy of 
++// which has been included with this distribution in the LICENSE.txt file.
++// 
++#endregion
++
++using System;
++using System.Collections;
++using Nini.Util;
++
++namespace Nini.Ini
++{
++	/// &lt;include file='IniSection.xml' path='//Class[@name=&quot;IniSection&quot;]/docs/*' /&gt;
++	public class IniSection
++	{
++		#region Private variables
++		OrderedList configList = new OrderedList ();
++		string name = &quot;&quot;;
++		string comment = null;
++		int commentCount = 0;
++		#endregion
++
++		#region Constructors
++		/// &lt;include file='IniSection.xml' path='//Constructor[@name=&quot;ConstructorComment&quot;]/docs/*' /&gt;
++		public IniSection (string name, string comment)
++		{
++			this.name = name;
++			this.comment = comment;
++		}
++		
++		/// &lt;include file='IniSection.xml' path='//Constructor[@name=&quot;Constructor&quot;]/docs/*' /&gt;
++		public IniSection (string name)
++			: this (name, null)
++		{
++		}
++		#endregion
++		
++		#region Public properties
++		/// &lt;include file='IniSection.xml' path='//Property[@name=&quot;Name&quot;]/docs/*' /&gt;
++		public string Name
++		{
++			get { return name; }
++		}
++		
++		/// &lt;include file='IniSection.xml' path='//Property[@name=&quot;Comment&quot;]/docs/*' /&gt;
++		public string Comment
++		{
++			get { return comment; }
++		}
++		
++		/// &lt;include file='IniSection.xml' path='//Property[@name=&quot;ItemCount&quot;]/docs/*' /&gt;
++		public int ItemCount
++		{
++			get { return configList.Count; }
++		}
++		#endregion
++
++		#region Public methods
++		
++		/// &lt;include file='IniSection.xml' path='//Method[@name=&quot;GetValue&quot;]/docs/*' /&gt;
++		public string GetValue (string key)
++		{
++			string result = null;
++
++			if (Contains (key)) {
++				IniItem item = (IniItem)configList[key];
++				result = item.Value;
++			}
++
++			return result;
++		}
++		
++		/// &lt;include file='IniSection.xml' path='//Method[@name=&quot;GetItem&quot;]/docs/*' /&gt;
++		public IniItem GetItem (int index)
++		{
++			return (IniItem)configList[index];
++		}
++		
++		/// &lt;include file='IniSection.xml' path='//Method[@name=&quot;GetKeys&quot;]/docs/*' /&gt;
++		public string[] GetKeys ()
++		{
++			ArrayList list = new ArrayList ();
++			IniItem item = null;
++			
++			for (int i = 0; i &lt; configList.Count; i++)
++			{
++				item = (IniItem)configList[i]; 
++				if (item.Type == IniType.Key) {
++					list.Add (item.Name);
++				}
++			}
++			string[] result = new string[list.Count];
++			list.CopyTo (result, 0);
++			
++			return result;
++		}
++		
++		/// &lt;include file='IniSection.xml' path='//Method[@name=&quot;Contains&quot;]/docs/*' /&gt;
++		public bool Contains (string key)
++		{
++			return (configList[key] != null); 
++		}
++		
++		/// &lt;include file='IniSection.xml' path='//Method[@name=&quot;SetKeyComment&quot;]/docs/*' /&gt;
++		public void Set (string key, string value, string comment)
++		{
++			IniItem item = null;
++
++			if (Contains (key)) {
++				item = (IniItem)configList[key];
++				item.Value = value;
++				item.Comment = comment;
++			} else {
++				item = new IniItem (key, value, IniType.Key, comment);
++				configList.Add (key, item);
++			}
++		}
++
++		/// &lt;include file='IniSection.xml' path='//Method[@name=&quot;SetKey&quot;]/docs/*' /&gt;
++		public void Set (string key, string value)
++		{
++			IniItem item = null;
++
++			if (Contains (key)) {
++				item = (IniItem)configList[key];
++				item.Value = value;
++				item.Comment = comment;
++			} else {
++				item = new IniItem (key, value, IniType.Key, null);
++				configList.Add (key, item);
++			}
++		}
++		
++		/// &lt;include file='IniSection.xml' path='//Method[@name=&quot;SetComment&quot;]/docs/*' /&gt;
++		public void Set (string comment)
++		{
++			string name = &quot;#comment&quot; + commentCount;
++			IniItem item = new IniItem (name, null, 
++										IniType.Empty, comment);
++			configList.Add (name, item);
++			
++			commentCount++;
++		}
++		
++		/// &lt;include file='IniSection.xml' path='//Method[@name=&quot;SetNoComment&quot;]/docs/*' /&gt;
++		public void Set ()
++		{
++			Set (null);
++		}
++		
++		/// &lt;include file='IniSection.xml' path='//Method[@name=&quot;Remove&quot;]/docs/*' /&gt;
++		public void Remove (string key)
++		{
++			if (Contains (key)) {
++				configList.Remove (key);
++			}
++		}
++		#endregion
++	}
++}
+\ No newline at end of file
+
+Added: player-sdk/trunk/src/Nini/Ini/IniSectionCollection.cs
+===================================================================
+--- player-sdk/trunk/src/Nini/Ini/IniSectionCollection.cs	2004-11-08 23:50:06 UTC (rev 7)
++++ player-sdk/trunk/src/Nini/Ini/IniSectionCollection.cs	2004-11-09 12:23:21 UTC (rev 8)
+@@ -0,0 +1,89 @@
++#region Copyright
++//
++// Nini Configuration Project.
++// Copyright (C) 2004 Brent R. Matzelle.  All rights reserved.
++//
++// This software is published under the terms of the MIT X11 license, a copy of 
++// which has been included with this distribution in the LICENSE.txt file.
++// 
++#endregion
++
++using System;
++using System.Collections;
++using Nini.Util;
++
++namespace Nini.Ini
++{
++	/// &lt;include file='IniSectionCollection.xml' path='//Class[@name=&quot;IniSectionCollection&quot;]/docs/*' /&gt;
++	public class IniSectionCollection : ICollection, IEnumerable
++	{
++		#region Private variables
++		OrderedList list = new OrderedList ();
++		#endregion
++
++		#region Public properties	
++		/// &lt;include file='IniSectionCollection.xml' path='//Property[@name=&quot;ItemIndex&quot;]/docs/*' /&gt;
++		public IniSection this[int index]
++		{
++			get { return (IniSection)list[index]; }
++		}
++		
++		/// &lt;include file='IniSectionCollection.xml' path='//Property[@name=&quot;ItemName&quot;]/docs/*' /&gt;
++		public IniSection this[string configName]
++		{
++			get { return (IniSection)list[configName]; }
++		}
++
++		/// &lt;include file='IniSectionCollection.xml' path='//Property[@name=&quot;Count&quot;]/docs/*' /&gt;
++		public int Count
++		{
++			get { return list.Count; }
++		}
++		
++		/// &lt;include file='IniSectionCollection.xml' path='//Property[@name=&quot;SyncRoot&quot;]/docs/*' /&gt;
++		public object SyncRoot
++		{
++			get { return list.SyncRoot; }
++		}
++		
++		/// &lt;include file='IniSectionCollection.xml' path='//Property[@name=&quot;IsSynchronized&quot;]/docs/*' /&gt;
++		public bool IsSynchronized
++		{
++			get { return list.IsSynchronized; }
++		}
++		#endregion
++
++		#region Public methods
++		/// &lt;include file='IniSectionCollection.xml' path='//Method[@name=&quot;Add&quot;]/docs/*' /&gt;
++		public void Add (IniSection section)
++		{
++			if (list.Contains (section)) {
++				throw new ArgumentException (&quot;IniSection already exists&quot;);
++			}
++			
++			list.Add (section.Name, section);
++		}
++		
++		/// &lt;include file='IniSectionCollection.xml' path='//Method[@name=&quot;Remove&quot;]/docs/*' /&gt;
++		public void Remove (string config)
++		{
++			list.Remove (config);
++		}
++		
++		/// &lt;include file='IniSectionCollection.xml' path='//Method[@name=&quot;CopyTo&quot;]/docs/*' /&gt;
++		public void CopyTo (Array array, int index) 
++		{
++			list.CopyTo (array, index);
++		}
++
++		/// &lt;include file='IniSectionCollection.xml' path='//Method[@name=&quot;GetEnumerator&quot;]/docs/*' /&gt;
++		public IEnumerator GetEnumerator () 
++		{
++			return list.GetEnumerator ();
++		}
++		#endregion
++		
++		#region Private methods
++		#endregion
++	}
++}
+\ No newline at end of file
+
+Added: player-sdk/trunk/src/Nini/Ini/IniWriter.cs
+===================================================================
+--- player-sdk/trunk/src/Nini/Ini/IniWriter.cs	2004-11-08 23:50:06 UTC (rev 7)
++++ player-sdk/trunk/src/Nini/Ini/IniWriter.cs	2004-11-09 12:23:21 UTC (rev 8)
+@@ -0,0 +1,277 @@
++#region Copyright
++//
++// Nini Configuration Project.
++// Copyright (C) 2004 Brent R. Matzelle.  All rights reserved.
++//
++// This software is published under the terms of the MIT X11 license, a copy of 
++// which has been included with this distribution in the LICENSE.txt file.
++// 
++#endregion
++
++using System;
++using System.IO;
++using System.Text;
++
++namespace Nini.Ini
++{
++	/// &lt;include file='IniWriter.xml' path='//Enum[@name=&quot;IniWriteState&quot;]/docs/*' /&gt;
++	public enum IniWriteState : int
++	{
++		/// &lt;include file='IniWriter.xml' path='//Enum[@name=&quot;IniWriteState&quot;]/Value[@name=&quot;Start&quot;]/docs/*' /&gt;
++		Start,
++		/// &lt;include file='IniWriter.xml' path='//Enum[@name=&quot;IniWriteState&quot;]/Value[@name=&quot;BeforeFirstSection&quot;]/docs/*' /&gt;
++		BeforeFirstSection,
++		/// &lt;include file='IniWriter.xml' path='//Enum[@name=&quot;IniWriteState&quot;]/Value[@name=&quot;Section&quot;]/docs/*' /&gt;
++		Section,
++		/// &lt;include file='IniWriter.xml' path='//Enum[@name=&quot;IniWriteState&quot;]/Value[@name=&quot;Closed&quot;]/docs/*' /&gt;
++		Closed
++	};
++
++	/// &lt;include file='IniWriter.xml' path='//Class[@name=&quot;IniWriter&quot;]/docs/*' /&gt;
++	public class IniWriter
++	{
++		#region Private variables
++		int indentation = 0;
++		bool useValueQuotes = false;
++		IniWriteState writeState = IniWriteState.Start;
++		char commentDelimiter = '#';
++		TextWriter textWriter = null;
++		string eol = Environment.NewLine;
++		StringBuilder indentationBuffer = new StringBuilder ();
++		Stream baseStream = null;
++		#endregion
++		
++		#region Public properties
++		/// &lt;include file='IniWriter.xml' path='//Property[@name=&quot;Indentation&quot;]/docs/*' /&gt;
++		public int Indentation
++		{
++			get { return indentation; }
++			set
++			{
++				if (value &lt; 0)
++					throw new ArgumentException (&quot;Negative values are illegal&quot;);
++				
++				indentation = value;
++				indentationBuffer.Remove(0, indentationBuffer.Length);
++				for (int i = 0; i &lt; value; i++)
++					indentationBuffer.Append (' ');
++			}
++		}
++
++		/// &lt;include file='IniWriter.xml' path='//Property[@name=&quot;UseValueQuotes&quot;]/docs/*' /&gt;
++		public bool UseValueQuotes
++		{
++			get { return useValueQuotes; }
++			set { useValueQuotes = value; }
++		}
++
++		/// &lt;include file='IniWriter.xml' path='//Property[@name=&quot;WriteState&quot;]/docs/*' /&gt;
++		public IniWriteState WriteState
++		{
++			get { return writeState; }
++		}
++
++		/// &lt;include file='IniWriter.xml' path='//Property[@name=&quot;CommentDelimiter&quot;]/docs/*' /&gt;
++		public char CommentDelimiter
++		{
++			get { return commentDelimiter; }
++			set
++			{
++				if (value != ';' || value != '#')
++					throw new ArgumentException (&quot;Comment must be ';' or '#'&quot;);
++				commentDelimiter = value;
++			}
++		}
++		
++		/// &lt;include file='IniWriter.xml' path='//Property[@name=&quot;BaseStream&quot;]/docs/*' /&gt;
++		public Stream BaseStream
++		{
++			get { return baseStream; }
++		}
++		#endregion
++		
++		#region Constructors
++		/// &lt;include file='IniWriter.xml' path='//Constructor[@name=&quot;ConstructorPath&quot;]/docs/*' /&gt;
++		public IniWriter(string filePath)
++			: this (new FileStream (filePath, FileMode.Create, FileAccess.Write, FileShare.None))
++		{
++		}
++		
++		/// &lt;include file='IniWriter.xml' path='//Constructor[@name=&quot;ConstructorTextWriter&quot;]/docs/*' /&gt;
++		public IniWriter (TextWriter writer)
++		{
++			textWriter = writer;
++			StreamWriter streamWriter = writer as StreamWriter;
++			if (streamWriter != null)
++				baseStream = ((StreamWriter)writer).BaseStream;
++		}
++		
++		/// &lt;include file='IniWriter.xml' path='//Constructor[@name=&quot;ConstructorStream&quot;]/docs/*' /&gt;
++		public IniWriter (Stream stream)
++			: this (new StreamWriter (stream))
++		{
++		}
++		#endregion
++		
++		#region Public methods
++		/// &lt;include file='IniWriter.xml' path='//Method[@name=&quot;Close&quot;]/docs/*' /&gt;
++		public void Close ()
++		{
++			textWriter.Close ();
++			writeState = IniWriteState.Closed;
++		}
++		
++		/// &lt;include file='IniWriter.xml' path='//Method[@name=&quot;Flush&quot;]/docs/*' /&gt;
++		public void Flush ()
++		{
++			textWriter.Flush ();
++		}
++		
++		/// &lt;include file='IniWriter.xml' path='//Method[@name=&quot;ToString&quot;]/docs/*' /&gt;
++		public override string ToString ()
++		{
++			return textWriter.ToString ();
++		}
++		
++		/// &lt;include file='IniWriter.xml' path='//Method[@name=&quot;WriteSection&quot;]/docs/*' /&gt;
++		public void WriteSection (string section)
++		{
++			ValidateState ();
++			writeState = IniWriteState.Section;
++			WriteLine (&quot;[&quot; + section + &quot;]&quot;);
++		}
++		
++		/// &lt;include file='IniWriter.xml' path='//Method[@name=&quot;WriteSectionComment&quot;]/docs/*' /&gt;
++		public void WriteSection (string section, string comment)
++		{
++			ValidateState ();
++			writeState = IniWriteState.Section;
++			WriteLine (&quot;[&quot; + section + &quot;]&quot; + Comment(comment));
++		}
++		
++		/// &lt;include file='IniWriter.xml' path='//Method[@name=&quot;WriteKey&quot;]/docs/*' /&gt;
++		public void WriteKey (string key, string value)
++		{
++			ValidateStateKey ();
++			WriteLine (key + &quot; = &quot; + GetKeyValue (value));
++		}
++		
++		/// &lt;include file='IniWriter.xml' path='//Method[@name=&quot;WriteKeyComment&quot;]/docs/*' /&gt;
++		public void WriteKey (string key, string value, string comment)
++		{
++			ValidateStateKey ();
++			WriteLine (key + &quot; = &quot; + GetKeyValue (value) + Comment (comment));
++		}
++	
++		/// &lt;include file='IniWriter.xml' path='//Method[@name=&quot;WriteEmpty&quot;]/docs/*' /&gt;
++		public void WriteEmpty ()
++		{
++			ValidateState ();
++			if (writeState == IniWriteState.Start) {
++				writeState = IniWriteState.BeforeFirstSection;
++			}
++			WriteLine (&quot;&quot;);
++		}
++
++		/// &lt;include file='IniWriter.xml' path='//Method[@name=&quot;WriteEmptyComment&quot;]/docs/*' /&gt;
++		public void WriteEmpty (string comment)
++		{
++			ValidateState ();
++			if (writeState == IniWriteState.Start) {
++				writeState = IniWriteState.BeforeFirstSection;
++			}
++			if (comment == null) {
++				WriteLine (&quot;&quot;);
++			} else {
++				WriteLine (commentDelimiter + &quot; &quot; + comment);
++			}
++		}
++		#endregion
++		
++		#region Private methods
++		/// &lt;summary&gt;
++		/// Destructor.
++		/// &lt;/summary&gt;
++		~IniWriter ()
++		{
++			Close ();
++		}
++
++		/// &lt;summary&gt;
++		/// Returns the value of a key.
++		/// &lt;/summary&gt;
++		private string GetKeyValue (string text)
++		{
++			string result;
++
++			if (useValueQuotes) {
++				result = MassageValue ('&quot;' + text + '&quot;');
++			} else {
++				result = MassageValue (text);
++			}
++			
++			return result;
++		}
++		
++		/// &lt;summary&gt;
++		/// Validates whether a key can be written.
++		/// &lt;/summary&gt;
++		private void ValidateStateKey ()
++		{
++			ValidateState ();
++
++			switch (writeState)
++			{
++			case IniWriteState.BeforeFirstSection:
++			case IniWriteState.Start:
++				throw  new InvalidOperationException (&quot;The WriteState is not Section&quot;);
++			case IniWriteState.Closed:
++				throw  new InvalidOperationException (&quot;The writer is closed&quot;);
++			}
++		}
++		
++		/// &lt;summary&gt;
++		/// Validates the state to determine if the item can be written.
++		/// &lt;/summary&gt;
++		private void ValidateState ()
++		{
++			if (writeState == IniWriteState.Closed) {
++				throw  new InvalidOperationException (&quot;The writer is closed&quot;);
++			}
++		}
++		
++		/// &lt;summary&gt;
++		/// Returns a formatted comment.
++		/// &lt;/summary&gt;
++		private string Comment (string text)
++		{
++			return (text == null) ? &quot;&quot; : (&quot; &quot; + commentDelimiter + &quot; &quot; + text);
++		}
++		
++		/// &lt;summary&gt;
++		/// Writes data to the writer.
++		/// &lt;/summary&gt;
++		private void Write (string value)
++		{
++			textWriter.Write (indentationBuffer.ToString () + value);
++		}
++		
++		/// &lt;summary&gt;
++		/// Writes a full line to the writer.
++		/// &lt;/summary&gt;
++		private void WriteLine (string value)
++		{
++			Write (value + eol);
++		}
++
++		/// &lt;summary&gt;
++		/// Fixes the incoming value to prevent illegal characters from 
++		/// hurting the integrity of the INI file.
++		/// &lt;/summary&gt;
++		private string MassageValue (string text)
++		{
++			return text.Replace (&quot;\n&quot;, &quot;&quot;);
++		}
++		#endregion
++	}
++}
+\ No newline at end of file
+
+Added: player-sdk/trunk/src/Nini/README
+===================================================================
+--- player-sdk/trunk/src/Nini/README	2004-11-08 23:50:06 UTC (rev 7)
++++ player-sdk/trunk/src/Nini/README	2004-11-09 12:23:21 UTC (rev 8)
+@@ -0,0 +1,3 @@
++Nini 0.8
++see <A HREF="http://nini.sf.net">http://nini.sf.net</A>
++
+
+Added: player-sdk/trunk/src/Nini/Util/ArgvParser.cs
+===================================================================
+--- player-sdk/trunk/src/Nini/Util/ArgvParser.cs	2004-11-08 23:50:06 UTC (rev 7)
++++ player-sdk/trunk/src/Nini/Util/ArgvParser.cs	2004-11-09 12:23:21 UTC (rev 8)
+@@ -0,0 +1,103 @@
++#region Copyright
++//
++// Nini Configuration Project.
++// Copyright (C) 2004 Brent R. Matzelle.  All rights reserved.
++//
++// This software is published under the terms of the MIT X11 license, a copy of 
++// which has been included with this distribution in the LICENSE.txt file.
++// 
++// Original code written by: R. LOPES (GriffonRL)
++// Article: <A HREF="http://thecodeproject.com/csharp/command_line.asp">http://thecodeproject.com/csharp/command_line.asp</A>
++#endregion
++
++using System;
++using System.Collections;
++using System.Collections.Specialized;
++using System.Text.RegularExpressions;
++
++namespace Nini.Util
++{
++	/// &lt;include file='ArgvParser.xml' path='//Class[@name=&quot;ArgvParser&quot;]/docs/*' /&gt;
++	public class ArgvParser
++	{
++		#region Private variables
++		Hashtable parameters;
++		#endregion
++
++		#region Constructors
++		/// &lt;include file='ArgvParser.xml' path='//Constructor[@name=&quot;Constructor&quot;]/docs/*' /&gt;
++		public ArgvParser (string[] args)
++		{
++			parameters = new Hashtable ();
++			Regex splitter = new Regex (@&quot;^-{1,2}|^/|=|:&quot;, RegexOptions.Compiled);
++			Regex remover = new Regex (@&quot;^['&quot;&quot;]?(.*?)['&quot;&quot;]?$&quot;, RegexOptions.Compiled);
++			string parameter = null;
++			string[] parts;
++
++			// Valid parameters forms:
++			// {-,/,--}param{ ,=,:}((&quot;,')value(&quot;,'))
++			// Examples: -param1 value1 --param2 /param3:&quot;Test-:-work&quot; /param4=happy -param5 '--=nice=--'
++			foreach (string text in args)
++			{
++				// Look for new parameters (-,/ or --) and a possible enclosed value (=,:)
++				parts = splitter.Split (text, 3);
++				switch (parts.Length)
++				{
++				// Found a value (for the last parameter found (space separator))
++				case 1:
++					if (parameter != null) {
++						if (!parameters.Contains (parameter)) {
++							parts[0] = remover.Replace (parts[0], &quot;$1&quot;);
++							parameters.Add (parameter, parts[0]);
++						}
++						parameter = null;
++					}
++					// else Error: no parameter waiting for a value (skipped)
++					break;
++				// Found just a parameter
++				case 2:
++					// The last parameter is still waiting. With no value, set it to true.
++					if (parameter != null) {
++						if (!parameters.Contains (parameter)) {
++							parameters.Add (parameter, &quot;true&quot;);
++						}
++					}
++					parameter = parts[1];
++					break;
++				// parameter with enclosed value
++				case 3:
++					// The last parameter is still waiting. With no value, set it to true.
++					if (parameter != null) {
++						if (!parameters.Contains (parameter)) {
++							parameters.Add (parameter, &quot;true&quot;);
++						}
++					}
++					parameter = parts[1];
++					// Remove possible enclosing characters  (&quot;,')
++					if (!parameters.Contains (parameter)) {
++						parts[2] = remover.Replace (parts[2], &quot;$1&quot;);
++						parameters.Add (parameter, parts[2]);
++					}
++					parameter = null;
++					break;
++				}
++			}
++
++			// In case a parameter is still waiting
++			if (parameter !=  null) {
++				if (!parameters.Contains (parameter)) {
++					parameters.Add (parameter, &quot;true&quot;);
++				}
++			}
++		}
++		#endregion
++
++		#region Public properties
++		/// &lt;include file='ArgvParser.xml' path='//Property[@name=&quot;this&quot;]/docs/*' /&gt;
++		public string this [string Param]
++		{
++			get { return (string)parameters[Param]; }
++		}
++		#endregion
++	}
++}
+
+Added: player-sdk/trunk/src/Nini/Util/IOrderedDictionary.cs
+===================================================================
+--- player-sdk/trunk/src/Nini/Util/IOrderedDictionary.cs	2004-11-08 23:50:06 UTC (rev 7)
++++ player-sdk/trunk/src/Nini/Util/IOrderedDictionary.cs	2004-11-09 12:23:21 UTC (rev 8)
+@@ -0,0 +1,14 @@
++using System;
++
++namespace Nini.Util
++{
++	/// &lt;include file='IOrderedDictionary.xml' path='//Interface[@name=&quot;IOrderedDictionary&quot;]/docs/*' /&gt;
++	public interface IOrderedDictionary
++	{
++		/// &lt;include file='IOrderedDictionary.xml' path='//Method[@name=&quot;Insert&quot;]/docs/*' /&gt;
++		void Insert (int index, object key, object value);
++
++		/// &lt;include file='IOrderedDictionary.xml' path='//Method[@name=&quot;RemoveAt&quot;]/docs/*' /&gt;
++		void RemoveAt (int index);
++	}
++}
+\ No newline at end of file
+
+Added: player-sdk/trunk/src/Nini/Util/OrderedList.cs
+===================================================================
+--- player-sdk/trunk/src/Nini/Util/OrderedList.cs	2004-11-08 23:50:06 UTC (rev 7)
++++ player-sdk/trunk/src/Nini/Util/OrderedList.cs	2004-11-09 12:23:21 UTC (rev 8)
+@@ -0,0 +1,193 @@
++using System;
++using System.Collections;
++
++namespace Nini.Util
++{
++	//[Serializable]
++	/// &lt;include file='OrderedList.xml' path='//Class[@name=&quot;OrderedList&quot;]/docs/*' /&gt;
++	public class OrderedList : ICollection, IDictionary, IEnumerable, IOrderedDictionary
++	{
++		#region Private variables
++		Hashtable table = new Hashtable ();
++		ArrayList list = new ArrayList ();
++		#endregion
++
++		#region Public properties
++		/// &lt;include file='OrderedList.xml' path='//Property[@name=&quot;Count&quot;]/docs/*' /&gt;
++		public int Count 
++		{
++			get { return list.Count; }
++		}
++
++		/// &lt;include file='OrderedList.xml' path='//Property[@name=&quot;IsFixedSize&quot;]/docs/*' /&gt;
++		public bool IsFixedSize 
++		{
++			get { return false; }
++		}
++
++		/// &lt;include file='OrderedList.xml' path='//Property[@name=&quot;IsReadOnly&quot;]/docs/*' /&gt;
++		public bool IsReadOnly 
++		{
++			get { return false; }
++		}
++
++		/// &lt;include file='OrderedList.xml' path='//Property[@name=&quot;IsSynchronized&quot;]/docs/*' /&gt;
++		public bool IsSynchronized 
++		{
++			get { return false; }
++		}
++
++		/// &lt;include file='OrderedList.xml' path='//Property[@name=&quot;ItemIndex&quot;]/docs/*' /&gt;
++		public object this[int index] 
++		{
++			get { return ((DictionaryEntry) list[index]).Value; }
++			set 
++			{
++				if (index &lt; 0 || index &gt;= Count)
++					throw new ArgumentOutOfRangeException (&quot;index&quot;);
++
++				object key = ((DictionaryEntry) list[index]).Key;
++				list[index] = new DictionaryEntry (key, value);
++				table[key] = value;
++			}
++		}
++
++		/// &lt;include file='OrderedList.xml' path='//Property[@name=&quot;ItemKey&quot;]/docs/*' /&gt;
++		public object this[object key] 
++		{
++			get { return table[key]; }
++			set 
++			{
++				if (table.Contains (key))
++				{
++					table[key] = value;
++					table[IndexOf (key)] = new DictionaryEntry (key, value);
++					return;
++				}
++				Add (key, value);
++			}
++		}
++
++		/// &lt;include file='OrderedList.xml' path='//Property[@name=&quot;Keys&quot;]/docs/*' /&gt;
++		public ICollection Keys 
++		{
++			get 
++			{ 
++				ArrayList retList = new ArrayList ();
++				for (int i = 0; i &lt; list.Count; i++)
++				{
++					retList.Add ( ((DictionaryEntry)list[i]).Key );
++				}
++				return retList;
++			}
++		}
++
++		/// &lt;include file='OrderedList.xml' path='//Property[@name=&quot;Values&quot;]/docs/*' /&gt;
++		public ICollection Values 
++		{
++			get 
++			{
++				ArrayList retList = new ArrayList ();
++				for (int i = 0; i &lt; list.Count; i++)
++				{
++					retList.Add ( ((DictionaryEntry)list[i]).Value );
++				}
++				return retList;
++			}
++		}
++
++		/// &lt;include file='OrderedList.xml' path='//Property[@name=&quot;SyncRoot&quot;]/docs/*' /&gt;
++		public object SyncRoot 
++		{
++			get { return this; }
++		}
++		#endregion
++
++		#region Public methods
++		/// &lt;include file='OrderedList.xml' path='//Method[@name=&quot;Add&quot;]/docs/*' /&gt;
++		public void Add (object key, object value)
++		{
++			table.Add (key, value);
++			list.Add (new DictionaryEntry (key, value));
++		}
++
++		/// &lt;include file='OrderedList.xml' path='//Method[@name=&quot;Clear&quot;]/docs/*' /&gt;
++		public void Clear ()
++		{
++			table.Clear ();
++			list.Clear ();
++		}
++
++		/// &lt;include file='OrderedList.xml' path='//Method[@name=&quot;Contains&quot;]/docs/*' /&gt;
++		public bool Contains (object key)
++		{
++			return table.Contains (key);
++		}
++
++		/// &lt;include file='OrderedList.xml' path='//Method[@name=&quot;CopyTo&quot;]/docs/*' /&gt;
++		public void CopyTo (Array array, int index)
++		{
++			table.CopyTo (array, index);
++		}
++
++		/// &lt;include file='OrderedList.xml' path='//Method[@name=&quot;Insert&quot;]/docs/*' /&gt;
++		public void Insert (int index, object key, object value)
++		{
++			if (index &gt; Count)
++				throw new ArgumentOutOfRangeException (&quot;index&quot;);
++
++			table.Add (key, value);
++			list.Insert (index, new DictionaryEntry (key, value));
++		}
++
++		/// &lt;include file='OrderedList.xml' path='//Method[@name=&quot;Remove&quot;]/docs/*' /&gt;
++		public void Remove (object key)
++		{
++			table.Remove (key);
++			list.RemoveAt (IndexOf (key));
++		}
++
++		/// &lt;include file='OrderedList.xml' path='//Method[@name=&quot;RemoveAt&quot;]/docs/*' /&gt;
++		public void RemoveAt (int index)
++		{
++			if (index &gt;= Count)
++				throw new ArgumentOutOfRangeException (&quot;index&quot;);
++
++			table.Remove ( ((DictionaryEntry)list[index]).Key );
++			list.RemoveAt (index);
++		}
++
++		/// &lt;include file='OrderedList.xml' path='//Method[@name=&quot;GetEnumerator&quot;]/docs/*' /&gt;
++		public IEnumerator GetEnumerator () 
++		{
++			return new OrderedListEnumerator (list);
++		}
++
++		/// &lt;include file='OrderedList.xml' path='//Method[@name=&quot;GetDictionaryEnumerator&quot;]/docs/*' /&gt;
++		IDictionaryEnumerator IDictionary.GetEnumerator ()
++		{
++			return new OrderedListEnumerator (list);
++		}
++
++		/// &lt;include file='OrderedList.xml' path='//Method[@name=&quot;GetIEnumerator&quot;]/docs/*' /&gt;
++		IEnumerator IEnumerable.GetEnumerator ()
++		{
++			return new OrderedListEnumerator (list);
++		}
++		#endregion
++
++		#region Private variables
++		private int IndexOf (object key)
++		{
++			for (int i = 0; i &lt; list.Count; i++)
++			{
++				if (((DictionaryEntry) list[i]).Key.Equals (key))
++				{
++					return i;
++				}
++			}
++			return -1;
++		}
++		#endregion
++	}
++}
+
+Added: player-sdk/trunk/src/Nini/Util/OrderedListEnumerator.cs
+===================================================================
+--- player-sdk/trunk/src/Nini/Util/OrderedListEnumerator.cs	2004-11-08 23:50:06 UTC (rev 7)
++++ player-sdk/trunk/src/Nini/Util/OrderedListEnumerator.cs	2004-11-09 12:23:21 UTC (rev 8)
+@@ -0,0 +1,72 @@
++using System;
++using System.Collections;
++
++namespace Nini.Util
++{
++	/// &lt;include file='OrderedListEnumerator.xml' path='//Class[@name=&quot;OrderedListEnumerator&quot;]/docs/*' /&gt;
++	public class OrderedListEnumerator : IDictionaryEnumerator
++	{
++		#region Private variables
++		int index = -1;
++		ArrayList list;
++		#endregion
++
++		/// &lt;summary&gt;
++		/// Instantiates an ordered list enumerator with an ArrayList.
++		/// &lt;/summary&gt;
++		internal OrderedListEnumerator (ArrayList arrayList)
++		{
++			list = arrayList;
++		}
++
++		#region Public properties
++		/// &lt;include file='OrderedListEnumerator.xml' path='//Property[@name=&quot;Current&quot;]/docs/*' /&gt;
++		public object Current 
++		{
++			get 
++			{
++				if (index &lt; 0 || index &gt;= list.Count)
++					throw new InvalidOperationException ();
++
++				return list[index];
++			}
++		}
++
++		/// &lt;include file='OrderedListEnumerator.xml' path='//Property[@name=&quot;Entry&quot;]/docs/*' /&gt;
++		public DictionaryEntry Entry 
++		{
++			get { return (DictionaryEntry) Current; }
++		}
++
++		/// &lt;include file='OrderedListEnumerator.xml' path='//Property[@name=&quot;Key&quot;]/docs/*' /&gt;
++		public object Key 
++		{
++			get { return Entry.Key; }
++		}
++
++		/// &lt;include file='OrderedListEnumerator.xml' path='//Property[@name=&quot;Value&quot;]/docs/*' /&gt;
++		public object Value 
++		{
++			get { return Entry.Value; }
++		}
++		#endregion
++
++		#region Public methods
++		/// &lt;include file='OrderedListEnumerator.xml' path='//Method[@name=&quot;MoveNext&quot;]/docs/*' /&gt;
++		public bool MoveNext ()
++		{
++			index++;
++			if (index &gt;= list.Count)
++				return false;
++
++			return true;
++		}
++
++		/// &lt;include file='OrderedListEnumerator.xml' path='//Method[@name=&quot;Reset&quot;]/docs/*' /&gt;
++		public void Reset ()
++		{
++			index = -1;
++		}
++		#endregion
++	}
++}
+\ No newline at end of file
+
+Modified: player-sdk/trunk/src/sources.list
+===================================================================
+--- player-sdk/trunk/src/sources.list	2004-11-08 23:50:06 UTC (rev 7)
++++ player-sdk/trunk/src/sources.list	2004-11-09 12:23:21 UTC (rev 8)
+@@ -14,6 +14,29 @@
+ CSSOURCES += ./Configuration/FileStore.cs
+ CSSOURCES += ./Configuration/Configuration.cs
+ CSSOURCES += ./Player/IPlayerKit.cs
++CSSOURCES += ./Nini/AssemblyInfo.cs
++CSSOURCES += ./Nini/Config/AliasText.cs
++CSSOURCES += ./Nini/Config/ArgvConfigSource.cs
++CSSOURCES += ./Nini/Config/ConfigBase.cs
++CSSOURCES += ./Nini/Config/ConfigCollection.cs
++CSSOURCES += ./Nini/Config/ConfigSourceBase.cs
++CSSOURCES += ./Nini/Config/DotNetConfigSource.cs
++CSSOURCES += ./Nini/Config/IConfig.cs
++CSSOURCES += ./Nini/Config/IConfigSource.cs
++CSSOURCES += ./Nini/Config/IniConfigSource.cs
++CSSOURCES += ./Nini/Config/RegistryConfigSource.cs
++CSSOURCES += ./Nini/Config/XmlConfigSource.cs
++CSSOURCES += ./Nini/Ini/IniDocument.cs
++CSSOURCES += ./Nini/Ini/IniException.cs
++CSSOURCES += ./Nini/Ini/IniItem.cs
++CSSOURCES += ./Nini/Ini/IniReader.cs
++CSSOURCES += ./Nini/Ini/IniSection.cs
++CSSOURCES += ./Nini/Ini/IniSectionCollection.cs
++CSSOURCES += ./Nini/Ini/IniWriter.cs
++CSSOURCES += ./Nini/Util/ArgvParser.cs
++CSSOURCES += ./Nini/Util/IOrderedDictionary.cs
++CSSOURCES += ./Nini/Util/OrderedList.cs
++CSSOURCES += ./Nini/Util/OrderedListEnumerator.cs
+ CSSOURCES += ./Kits/IKit.cs
+ CSSOURCES += ./Kits/KitManager.cs
+ CSSOURCES += ./Addins/AddinLoader.cs
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000003.html">[Player-sdk-checkins] r7 - player-sdk/trunk
+</A></li>
+	<LI>Next message: <A HREF="000005.html">[Player-sdk-checkins] r9 - in player-sdk/trunk: . DataKits/Sqlite PlayerKits/Gstreamer Plugins Plugins/test examples src src/Addins src/Configuration src/Data src/Global src/Kits src/Player src/Plugins
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#4">[ date ]</a>
+              <a href="thread.html#4">[ thread ]</a>
+              <a href="subject.html#4">[ subject ]</a>
+              <a href="author.html#4">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/player-sdk-checkins">More information about the Player-sdk-checkins
+mailing list</a><br>
+</body></html>

@@ -1,0 +1,372 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [Player-sdk-checkins] r5 - in player-sdk/trunk: . PlayerKits/Gstreamer examples src/Playlist
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/player-sdk-checkins/2004-November/index.html" >
+   <LINK REL="made" HREF="mailto:player-sdk-checkins%40lists.berlios.de?Subject=Re%3A%20%5BPlayer-sdk-checkins%5D%20r5%20-%20in%20player-sdk/trunk%3A%20.%20PlayerKits/Gstreamer%20examples%20src/Playlist&In-Reply-To=%3C200411082340.iA8NexLu031369%40sheep.berlios.de%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000000.html">
+   <LINK REL="Next"  HREF="000002.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[Player-sdk-checkins] r5 - in player-sdk/trunk: . PlayerKits/Gstreamer examples src/Playlist</H1>
+    <B>Sergio Rubio at BerliOS</B> 
+    <A HREF="mailto:player-sdk-checkins%40lists.berlios.de?Subject=Re%3A%20%5BPlayer-sdk-checkins%5D%20r5%20-%20in%20player-sdk/trunk%3A%20.%20PlayerKits/Gstreamer%20examples%20src/Playlist&In-Reply-To=%3C200411082340.iA8NexLu031369%40sheep.berlios.de%3E"
+       TITLE="[Player-sdk-checkins] r5 - in player-sdk/trunk: . PlayerKits/Gstreamer examples src/Playlist">rubiojr at sheep.berlios.de
+       </A><BR>
+    <I>Tue Nov  9 00:40:59 CET 2004</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000000.html">[Player-sdk-checkins] r4 - in player-sdk/trunk: . DataKits/Sqlite PlayerKits/Gstreamer doc doc/arch doc/arch/images doc/en doc/en/Player.Addins doc/en/Player.Configuration doc/en/Player.Data doc/en/Player.Kits doc/en/Player.Player doc/en/Player.Playlist doc/en/Player.Plugins examples src src/Addins src/Data src/Kits src/Player src/Plugins
+</A></li>
+        <LI>Next message: <A HREF="000002.html">[Player-sdk-checkins] r6 - in player-sdk/trunk: . examples
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1">[ date ]</a>
+              <a href="thread.html#1">[ thread ]</a>
+              <a href="subject.html#1">[ subject ]</a>
+              <a href="author.html#1">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Author: rubiojr
+Date: 2004-11-09 00:40:56 +0100 (Tue, 09 Nov 2004)
+New Revision: 5
+
+Added:
+   player-sdk/trunk/examples/PlayerTest.cs
+   player-sdk/trunk/examples/test.ogg
+Modified:
+   player-sdk/trunk/ChangeLog
+   player-sdk/trunk/PlayerKits/Gstreamer/GstPlayer.cs
+   player-sdk/trunk/examples/Makefile.am
+   player-sdk/trunk/src/Playlist/Playlist.cs
+Log:
+	* PlayerKits/Gstreamer/GstPlayer.cs: Added null or wrong file check
+    call g_type_init ()
+
+    * examples/Makefile.am: added new PlayerTest example
+    * examples/PlayerTest.cs:
+
+    * src/Playlist/Playlist.cs: Added check for file
+
+
+
+Modified: player-sdk/trunk/ChangeLog
+===================================================================
+--- player-sdk/trunk/ChangeLog	2004-11-07 14:06:09 UTC (rev 4)
++++ player-sdk/trunk/ChangeLog	2004-11-08 23:40:56 UTC (rev 5)
+@@ -1,3 +1,13 @@
++2004-11-09  Sergio Rubio  &lt;<A HREF="https://lists.berlios.de/mailman/listinfo/player-sdk-checkins">sergio.rubio at hispalinux.es</A>&gt;
++
++	* PlayerKits/Gstreamer/GstPlayer.cs: Added null or wrong file check
++	call g_type_init ()
++	
++	* examples/Makefile.am: added new PlayerTest example
++	* examples/PlayerTest.cs:
++	
++	* src/Playlist/Playlist.cs: Added check for file
++
+ 2004-11-07  Sergio Rubio  &lt;<A HREF="https://lists.berlios.de/mailman/listinfo/player-sdk-checkins">sergio.rubio at hispalinux.es</A>&gt;
+ 
+ 	* DataKits/Sqlite/SqliteDataKit.cs:
+
+Modified: player-sdk/trunk/PlayerKits/Gstreamer/GstPlayer.cs
+===================================================================
+--- player-sdk/trunk/PlayerKits/Gstreamer/GstPlayer.cs	2004-11-07 14:06:09 UTC (rev 4)
++++ player-sdk/trunk/PlayerKits/Gstreamer/GstPlayer.cs	2004-11-08 23:40:56 UTC (rev 5)
+@@ -20,6 +20,7 @@
+ 
+ 
+ using System;
++using System.IO;
+ using System.Runtime.InteropServices;
+ using GLib;
+ using Player.Player;
+@@ -31,7 +32,33 @@
+ 
+     private bool stopped = true;
+     private IPlaylist playlist;
++    
++	/*
++     * Main constructor
++     */
++    public GstPlayer (IPlaylist playlist) : base (IntPtr.Zero)
++    {
++		g_type_init ();
++	    this.playlist = playlist;
++	    IntPtr error_ptr;
++	    
++	    Raw = player_new (out error_ptr);
++	    if (error_ptr != IntPtr.Zero) {
++		    string error = GLib.Marshaller.PtrToStringGFree (error_ptr);
+ 
++		    throw new Exception (error);
++	    }
++	    
++	    ConnectInt.g_signal_connect_data (Raw, &quot;tick&quot;, new IntSignalDelegate (TickCallback),
++					      IntPtr.Zero, IntPtr.Zero, 0);
++	    Connect.g_signal_connect_data (Raw, &quot;end_of_stream&quot;, new SignalDelegate (EosCallback),
++					   IntPtr.Zero, IntPtr.Zero, 0);
++	    ConnectString.g_signal_connect_data (Raw, &quot;error&quot;, new StringSignalDelegate (ErrorCallback),
++						 IntPtr.Zero, IntPtr.Zero, 0);
++
++	    playing = false;
++    }
++
+     public event StateEventHandler StateEvent;
+     /*
+      * Indicates whether the player is playing or paused.
+@@ -49,11 +76,9 @@
+ 		    playing = value;
+ 
+ 		    if (playing)
+-		    {
+-			Play ();
+-		    }
++				Play ();
+ 		    else
+-			Pause ();
++				Pause ();
+ 
+ 		    if (StateEvent != null)
+ 			    StateEvent (playing);
+@@ -137,6 +162,11 @@
+ 	    IntPtr error_ptr;
+ 
+ 	    Song song = playlist.Current;
++		if (song == null || !File.Exists(song.Filename))
++		{
++			Console.WriteLine (&quot;WARNING: Playlist empty or invalid.&quot;);
++			return;
++		}
+ 	    player_set_file (Raw, song.Filename , out error_ptr);
+ 	    if (error_ptr != IntPtr.Zero) {
+ 		    string error = GLib.Marshaller.PtrToStringGFree (error_ptr);
+@@ -148,8 +178,11 @@
+ 	    if (TickEvent != null)
+ 		    TickEvent (0);
+ 
+-	    if (playing)
+-		    player_play (Raw);
++	    if (!playing)
++			playing = true;
++		Console.WriteLine (&quot;Playing &quot; + song.Filename);
++		player_play (Raw);
++		
+     }
+ 
+     public void Pause ()
+@@ -196,31 +229,6 @@
+     {
+     }
+ 
+-    /*
+-     * Main constructor
+-     */
+-    public GstPlayer (IPlaylist playlist) : base (IntPtr.Zero)
+-    {
+-	    this.playlist = playlist;
+-	    IntPtr error_ptr;
+-	    
+-	    Raw = player_new (out error_ptr);
+-	    if (error_ptr != IntPtr.Zero) {
+-		    string error = GLib.Marshaller.PtrToStringGFree (error_ptr);
+-
+-		    throw new Exception (error);
+-	    }
+-	    
+-	    ConnectInt.g_signal_connect_data (Raw, &quot;tick&quot;, new IntSignalDelegate (TickCallback),
+-					      IntPtr.Zero, IntPtr.Zero, 0);
+-	    Connect.g_signal_connect_data (Raw, &quot;end_of_stream&quot;, new SignalDelegate (EosCallback),
+-					   IntPtr.Zero, IntPtr.Zero, 0);
+-	    ConnectString.g_signal_connect_data (Raw, &quot;error&quot;, new StringSignalDelegate (ErrorCallback),
+-						 IntPtr.Zero, IntPtr.Zero, 0);
+-
+-	    playing = false;
+-    }
+-
+     ~GstPlayer ()
+     {
+ 	    Dispose ();
+@@ -252,6 +260,9 @@
+     /***********************************************************/	
+     /********************** Native calls ***********************/
+     /***********************************************************/	
++	[DllImport(&quot;libgobject-2.0.so&quot;)]
++	private static extern void g_type_init ();
++	
+     private class Connect
+     {
+ 	    [DllImport (&quot;libgobject-2.0-0.dll&quot;)]
+
+Modified: player-sdk/trunk/examples/Makefile.am
+===================================================================
+--- player-sdk/trunk/examples/Makefile.am	2004-11-07 14:06:09 UTC (rev 4)
++++ player-sdk/trunk/examples/Makefile.am	2004-11-08 23:40:56 UTC (rev 5)
+@@ -2,11 +2,14 @@
+ 	-pkg:gtk-sharp				\
+ 	-r:../src/Player.Sdk.dll
+ 
+-all: db-test.exe kitmanager-test.exe
++all: db-test.exe kitmanager-test.exe player-test.exe
+ 
+ db-test.exe: DbTest.cs
+ 	mcs DbTest.cs -o $@ $(REFERENCES)
+ 
++player-test.exe: PlayerTest.cs
++	mcs PlayerTest.cs -o $@ $(REFERENCES)
++	
+ kitmanager-test.exe: KitManagerTest.cs
+ 	mcs KitManagerTest.cs -o $@ $(REFERENCES)
+ 	
+
+Added: player-sdk/trunk/examples/PlayerTest.cs
+===================================================================
+--- player-sdk/trunk/examples/PlayerTest.cs	2004-11-07 14:06:09 UTC (rev 4)
++++ player-sdk/trunk/examples/PlayerTest.cs	2004-11-08 23:40:56 UTC (rev 5)
+@@ -0,0 +1,46 @@
++/*
++ * Copyright (C) 2004 Sergio Rubio &lt;<A HREF="https://lists.berlios.de/mailman/listinfo/player-sdk-checkins">sergio.rubio at hispalinux.es</A>&gt;
++ *
++ * This program is free software; you can redistribute it and/or
++ * modify it under the terms of the GNU General Public License as
++ * published by the Free Software Foundation; either version 2 of the
++ * License, or (at your option) any later version.
++ *
++ * This program is distributed in the hope that it will be useful,
++ * but WITHOUT ANY WARRANTY; without even the implied warranty of
++ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
++ * General Public License for more details.
++ *
++ * You should have received a copy of the GNU General Public
++ * License along with this program; if not, write to the
++ * Free Software Foundation, Inc., 59 Temple Place - Suite 330,
++ * Boston, MA 02111-1307, USA.
++ */
++
++using System;    
++using Player.Player;
++using Player.Playlist;
++using Player.Data;
++using Player.Kits;
++using Gtk;
++
++public class PlayerTest
++{
++	public static void Main ()
++	{
++		Application.Init ();
++		Playlist p = new Playlist ();
++		p.Add (new Song (&quot;test.ogg&quot;));
++		IPlayerKit kit = (IPlayerKit) KitManager.GetInstance ()[&quot;PlayerKit&quot;];
++		kit.EOSEvent += EndOfStream;
++		kit.Volume = 50;
++		kit.Playlist = p;
++		kit.Play ();
++		Application.Run ();
++	}
++	public static void EndOfStream ()
++	{
++		Application.Quit ();
++	}
++}
++
+
+Added: player-sdk/trunk/examples/test.ogg
+===================================================================
+(Binary files differ)
+
+
+Property changes on: player-sdk/trunk/examples/test.ogg
+___________________________________________________________________
+Name: svn:mime-type
+   + application/octet-stream
+
+Modified: player-sdk/trunk/src/Playlist/Playlist.cs
+===================================================================
+--- player-sdk/trunk/src/Playlist/Playlist.cs	2004-11-07 14:06:09 UTC (rev 4)
++++ player-sdk/trunk/src/Playlist/Playlist.cs	2004-11-08 23:40:56 UTC (rev 5)
+@@ -22,6 +22,7 @@
+ 
+     using System.Collections;
+     using System;
++	using System.IO;
+     using Player.Data;
+ 
+     /* 
+@@ -140,20 +141,20 @@
+ 
+ 	public Song Current {
+ 	    get {
+-		if (list.Count == 0)
+-		    return null;
+-		return list[currentSong] as Song;
++			if (list.Count == 0)
++				return null;
++			return list[currentSong] as Song;
+ 	    }
+ 	    set {
+-		int index = IndexOf (value);
+-		if (index != -1)
+-		{
+-		    currentSong = index;
+-		    if (SongChangedEvent != null)
+-			SongChangedEvent (this, value);
+-		}
+-		else
+-		    Console.WriteLine (&quot;WARNING: Invalid current item in playlist&quot;);
++			int index = IndexOf (value);
++			if (index != -1)
++			{
++				currentSong = index;
++				if (SongChangedEvent != null)
++				SongChangedEvent (this, value);
++			}
++			else
++				Console.WriteLine (&quot;WARNING: Invalid current item in playlist&quot;);
+ 	    }
+ 	}
+ 
+@@ -185,7 +186,9 @@
+ 	private void CheckSong (object obj)
+ 	{
+ 	    if (!(obj is Song))
+-		throw new ArgumentException (&quot;You should only append Songs to the playlist&quot;);
++			throw new ArgumentException (&quot;You should only append Songs to the playlist&quot;);
++		if (!File.Exists (((Song)obj).Filename))
++			throw new ArgumentException (&quot;ERROR: Song does not exists&quot;);
+ 	}
+ 
+ 	public object this[int index] {
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000000.html">[Player-sdk-checkins] r4 - in player-sdk/trunk: . DataKits/Sqlite PlayerKits/Gstreamer doc doc/arch doc/arch/images doc/en doc/en/Player.Addins doc/en/Player.Configuration doc/en/Player.Data doc/en/Player.Kits doc/en/Player.Player doc/en/Player.Playlist doc/en/Player.Plugins examples src src/Addins src/Data src/Kits src/Player src/Plugins
+</A></li>
+	<LI>Next message: <A HREF="000002.html">[Player-sdk-checkins] r6 - in player-sdk/trunk: . examples
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1">[ date ]</a>
+              <a href="thread.html#1">[ thread ]</a>
+              <a href="subject.html#1">[ subject ]</a>
+              <a href="author.html#1">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/player-sdk-checkins">More information about the Player-sdk-checkins
+mailing list</a><br>
+</body></html>

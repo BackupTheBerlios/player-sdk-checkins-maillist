@@ -1,0 +1,1559 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [Player-sdk-checkins] r9 - in player-sdk/trunk: . DataKits/Sqlite PlayerKits/Gstreamer Plugins Plugins/test examples src src/Addins src/Configuration src/Data src/Global src/Kits src/Player src/Plugins
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/player-sdk-checkins/2004-November/index.html" >
+   <LINK REL="made" HREF="mailto:player-sdk-checkins%40lists.berlios.de?Subject=Re%3A%20%5BPlayer-sdk-checkins%5D%20r9%20-%20in%20player-sdk/trunk%3A%20.%20DataKits/Sqlite%20PlayerKits/Gstreamer%20Plugins%20Plugins/test%20examples%20src%20src/Addins%20src/Configuration%20src/Data%20src/Global%20src/Kits%20src/Player%20src/Plugins&In-Reply-To=%3C200411101718.iAAHIfjx017133%40sheep.berlios.de%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000004.html">
+   
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[Player-sdk-checkins] r9 - in player-sdk/trunk: . DataKits/Sqlite PlayerKits/Gstreamer Plugins Plugins/test examples src src/Addins src/Configuration src/Data src/Global src/Kits src/Player src/Plugins</H1>
+    <B>Sergio Rubio at BerliOS</B> 
+    <A HREF="mailto:player-sdk-checkins%40lists.berlios.de?Subject=Re%3A%20%5BPlayer-sdk-checkins%5D%20r9%20-%20in%20player-sdk/trunk%3A%20.%20DataKits/Sqlite%20PlayerKits/Gstreamer%20Plugins%20Plugins/test%20examples%20src%20src/Addins%20src/Configuration%20src/Data%20src/Global%20src/Kits%20src/Player%20src/Plugins&In-Reply-To=%3C200411101718.iAAHIfjx017133%40sheep.berlios.de%3E"
+       TITLE="[Player-sdk-checkins] r9 - in player-sdk/trunk: . DataKits/Sqlite PlayerKits/Gstreamer Plugins Plugins/test examples src src/Addins src/Configuration src/Data src/Global src/Kits src/Player src/Plugins">rubiojr at sheep.berlios.de
+       </A><BR>
+    <I>Wed Nov 10 18:18:41 CET 2004</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000004.html">[Player-sdk-checkins] r8 - in player-sdk/trunk: . src src/Nini src/Nini/Config src/Nini/Ini src/Nini/Util
+</A></li>
+        
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#5">[ date ]</a>
+              <a href="thread.html#5">[ thread ]</a>
+              <a href="subject.html#5">[ subject ]</a>
+              <a href="author.html#5">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Author: rubiojr
+Date: 2004-11-10 18:18:40 +0100 (Wed, 10 Nov 2004)
+New Revision: 9
+
+Added:
+   player-sdk/trunk/Plugins/
+   player-sdk/trunk/Plugins/Makefile.am
+   player-sdk/trunk/Plugins/test/
+   player-sdk/trunk/Plugins/test/Makefile.am
+   player-sdk/trunk/Plugins/test/PluginTest.cs
+   player-sdk/trunk/examples/PluginManagerTest.cs
+   player-sdk/trunk/src/Addins/AbstractAddin.cs
+   player-sdk/trunk/src/Data/DataKit.cs
+   player-sdk/trunk/src/Global/
+   player-sdk/trunk/src/Global/PlayerServices.cs
+   player-sdk/trunk/src/Player/PlayerKit.cs
+   player-sdk/trunk/src/Plugins/PluginInfoAttribute.cs
+   player-sdk/trunk/src/Plugins/PluginLoadingException.cs
+Removed:
+   player-sdk/trunk/src/Data/IDataKit.cs
+   player-sdk/trunk/src/Kits/IKit.cs
+   player-sdk/trunk/src/Player/IPlayerKit.cs
+   player-sdk/trunk/src/Plugins/IPlugin.cs
+Modified:
+   player-sdk/trunk/ChangeLog
+   player-sdk/trunk/DataKits/Sqlite/SqliteDataKit.cs
+   player-sdk/trunk/Makefile.am
+   player-sdk/trunk/PlayerKits/Gstreamer/GstPlayer.cs
+   player-sdk/trunk/configure.in
+   player-sdk/trunk/examples/KitManagerTest.cs
+   player-sdk/trunk/examples/Makefile.am
+   player-sdk/trunk/examples/PlayerTest.cs
+   player-sdk/trunk/src/Addins/AddinLoader.cs
+   player-sdk/trunk/src/Addins/IAddin.cs
+   player-sdk/trunk/src/Configuration/Configuration.cs
+   player-sdk/trunk/src/Kits/KitManager.cs
+   player-sdk/trunk/src/Plugins/PluginManager.cs
+   player-sdk/trunk/src/sources.list
+Log:
+* API Refactoring (See ChangeLog)
+* Plugins loading mechanism partially implemented.
+* Added a very stupid plugin to test it.
+
+
+
+Modified: player-sdk/trunk/ChangeLog
+===================================================================
+--- player-sdk/trunk/ChangeLog	2004-11-09 12:23:21 UTC (rev 8)
++++ player-sdk/trunk/ChangeLog	2004-11-10 17:18:40 UTC (rev 9)
+@@ -1,3 +1,47 @@
++2004-11-10  Sergio Rubio  &lt;<A HREF="https://lists.berlios.de/mailman/listinfo/player-sdk-checkins">sergio.rubio at hispalinux.es</A>&gt;
++
++	* DataKits/Sqlite/SqliteDataKit.cs: Adapted to the new API
++	* Makefile.am: Added Plugins subdir
++	* PlayerKits/Gstreamer/GstPlayer.cs: Cleaned and adapted to the new api
++	
++	* Plugins/Makefile.am:
++	* Plugins/test/Makefile.am:
++	* Plugins/test/PluginTest.cs: Added a new Plugin to test the plugin
++	loading mechanism.
++	
++	* configure.in: added new makefiles
++	
++	* examples/Makefile.am: added new Example
++	
++	* examples/PlayerTest.cs: Fixed to use the new api
++	
++	* examples/PluginManagerTest.cs: New example
++	
++	* src/Addins/AbstractAddin.cs:
++	* src/Addins/AddinLoader.cs:
++	* src/Addins/IAddin.cs:
++	* src/Configuration/Configuration.cs:
++	* src/Data/DataKit.cs:
++	* src/Data/IDataKit.cs:
++	* src/Global/PlayerServices.cs:
++	* src/Kits/IKit.cs:
++	* src/Kits/KitManager.cs:
++	* src/Player/IPlayerKit.cs:
++	* src/Player/PlayerKit.cs:
++	* src/Plugins/IPlugin.cs:
++	* src/Plugins/PluginInfoAttribute.cs:
++	* src/Plugins/PluginLoadingException.cs:
++	* src/Plugins/PluginManager.cs:
++	API refactoring: IPlugin and IKit does not exist anymore. There is no
++	difference between them ATM so Kits and Plugins are different implementations of
++	Addins. This makes the api smaller and easier to understand IMHO. AbstractAddin
++	implements some logic, so Plugins and new Kits inherit from this instead
++	of inheriting from IAddin.
++	IDataKit and IPlayerKit are now DataKit and PlayerKit abstract classes
++	inheriting from AbstractAddin.
++	
++	* src/sources.list: updated
++
+ 2004-11-09  Sergio Rubio  &lt;<A HREF="https://lists.berlios.de/mailman/listinfo/player-sdk-checkins">sergio.rubio at hispalinux.es</A>&gt;
+ 
+ 	* TODO: Updated
+
+Modified: player-sdk/trunk/DataKits/Sqlite/SqliteDataKit.cs
+===================================================================
+--- player-sdk/trunk/DataKits/Sqlite/SqliteDataKit.cs	2004-11-09 12:23:21 UTC (rev 8)
++++ player-sdk/trunk/DataKits/Sqlite/SqliteDataKit.cs	2004-11-10 17:18:40 UTC (rev 9)
+@@ -27,7 +27,7 @@
+     using System.IO;
+     using System.Text;
+ 
+-    public class SqliteDataKit : IDataKit 
++    public class SqliteDataKit : DataKit 
+     {
+ 	private SqliteConnection conn;
+ 	private string dbfile = &quot;musicdb.sqlite&quot;;
+@@ -45,28 +45,28 @@
+ 	}
+ 
+ 	private string name = &quot;SqliteDataKit&quot;;
+-	public string Name {
++	public override string Name {
+ 		get {
+ 			return name;
+ 		}
+ 	}
+ 	
+ 	private string version = &quot;0.1&quot;;
+-	public string Version {
++	public override string Version {
+ 		get {
+ 			return version;
+ 		}
+ 	}
+ 	
+ 	private string description = &quot;Player.SDK sqlite database kit&quot;;
+-	public string Description {
++	public override string Description {
+ 		get {
+ 			return description;
+ 		}
+ 	}
+ 	
+ 
+-	public ArrayList Songs {
++	public override ArrayList Songs {
+ 	    get {
+ 		ArrayList songs = new ArrayList ();
+ 		SqliteCommand cmd = new SqliteCommand ();
+@@ -94,7 +94,7 @@
+ 	    }
+ 	}
+ 
+-	public ArrayList Albums {
++	public override ArrayList Albums {
+ 	    get {
+ 		ArrayList albums = new ArrayList ();
+ 		SqliteCommand cmd = new SqliteCommand ();
+@@ -117,15 +117,15 @@
+ 	    }
+ 	}
+ 
+-	public void Load ()
++	protected override void LoadAddin ()
+ 	{
+ 	}
+ 
+-	public void Unload ()
++	protected override void UnloadAddin ()
+ 	{
+ 	}
+ 
+-	public bool AddSong (Song song)
++	public override bool AddSong (Song song)
+ 	{
+ 	    string artists = ArrayToSqlString (song.Artists);
+ 	    string performers = ArrayToSqlString (song.Performers);
+@@ -150,7 +150,7 @@
+ 	    return false;
+ 	}
+ 
+-	public bool AddAlbum (Album album)
++	public override bool AddAlbum (Album album)
+ 	{
+ 
+ 	    string songs = ArrayToSqlString (album.Songs);
+@@ -172,7 +172,7 @@
+ 	    return false;
+ 	}
+ 
+-	public bool RemoveSong (Song song)
++	public override bool RemoveSong (Song song)
+ 	{
+ 	    SqliteCommand cmd = new SqliteCommand ();
+ 	    cmd.Connection = conn;
+@@ -183,7 +183,7 @@
+ 	    return false;
+ 	}
+ 
+-	public bool RemoveAlbum (Album album)
++	public override bool RemoveAlbum (Album album)
+ 	{
+ 	    SqliteCommand cmd = new SqliteCommand ();
+ 	    cmd.Connection = conn;
+@@ -230,7 +230,7 @@
+ 	    command.Dispose ();
+ 	}
+ 	
+-	public string ArrayToSqlString (ArrayList list)
++	private string ArrayToSqlString (ArrayList list)
+ 	{
+ 	    StringBuilder builder = new StringBuilder ();
+ 	    foreach (string s in list)
+@@ -241,7 +241,7 @@
+ 	    return builder.ToString ();
+ 	}
+ 
+-	public ArrayList SqlStringToArray (string list)
++	private ArrayList SqlStringToArray (string list)
+ 	{
+ 	    string[] tokens = list.Split ('%');
+ 	    ArrayList array = new ArrayList ();
+
+Modified: player-sdk/trunk/Makefile.am
+===================================================================
+--- player-sdk/trunk/Makefile.am	2004-11-09 12:23:21 UTC (rev 8)
++++ player-sdk/trunk/Makefile.am	2004-11-10 17:18:40 UTC (rev 9)
+@@ -1,3 +1,3 @@
+-SUBDIRS = src PlayerKits DataKits examples doc
++SUBDIRS = src PlayerKits DataKits examples Plugins doc
+ 
+ EXTRA_DIST = PlayerSdk.ini
+
+Modified: player-sdk/trunk/PlayerKits/Gstreamer/GstPlayer.cs
+===================================================================
+--- player-sdk/trunk/PlayerKits/Gstreamer/GstPlayer.cs	2004-11-09 12:23:21 UTC (rev 8)
++++ player-sdk/trunk/PlayerKits/Gstreamer/GstPlayer.cs	2004-11-10 17:18:40 UTC (rev 9)
+@@ -27,44 +27,27 @@
+ using Player.Playlist;
+ using Player.Data;
+ 
+-public class GstPlayer : GLib.Object, IPlayerKit
++public class GstPlayer : PlayerKit
+ {
+ 
+     private bool stopped = true;
+     private IPlaylist playlist;
++	private PlayerObject player = new PlayerObject ();
+     
+-	/*
+-     * Main constructor
+-     */
+-    public GstPlayer (IPlaylist playlist) : base (IntPtr.Zero)
++    public GstPlayer (IPlaylist playlist)
+     {
+-		g_type_init ();
+ 	    this.playlist = playlist;
+-	    IntPtr error_ptr;
+-	    
+-	    Raw = player_new (out error_ptr);
+-	    if (error_ptr != IntPtr.Zero) {
+-		    string error = GLib.Marshaller.PtrToStringGFree (error_ptr);
+-
+-		    throw new Exception (error);
+-	    }
+-	    
+-	    ConnectInt.g_signal_connect_data (Raw, &quot;tick&quot;, new IntSignalDelegate (TickCallback),
+-					      IntPtr.Zero, IntPtr.Zero, 0);
+-	    Connect.g_signal_connect_data (Raw, &quot;end_of_stream&quot;, new SignalDelegate (EosCallback),
+-					   IntPtr.Zero, IntPtr.Zero, 0);
+-	    ConnectString.g_signal_connect_data (Raw, &quot;error&quot;, new StringSignalDelegate (ErrorCallback),
+-						 IntPtr.Zero, IntPtr.Zero, 0);
+-
++		player.TickEvent += TickCallback;
++		player.EOSEvent += EosCallback;
+ 	    playing = false;
+     }
++    
++	public override event TickEventHandler TickEvent;
++    public override event EOSEventHandler EOSEvent;
++    public override event StateEventHandler StateEvent;
+ 
+-    public event StateEventHandler StateEvent;
+-    /*
+-     * Indicates whether the player is playing or paused.
+-     */
+     private bool playing;
+-    public bool Playing {
++    public override bool Playing {
+ 	    get {
+ 		    return playing;
+ 	    }
+@@ -85,39 +68,30 @@
+ 	    }
+     }
+ 
+-
+-    public event TickEventHandler TickEvent;
+-
+-    /*
+-     * Set or get the position in the song.
+-     */
+-    public int Position {
++    public override int Position {
+ 	    get {
+-		    return player_tell (Raw);
++			return player.Tell ();
+ 	    }
+ 
+ 	    set {
+-		    player_seek (Raw, value);
++		    player.Seek (value);
+ 
+ 		    if (TickEvent != null)
+ 			    TickEvent (value);
+ 	    }
+     }
+ 
+-    /*
+-     * Controls the volume level of the player;
+-     */
+-    public int Volume {
++    public override int Volume {
+ 	    get {
+-		    return player_get_volume (Raw);
++		    return player.Volume;
+ 	    }
+ 
+ 	    set {
+-		    player_set_volume (Raw, value);
++			player.Volume = value;
+ 	    }
+     }
+ 
+-    public IPlaylist Playlist {
++    public override IPlaylist Playlist {
+ 		get {
+ 			return playlist;
+ 		}
+@@ -128,77 +102,63 @@
+     }
+ 
+ 	private string name = &quot;GstPlayerKit&quot;;
+-	public string Name {
++	public override string Name {
+ 		get {
+ 			return name;
+ 		}
+ 	}
+ 
+ 	private string description = &quot;Gstreamer Player Kit&quot;;
+-	public string Description {
++	public override string Description {
+ 		get {
+ 			return description;
+ 		}
+ 	}
+ 
+ 	private string version = &quot;0.1&quot;;
+-	public string Version {
++	public override string Version {
+ 		get {
+ 			return version;
+ 		}
+ 	}
+ 	
+-	public void Load ()
++	protected override void LoadAddin ()
+ 	{
+ 	}
+ 
+-	public void Unload ()
++	protected override void UnloadAddin ()
+ 	{
+ 	}
+ 
+-    public void Play ()
++    public override void Play ()
+     {
+ 
+-	    IntPtr error_ptr;
+-
+ 	    Song song = playlist.Current;
+ 		if (song == null || !File.Exists(song.Filename))
+ 		{
+ 			Console.WriteLine (&quot;WARNING: Playlist empty or invalid.&quot;);
+ 			return;
+ 		}
+-	    player_set_file (Raw, song.Filename , out error_ptr);
+-	    if (error_ptr != IntPtr.Zero) {
+-		    string error = GLib.Marshaller.PtrToStringGFree (error_ptr);
+-		    Console.WriteLine (&quot;Error opening the player&quot;);
+-	    }
+-	    
+-	    player_set_replaygain (Raw, song.Gain, song.Peak);
+-
+ 	    if (TickEvent != null)
+ 		    TickEvent (0);
+ 
+ 	    if (!playing)
+ 			playing = true;
+-		Console.WriteLine (&quot;Playing &quot; + song.Filename);
+-		player_play (Raw);
++		player.Play (song);
+ 		
+     }
+ 
+-    public void Pause ()
++    public override void Pause ()
+     {
+-		player_pause (Raw);
++		player.Pause ();
+     }
+     
+-    /*
+-     * Stop playing the song.
+-     */
+-    public void Stop ()
++    public override void Stop ()
+     {
+ 	    if (stopped)
+ 		    return;
+ 		    
+-	    player_stop (Raw);
++	    player.Stop ();
+ 	    stopped = true;
+ 
+ 	    if (playing == false)
+@@ -210,53 +170,136 @@
+ 		    StateEvent (playing);
+     }
+     
+-    public void Next ()
++    public override void Next ()
+     {
+-	throw new NotImplementedException ();
++		throw new NotImplementedException ();
+     }
+     
+-    public void Previous ()
++    public override void Previous ()
+     {
+-	throw new NotImplementedException ();
++		throw new NotImplementedException ();
+     }
+     
+-    public void Repeat (RepetitionType type)
++    public override void Repeat (RepetitionType type)
+     {
+-	throw new NotImplementedException ();
++		throw new NotImplementedException ();
+     }
+ 
+     public GstPlayer () : this (new Playlist ())
+     {
+     }
+ 
+-    ~GstPlayer ()
++    private void TickCallback (int pos)
++    {	
++	    if (TickEvent != null)
++		    TickEvent (pos);
++    }
++	private void EosCallback ()
+     {
+-	    Dispose ();
++	    if (EOSEvent != null)
++		{
++		    EOSEvent ();
++		}
+     }
+ 
+-    private delegate void SignalDelegate (IntPtr obj);
+-    private delegate void IntSignalDelegate (IntPtr obj, int i);
+-    private delegate void StringSignalDelegate (IntPtr obj, string s);
++}
+ 
+-    private void TickCallback (IntPtr obj, int pos)
++class PlayerObject : GLib.Object
++{
++
++    public PlayerObject () : base (IntPtr.Zero)
++    {
++		g_type_init ();
++	    IntPtr error_ptr;
++	    
++	    Raw = player_new (out error_ptr);
++	    if (error_ptr != IntPtr.Zero) {
++		    string error = GLib.Marshaller.PtrToStringGFree (error_ptr);
++
++		    throw new Exception (error);
++	    }
++	    
++		ConnectInt.g_signal_connect_data (Raw, &quot;tick&quot;, new IntSignalDelegate (TickCallback),
++					      IntPtr.Zero, IntPtr.Zero, 0);
++	    Connect.g_signal_connect_data (Raw, &quot;end_of_stream&quot;, new SignalDelegate (EosCallback),
++					   IntPtr.Zero, IntPtr.Zero, 0);
++	    ConnectString.g_signal_connect_data (Raw, &quot;error&quot;, new StringSignalDelegate (ErrorCallback),
++						 IntPtr.Zero, IntPtr.Zero, 0);
++    }
++	
++	~PlayerObject ()
++	{
++		Dispose ();
++	}
++    
++	public event TickEventHandler TickEvent;
++    public event EOSEventHandler EOSEvent;
++
++	public int Tell ()
++	{
++		return player_tell (Raw);
++	}
++
++	public void Seek (int value)
++	{
++		player_seek (Raw, value);
++	}
++    
++	public int Volume {
++	    get {
++		    return player_get_volume (Raw);
++	    }
++
++	    set {
++		    player_set_volume (Raw, value);
++	    }
++    }
++    
++	public void Play (Song song)
++    {
++
++	    IntPtr error_ptr;
++
++	    player_set_file (Raw, song.Filename , out error_ptr);
++	    if (error_ptr != IntPtr.Zero) {
++		    string error = GLib.Marshaller.PtrToStringGFree (error_ptr);
++		    Console.WriteLine (&quot;Error opening the player&quot;);
++	    }
++	    
++	    player_set_replaygain (Raw, song.Gain, song.Peak);
++		player_play (Raw);
++    }
++    
++	public void Pause ()
++    {
++		player_pause (Raw);
++    }
++    
++	public void Stop ()
++    {
++	    player_stop (Raw);
++    }
++    
++	private void TickCallback (IntPtr obj, int pos)
+     {	
+ 	    if (TickEvent != null)
+ 		    TickEvent (pos);
+     }
+-
+-    public event EOSEventHandler EOSEvent;
+-    
+-    private void EosCallback (IntPtr obj)
++	
++	private void ErrorCallback (IntPtr obj, string error)
+     {
++		Console.WriteLine (&quot;ERROR ErrorCallback: error&quot;);
++    }
++	
++	private void EosCallback (IntPtr obj)
++    {
+ 	    if (EOSEvent != null)
+ 		    EOSEvent ();
+     }
+ 
+-    private void ErrorCallback (IntPtr obj, string error)
+-    {
+-	Console.WriteLine (&quot;ERROR ErrorCallback: error&quot;);
+-    }
+-
++    private delegate void SignalDelegate (IntPtr obj);
++    private delegate void IntSignalDelegate (IntPtr obj, int i);
++    private delegate void StringSignalDelegate (IntPtr obj, string s);
+     /***********************************************************/	
+     /********************** Native calls ***********************/
+     /***********************************************************/	
+@@ -319,10 +362,5 @@
+     private static extern void player_set_replaygain (IntPtr player,
+ 						      double gain,
+ 						      double peak);
+-    //public static void Main (string[] args)
+-    //{
+-    //    Gtk.Application.Init ();
+-    //    GstPlayer gst = new GstPlayer ();
+-    //    Gtk.Application.Run ();
+-    //}
++
+ }
+
+Added: player-sdk/trunk/Plugins/Makefile.am
+===================================================================
+--- player-sdk/trunk/Plugins/Makefile.am	2004-11-09 12:23:21 UTC (rev 8)
++++ player-sdk/trunk/Plugins/Makefile.am	2004-11-10 17:18:40 UTC (rev 9)
+@@ -0,0 +1 @@
++SUBDIRS = test
+
+Added: player-sdk/trunk/Plugins/test/Makefile.am
+===================================================================
+--- player-sdk/trunk/Plugins/test/Makefile.am	2004-11-09 12:23:21 UTC (rev 8)
++++ player-sdk/trunk/Plugins/test/Makefile.am	2004-11-10 17:18:40 UTC (rev 9)
+@@ -0,0 +1,14 @@
++REFERENCES=								\
++		/r:../../src/Player.Sdk.dll
++
++all: plugin-test.dll
++
++plugin-test.dll: PluginTest.cs
++	mcs -o $@ $(REFERENCES) -t:library PluginTest.cs
++
++pluginsdir=$(prefix)/lib/Player.Sdk/Plugins
++plugins_DATA= plugin-test.dll
++
++CLEANFILES=*.dll
++EXTRA_DIST=*.cs
++
+
+Added: player-sdk/trunk/Plugins/test/PluginTest.cs
+===================================================================
+--- player-sdk/trunk/Plugins/test/PluginTest.cs	2004-11-09 12:23:21 UTC (rev 8)
++++ player-sdk/trunk/Plugins/test/PluginTest.cs	2004-11-10 17:18:40 UTC (rev 9)
+@@ -0,0 +1,63 @@
++/*
++ * Copyright (C) 2004 Sergio Rubio &lt;<A HREF="https://lists.berlios.de/mailman/listinfo/player-sdk-checkins">sergio.rubio at hispalinux.es</A>&gt;
++ *
++ * This program is free software; you can redistribute it and/or
++ * modify it under the terms of the GNU General Public License as
++ * published by the Free Software Foundation; either version 2 of the
++ * License, or (at your option) any later version.
++ *
++ * This program is distributed in the hope that it will be useful,
++ * but WITHOUT ANY WARRANTY; without even the implied warranty of
++ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
++ * General Public License for more details.
++ *
++ * You should have received a copy of the GNU General Public
++ * License along with this program; if not, write to the
++ * Free Software Foundation, Inc., 59 Temple Place - Suite 330,
++ * Boston, MA 02111-1307, USA.
++ */
++
++using System;    
++using Player.Addins;
++
++[assembly:PluginInfo (&quot;PluginTest&quot;)]
++public class PluginTest : AbstractAddin
++{
++	public PluginTest ()
++	{
++	}
++
++	private string version = &quot;0.1&quot;;
++	public override string Version {
++		get {
++			return version;
++		}
++	}
++
++	private string name = &quot;PluginTest&quot;;
++	public override string Name {
++		get {
++			return name;
++		}
++	}
++	
++	private string description = &quot;Plugin Test example&quot;;
++	public override string Description {
++		get {
++			return description;
++		}
++	}
++
++	protected override void LoadAddin ()
++	{
++		base.Load ();
++		Console.WriteLine (&quot;Calling Load in {0}.&quot;, Name);
++	}
++
++	protected override void UnloadAddin ()
++	{
++		base.Unload ();
++		Console.WriteLine (&quot;Calling Unload in {0}.&quot;, Name);
++	}
++}
++
+
+Modified: player-sdk/trunk/configure.in
+===================================================================
+--- player-sdk/trunk/configure.in	2004-11-09 12:23:21 UTC (rev 8)
++++ player-sdk/trunk/configure.in	2004-11-10 17:18:40 UTC (rev 9)
+@@ -37,6 +37,8 @@
+ Makefile
+ examples/Makefile
+ doc/Makefile
++Plugins/Makefile
++Plugins/test/Makefile
+ src/Makefile
+ src/player-sdk.pc
+ PlayerKits/Makefile
+
+Modified: player-sdk/trunk/examples/KitManagerTest.cs
+===================================================================
+--- player-sdk/trunk/examples/KitManagerTest.cs	2004-11-09 12:23:21 UTC (rev 8)
++++ player-sdk/trunk/examples/KitManagerTest.cs	2004-11-10 17:18:40 UTC (rev 9)
+@@ -26,7 +26,7 @@
+ 	public static void Main ()
+ 	{
+ 		Application.Init ();
+-		KitManager manager = KitManager.GetInstance ();
++		//PlayerServices.KitManager;
+ 		Application.Run ();
+ 	}
+ }
+
+Modified: player-sdk/trunk/examples/Makefile.am
+===================================================================
+--- player-sdk/trunk/examples/Makefile.am	2004-11-09 12:23:21 UTC (rev 8)
++++ player-sdk/trunk/examples/Makefile.am	2004-11-10 17:18:40 UTC (rev 9)
+@@ -2,7 +2,7 @@
+ 	-pkg:gtk-sharp				\
+ 	-r:../src/Player.Sdk.dll
+ 
+-all: db-test.exe kitmanager-test.exe player-test.exe
++all: db-test.exe kitmanager-test.exe player-test.exe pluginmanager-test.exe
+ 
+ db-test.exe: DbTest.cs
+ 	mcs DbTest.cs -o $@ $(REFERENCES)
+@@ -12,6 +12,9 @@
+ 	
+ kitmanager-test.exe: KitManagerTest.cs
+ 	mcs KitManagerTest.cs -o $@ $(REFERENCES)
++
++pluginmanager-test.exe: PluginManagerTest.cs
++	mcs PluginManagerTest.cs -o $@ $(REFERENCES)
+ 	
+ EXTRA_DIST= *.cs test.ogg
+ CLEANFILES= *.exe
+
+Modified: player-sdk/trunk/examples/PlayerTest.cs
+===================================================================
+--- player-sdk/trunk/examples/PlayerTest.cs	2004-11-09 12:23:21 UTC (rev 8)
++++ player-sdk/trunk/examples/PlayerTest.cs	2004-11-10 17:18:40 UTC (rev 9)
+@@ -22,6 +22,7 @@
+ using Player.Playlist;
+ using Player.Data;
+ using Player.Kits;
++using Player.Global;
+ using Gtk;
+ 
+ public class PlayerTest
+@@ -29,9 +30,10 @@
+ 	public static void Main ()
+ 	{
+ 		Application.Init ();
++		PlayerServices.Init ();
+ 		Playlist p = new Playlist ();
+ 		p.Add (new Song (&quot;test.ogg&quot;));
+-		IPlayerKit kit = (IPlayerKit) KitManager.GetInstance ()[&quot;PlayerKit&quot;];
++		PlayerKit kit = (PlayerKit) PlayerServices.KitManager [&quot;PlayerKit&quot;];
+ 		kit.EOSEvent += EndOfStream;
+ 		kit.Volume = 50;
+ 		kit.Playlist = p;
+
+Added: player-sdk/trunk/examples/PluginManagerTest.cs
+===================================================================
+--- player-sdk/trunk/examples/PluginManagerTest.cs	2004-11-09 12:23:21 UTC (rev 8)
++++ player-sdk/trunk/examples/PluginManagerTest.cs	2004-11-10 17:18:40 UTC (rev 9)
+@@ -0,0 +1,36 @@
++/*
++ * Copyright (C) 2004 Sergio Rubio &lt;<A HREF="https://lists.berlios.de/mailman/listinfo/player-sdk-checkins">sergio.rubio at hispalinux.es</A>&gt;
++ *
++ * This program is free software; you can redistribute it and/or
++ * modify it under the terms of the GNU General Public License as
++ * published by the Free Software Foundation; either version 2 of the
++ * License, or (at your option) any later version.
++ *
++ * This program is distributed in the hope that it will be useful,
++ * but WITHOUT ANY WARRANTY; without even the implied warranty of
++ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
++ * General Public License for more details.
++ *
++ * You should have received a copy of the GNU General Public
++ * License along with this program; if not, write to the
++ * Free Software Foundation, Inc., 59 Temple Place - Suite 330,
++ * Boston, MA 02111-1307, USA.
++ */
++
++using System;    
++using System.Collections;
++using Player.Global;
++using Player.Addins;
++
++public class PluginManagerTest
++{
++	public static void Main ()
++	{
++		ArrayList plugins = PlayerServices.PluginManager.GetLoadedPlugins ();
++		foreach (IAddin addin in plugins)
++		{
++			Console.WriteLine (&quot;Plugin loaded: &quot; + addin.Name);
++		}
++	}
++}
++
+
+Added: player-sdk/trunk/src/Addins/AbstractAddin.cs
+===================================================================
+--- player-sdk/trunk/src/Addins/AbstractAddin.cs	2004-11-09 12:23:21 UTC (rev 8)
++++ player-sdk/trunk/src/Addins/AbstractAddin.cs	2004-11-10 17:18:40 UTC (rev 9)
+@@ -0,0 +1,56 @@
++/*
++ * Copyright (C) 2004 Sergio Rubio &lt;<A HREF="https://lists.berlios.de/mailman/listinfo/player-sdk-checkins">sergio.rubio at hispalinux.es</A>&gt;
++ *
++ * This program is free software; you can redistribute it and/or
++ * modify it under the terms of the GNU General Public License as
++ * published by the Free Software Foundation; either version 2 of the
++ * License, or (at your option) any later version.
++ *
++ * This program is distributed in the hope that it will be useful,
++ * but WITHOUT ANY WARRANTY; without even the implied warranty of
++ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
++ * General Public License for more details.
++ *
++ * You should have received a copy of the GNU General Public
++ * License along with this program; if not, write to the
++ * Free Software Foundation, Inc., 59 Temple Place - Suite 330,
++ * Boston, MA 02111-1307, USA.
++ */
++
++namespace Player.Addins
++{
++    using System;    
++
++	public abstract class AbstractAddin : IAddin
++	{
++
++		public abstract string Version { get; }
++		public abstract string Name { get; }
++		public abstract string Description { get; }
++		
++		//Template method	
++		public void Load ()
++		{
++			Load ();
++			if (Loaded != null)
++				Loaded (this, EventArgs.Empty);
++		}
++			
++		protected abstract void LoadAddin ();
++
++		//Template method
++		public  void Unload ()
++		{
++			Unload ();
++			if (Unloaded != null)
++				Unloaded (this, EventArgs.Empty);
++		}
++		
++		protected abstract void UnloadAddin ();
++
++		public event EventHandler Loaded;
++		public event EventHandler Unloaded;
++	}
++
++}
++
+
+Modified: player-sdk/trunk/src/Addins/AddinLoader.cs
+===================================================================
+--- player-sdk/trunk/src/Addins/AddinLoader.cs	2004-11-09 12:23:21 UTC (rev 8)
++++ player-sdk/trunk/src/Addins/AddinLoader.cs	2004-11-10 17:18:40 UTC (rev 9)
+@@ -26,6 +26,7 @@
+ 
+ 	public class AddinLoader
+ 	{
++		private static Configuration config = Configuration.GetInstance ();
+ 
+ 		public static IAddin LoadAddin (string addinDir, string addinAssembly, string addinType)
+ 		{
+@@ -35,7 +36,7 @@
+ 			//First, the addin is loaded from the user config dir.
+ 			//If not, try to the system wide addin.
+ 			try {
+-				string userConfigDir = Configuration.GetInstance ().UserConfigDir;
++				string userConfigDir = config.UserConfigDir;
+ 				string userAddinLocation;
+ 				if (addinAssembly.EndsWith (&quot;.dll&quot;))
+ 					userAddinLocation = userConfigDir + separator + addinDir + separator + addinAssembly;
+@@ -53,9 +54,10 @@
+ 				//Loading from system addins
+ 				} else {
+ 					Console.WriteLine (&quot;Loading {0} from SYSTEM addins&quot;, addinAssembly);
+-					string sdkDir = Path.GetDirectoryName (Assembly.GetCallingAssembly ().Location);
+-					string systemAddinLocation = sdkDir + separator + &quot;Player.Sdk&quot; + 
+-								separator + addinDir + separator + addinAssembly + &quot;.dll&quot;;
++					string sdkDir = config.SystemAddinsDir;
++					//string sdkDir = Path.GetDirectoryName (Assembly.GetCallingAssembly ().Location);
++					string systemAddinLocation = sdkDir + separator + 
++								addinDir + separator + addinAssembly + &quot;.dll&quot;;
+ 					Console.WriteLine (&quot;Addin location: {0}&quot;, systemAddinLocation);
+ 					asm = Assembly.LoadFrom (systemAddinLocation);
+ 					if (asm != null)
+
+Modified: player-sdk/trunk/src/Addins/IAddin.cs
+===================================================================
+--- player-sdk/trunk/src/Addins/IAddin.cs	2004-11-09 12:23:21 UTC (rev 8)
++++ player-sdk/trunk/src/Addins/IAddin.cs	2004-11-10 17:18:40 UTC (rev 9)
+@@ -29,6 +29,9 @@
+ 		string Description { get; }
+ 		void Load ();
+ 		void Unload ();
++
++		event EventHandler Loaded;
++		event EventHandler Unloaded;
+ 		
+ 	}
+ 
+
+Modified: player-sdk/trunk/src/Configuration/Configuration.cs
+===================================================================
+--- player-sdk/trunk/src/Configuration/Configuration.cs	2004-11-09 12:23:21 UTC (rev 8)
++++ player-sdk/trunk/src/Configuration/Configuration.cs	2004-11-10 17:18:40 UTC (rev 9)
+@@ -63,10 +63,23 @@
+ 
+ 	public string UserConfigDir {
+ 	    get {
+-		return objStore.Location;
++			return objStore.Location;
+ 	    }
+ 	}
+ 
++	public string UserAddinsDir {
++		get {
++			return UserConfigDir;
++		}
++	}
++
++	public string SystemAddinsDir {
++		get {
++			return Path.GetDirectoryName (Assembly.GetCallingAssembly ().Location) +
++				Path.DirectorySeparatorChar + &quot;Player.Sdk&quot;;
++		}
++	}
++
+ 	public string PlayerKitType {
+ 	    set {
+ 	    }
+
+Copied: player-sdk/trunk/src/Data/DataKit.cs (from rev 8, player-sdk/trunk/src/Data/IDataKit.cs)
+===================================================================
+--- player-sdk/trunk/src/Data/IDataKit.cs	2004-11-09 12:23:21 UTC (rev 8)
++++ player-sdk/trunk/src/Data/DataKit.cs	2004-11-10 17:18:40 UTC (rev 9)
+@@ -0,0 +1,42 @@
++/*
++ * Copyright (C) 2004 Sergio Rubio &lt;<A HREF="https://lists.berlios.de/mailman/listinfo/player-sdk-checkins">sergio.rubio at hispalinux.es</A>&gt;
++ *
++ * This program is free software; you can redistribute it and/or
++ * modify it under the terms of the GNU General Public License as
++ * published by the Free Software Foundation; either version 2 of the
++ * License, or (at your option) any later version.
++ *
++ * This program is distributed in the hope that it will be useful,
++ * but WITHOUT ANY WARRANTY; without even the implied warranty of
++ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
++ * General Public License for more details.
++ *
++ * You should have received a copy of the GNU General Public
++ * License along with this program; if not, write to the
++ * Free Software Foundation, Inc., 59 Temple Place - Suite 330,
++ * Boston, MA 02111-1307, USA.
++ */
++
++namespace Player.Data 
++{
++    using System;
++    using System.Collections;
++	using Player.Addins;
++
++    public abstract class DataKit : AbstractAddin
++    {
++		public abstract ArrayList Songs { get; }
++
++		public abstract ArrayList Albums { get; }
++
++		public abstract bool AddSong (Song song);
++
++		public abstract bool AddAlbum (Album album);
++
++		public abstract bool RemoveSong (Song song);
++
++		public abstract bool RemoveAlbum (Album album);
++    }
++
++}
++
+
+Deleted: player-sdk/trunk/src/Data/IDataKit.cs
+===================================================================
+--- player-sdk/trunk/src/Data/IDataKit.cs	2004-11-09 12:23:21 UTC (rev 8)
++++ player-sdk/trunk/src/Data/IDataKit.cs	2004-11-10 17:18:40 UTC (rev 9)
+@@ -1,42 +0,0 @@
+-/*
+- * Copyright (C) 2004 Sergio Rubio &lt;<A HREF="https://lists.berlios.de/mailman/listinfo/player-sdk-checkins">sergio.rubio at hispalinux.es</A>&gt;
+- *
+- * This program is free software; you can redistribute it and/or
+- * modify it under the terms of the GNU General Public License as
+- * published by the Free Software Foundation; either version 2 of the
+- * License, or (at your option) any later version.
+- *
+- * This program is distributed in the hope that it will be useful,
+- * but WITHOUT ANY WARRANTY; without even the implied warranty of
+- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+- * General Public License for more details.
+- *
+- * You should have received a copy of the GNU General Public
+- * License along with this program; if not, write to the
+- * Free Software Foundation, Inc., 59 Temple Place - Suite 330,
+- * Boston, MA 02111-1307, USA.
+- */
+-
+-namespace Player.Data 
+-{
+-    using System;
+-    using System.Collections;
+-	using Player.Kits;
+-
+-    public interface IDataKit : IKit
+-    {
+-		ArrayList Songs { get; }
+-
+-		ArrayList Albums { get; }
+-
+-		bool AddSong (Song song);
+-
+-		bool AddAlbum (Album album);
+-
+-		bool RemoveSong (Song song);
+-
+-		bool RemoveAlbum (Album album);
+-    }
+-
+-}
+-
+
+Added: player-sdk/trunk/src/Global/PlayerServices.cs
+===================================================================
+--- player-sdk/trunk/src/Global/PlayerServices.cs	2004-11-09 12:23:21 UTC (rev 8)
++++ player-sdk/trunk/src/Global/PlayerServices.cs	2004-11-10 17:18:40 UTC (rev 9)
+@@ -0,0 +1,37 @@
++/*
++ * Copyright (C) 2004 Sergio Rubio &lt;<A HREF="https://lists.berlios.de/mailman/listinfo/player-sdk-checkins">sergio.rubio at hispalinux.es</A>&gt;
++ *
++ * This program is free software; you can redistribute it and/or
++ * modify it under the terms of the GNU General Public License as
++ * published by the Free Software Foundation; either version 2 of the
++ * License, or (at your option) any later version.
++ *
++ * This program is distributed in the hope that it will be useful,
++ * but WITHOUT ANY WARRANTY; without even the implied warranty of
++ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
++ * General Public License for more details.
++ *
++ * You should have received a copy of the GNU General Public
++ * License along with this program; if not, write to the
++ * Free Software Foundation, Inc., 59 Temple Place - Suite 330,
++ * Boston, MA 02111-1307, USA.
++ */
++
++namespace Player.Global
++{
++    using System;    
++	using Player.Kits;
++	using Player.Plugins;
++	
++	public class PlayerServices
++	{
++		public readonly static PluginManager PluginManager = PluginManager.GetInstance ();
++		public readonly static KitManager KitManager = KitManager.GetInstance ();
++		private PlayerServices () {}
++	
++		public static void Init () {}
++	}
++
++
++}
++
+
+Deleted: player-sdk/trunk/src/Kits/IKit.cs
+===================================================================
+--- player-sdk/trunk/src/Kits/IKit.cs	2004-11-09 12:23:21 UTC (rev 8)
++++ player-sdk/trunk/src/Kits/IKit.cs	2004-11-10 17:18:40 UTC (rev 9)
+@@ -1,30 +0,0 @@
+-/*
+- * Copyright (C) 2004 Sergio Rubio &lt;<A HREF="https://lists.berlios.de/mailman/listinfo/player-sdk-checkins">sergio.rubio at hispalinux.es</A>&gt;
+- *
+- * This program is free software; you can redistribute it and/or
+- * modify it under the terms of the GNU General Public License as
+- * published by the Free Software Foundation; either version 2 of the
+- * License, or (at your option) any later version.
+- *
+- * This program is distributed in the hope that it will be useful,
+- * but WITHOUT ANY WARRANTY; without even the implied warranty of
+- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+- * General Public License for more details.
+- *
+- * You should have received a copy of the GNU General Public
+- * License along with this program; if not, write to the
+- * Free Software Foundation, Inc., 59 Temple Place - Suite 330,
+- * Boston, MA 02111-1307, USA.
+- */
+-
+-namespace Player.Kits 
+-{
+-    using System;    
+-	using Player.Addins;
+-
+-	public interface IKit : IAddin
+-	{
+-	}
+-
+-}
+-
+
+Modified: player-sdk/trunk/src/Kits/KitManager.cs
+===================================================================
+--- player-sdk/trunk/src/Kits/KitManager.cs	2004-11-09 12:23:21 UTC (rev 8)
++++ player-sdk/trunk/src/Kits/KitManager.cs	2004-11-10 17:18:40 UTC (rev 9)
+@@ -39,20 +39,20 @@
+ 			LoadKits ();
+ 		}
+ 
+-		public IKit this [string kitName]
++		public IAddin this [string kitName]
+ 		{
+ 			get {
+-				return (IKit) kits[kitName];
++				return (IAddin) kits[kitName];
+ 			}
+ 
+ 			set {
+-				((IKit)kits[kitName]).Unload ();
++				((IAddin)kits[kitName]).Unload ();
+ 				value.Load ();
+ 				kits[kitName] = value; 
+ 			}
+ 		}
+ 
+-		public static KitManager GetInstance ()
++		internal static KitManager GetInstance ()
+ 		{
+ 			if (instance == null)
+ 				instance = new KitManager ();
+@@ -63,7 +63,7 @@
+ 		{
+ 		}
+ 
+-		public void SwapKit (string kitType, IKit kit)
++		public void SwapKit (string kitType, IAddin kit)
+ 		{
+ 		}
+ 
+
+Deleted: player-sdk/trunk/src/Player/IPlayerKit.cs
+===================================================================
+--- player-sdk/trunk/src/Player/IPlayerKit.cs	2004-11-09 12:23:21 UTC (rev 8)
++++ player-sdk/trunk/src/Player/IPlayerKit.cs	2004-11-10 17:18:40 UTC (rev 9)
+@@ -1,35 +0,0 @@
+-// created on 08/31/2004 at 13:24
+-namespace Player.Player
+-{
+-
+-    using Player.Playlist;
+-	using Player.Kits;
+-
+-	public enum RepetitionType {
+-				    RepeatSong,
+-				    RepeatPlaylist
+-				    }
+-	
+-	public delegate void EOSEventHandler ();
+-	public delegate void TickEventHandler (int pos);
+-	public delegate void StateEventHandler (bool playing);
+-						
+-	public interface IPlayerKit : IKit {
+-	
+-	    bool Playing {get; set;}
+-	    int Position {get; set;}
+-	    int Volume {get; set;}
+-	    IPlaylist Playlist {get; set;}
+-	    void Play ();
+-	    void Pause ();
+-	    void Stop ();
+-	    void Next ();
+-	    void Previous ();
+-	    void Repeat (RepetitionType type);
+-	    
+-	    event EOSEventHandler EOSEvent;
+-	    event TickEventHandler TickEvent;
+-	    event StateEventHandler StateEvent;
+-		
+-	}
+-}
+
+Copied: player-sdk/trunk/src/Player/PlayerKit.cs (from rev 8, player-sdk/trunk/src/Player/IPlayerKit.cs)
+===================================================================
+--- player-sdk/trunk/src/Player/IPlayerKit.cs	2004-11-09 12:23:21 UTC (rev 8)
++++ player-sdk/trunk/src/Player/PlayerKit.cs	2004-11-10 17:18:40 UTC (rev 9)
+@@ -0,0 +1,35 @@
++// created on 08/31/2004 at 13:24
++namespace Player.Player
++{
++
++    using Player.Playlist;
++	using Player.Addins;
++
++	public enum RepetitionType {
++				    RepeatSong,
++				    RepeatPlaylist
++				    }
++	
++	public delegate void EOSEventHandler ();
++	public delegate void TickEventHandler (int pos);
++	public delegate void StateEventHandler (bool playing);
++						
++	public abstract class PlayerKit : AbstractAddin {
++	
++	    public abstract bool Playing {get; set;}
++	    public abstract int Position {get; set;}
++	    public abstract int Volume {get; set;}
++	    public abstract IPlaylist Playlist {get; set;}
++	    public abstract void Play ();
++	    public abstract void Pause ();
++	    public abstract void Stop ();
++	    public abstract void Next ();
++	    public abstract void Previous ();
++	    public abstract void Repeat (RepetitionType type);
++	    
++	    public abstract event EOSEventHandler EOSEvent;
++	    public abstract event TickEventHandler TickEvent;
++	    public abstract event StateEventHandler StateEvent;
++		
++	}
++}
+
+Deleted: player-sdk/trunk/src/Plugins/IPlugin.cs
+===================================================================
+--- player-sdk/trunk/src/Plugins/IPlugin.cs	2004-11-09 12:23:21 UTC (rev 8)
++++ player-sdk/trunk/src/Plugins/IPlugin.cs	2004-11-10 17:18:40 UTC (rev 9)
+@@ -1,30 +0,0 @@
+-/*
+- * Copyright (C) 2004 Sergio Rubio &lt;<A HREF="https://lists.berlios.de/mailman/listinfo/player-sdk-checkins">sergio.rubio at hispalinux.es</A>&gt;
+- *
+- * This program is free software; you can redistribute it and/or
+- * modify it under the terms of the GNU General Public License as
+- * published by the Free Software Foundation; either version 2 of the
+- * License, or (at your option) any later version.
+- *
+- * This program is distributed in the hope that it will be useful,
+- * but WITHOUT ANY WARRANTY; without even the implied warranty of
+- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+- * General Public License for more details.
+- *
+- * You should have received a copy of the GNU General Public
+- * License along with this program; if not, write to the
+- * Free Software Foundation, Inc., 59 Temple Place - Suite 330,
+- * Boston, MA 02111-1307, USA.
+- */
+-
+-namespace Player.Plugins 
+-{
+-    using System;
+-	using Player.Addins;
+-
+-	public interface IPlugin : IAddin
+-	{
+-	}
+-
+-}
+-
+
+Added: player-sdk/trunk/src/Plugins/PluginInfoAttribute.cs
+===================================================================
+--- player-sdk/trunk/src/Plugins/PluginInfoAttribute.cs	2004-11-09 12:23:21 UTC (rev 8)
++++ player-sdk/trunk/src/Plugins/PluginInfoAttribute.cs	2004-11-10 17:18:40 UTC (rev 9)
+@@ -0,0 +1,37 @@
++/*
++* Copyright (C) 2004 Sergio Rubio &lt;<A HREF="https://lists.berlios.de/mailman/listinfo/player-sdk-checkins">sergio.rubio at hispalinux.es</A>&gt;
++*
++* This program is free software; you can redistribute it and/or
++* modify it under the terms of the GNU General Public License as
++* published by the Free Software Foundation; either version 2 of the
++* License, or (at your option) any later version.
++*
++* This program is distributed in the hope that it will be useful,
++* but WITHOUT ANY WARRANTY; without even the implied warranty of
++* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
++* General Public License for more details.
++*
++* You should have received a copy of the GNU General Public
++* License along with this program; if not, write to the
++* Free Software Foundation, Inc., 59 Temple Place - Suite 330,
++* Boston, MA 02111-1307, USA.
++*/
++
++using System;
++
++[AttributeUsage (AttributeTargets.Assembly)]
++public class PluginInfoAttribute : Attribute
++{
++
++	public PluginInfoAttribute (string pluginClass)
++	{
++		this.pclass = pluginClass;
++	}
++	
++	private string pclass;
++	public string Class {
++		get {
++			return pclass;
++		}
++	}
++}
+
+Added: player-sdk/trunk/src/Plugins/PluginLoadingException.cs
+===================================================================
+--- player-sdk/trunk/src/Plugins/PluginLoadingException.cs	2004-11-09 12:23:21 UTC (rev 8)
++++ player-sdk/trunk/src/Plugins/PluginLoadingException.cs	2004-11-10 17:18:40 UTC (rev 9)
+@@ -0,0 +1,30 @@
++/*
++ * Copyright (C) 2004 Sergio Rubio &lt;<A HREF="https://lists.berlios.de/mailman/listinfo/player-sdk-checkins">sergio.rubio at hispalinux.es</A>&gt;
++ *
++ * This program is free software; you can redistribute it and/or
++ * modify it under the terms of the GNU General Public License as
++ * published by the Free Software Foundation; either version 2 of the
++ * License, or (at your option) any later version.
++ *
++ * This program is distributed in the hope that it will be useful,
++ * but WITHOUT ANY WARRANTY; without even the implied warranty of
++ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
++ * General Public License for more details.
++ *
++ * You should have received a copy of the GNU General Public
++ * License along with this program; if not, write to the
++ * Free Software Foundation, Inc., 59 Temple Place - Suite 330,
++ * Boston, MA 02111-1307, USA.
++ */
++
++namespace Player.Plugins 
++{
++    using System;    
++
++	public class PluginLoadingException : ApplicationException
++	{
++		public PluginLoadingException (string msg) : base (msg) {}
++	}
++
++}
++
+
+Modified: player-sdk/trunk/src/Plugins/PluginManager.cs
+===================================================================
+--- player-sdk/trunk/src/Plugins/PluginManager.cs	2004-11-09 12:23:21 UTC (rev 8)
++++ player-sdk/trunk/src/Plugins/PluginManager.cs	2004-11-10 17:18:40 UTC (rev 9)
+@@ -19,23 +19,63 @@
+ 
+ namespace Player.Plugins 
+ {
++	using System.IO;
+     using System;
+ 	using System.Collections;
++	using System.Reflection;
++	using Player.Configuration;
++	using Player.Addins;
+ 
+-	public class PluginManager
++	public class PluginManager : IEnumerable
+ 	{
+ 
+-		private Hashtable plugins;
+-		private Hashtable loadedPlugins;
++		private Hashtable pluginCollection = new Hashtable ();
++		private static Configuration config = Configuration.GetInstance ();
++		private string systemPluginsDir = config.SystemAddinsDir + Path.DirectorySeparatorChar + &quot;Plugins&quot;;
++		private string userPluginsDir = config.UserAddinsDir + Path.DirectorySeparatorChar + &quot;Plugins&quot;;
++		private static PluginManager manager;
++		
++		private PluginManager () {
++			LoadAllPlugins ();
++		}
+ 
+-		public PluginManager ()
++		internal static PluginManager GetInstance ()
+ 		{
++			if (manager == null)
++				manager = new PluginManager ();
++			return manager;
+ 		}
+ 
+ 		internal void LoadAllPlugins ()
+ 		{
++			string[] pluginFiles = Directory.GetFiles (systemPluginsDir);
++			foreach (string pluginFile in pluginFiles)
++			{
++				Assembly pluginAssembly = Assembly.LoadFrom (pluginFile);
++				Type attrType = typeof (PluginInfoAttribute);
++				if (pluginAssembly.IsDefined (attrType, false))
++				{
++					PluginInfoAttribute attr = (PluginInfoAttribute) pluginAssembly.GetCustomAttributes (attrType, false)[0];
++					IAddin plugin = (IAddin) pluginAssembly.CreateInstance (attr.Class);
++					if (plugin != null)
++						AddPluginToCollections (plugin);
++						
++				} else
++					Console.WriteLine (&quot;Invalid plugin&quot;);
++			}
++
+ 		}
+ 
++		public IEnumerator GetEnumerator ()
++		{
++			return pluginCollection.GetEnumerator ();
++		}
++
++		public ArrayList GetLoadedPlugins ()
++		{
++			return new ArrayList (pluginCollection.Values);
++		}
++
+ 		public void UnloadPlugin (string pluginId)
+ 		{
+ 		}
+@@ -55,6 +95,23 @@
+ 		public void EnablePlugin (string pluginId)
+ 		{
+ 		}
++
++		public string MakePluginHash (IAddin plugin)
++		{
++			return plugin.Name;	
++		}
++
++		//FIXME: Check if the plugin has been disabled and do not load it
++		private void AddPluginToCollections (IAddin plugin)
++		{
++			string hash = MakePluginHash (plugin);
++			if (pluginCollection.Contains (hash))
++				throw new PluginLoadingException (&quot;Plugin already loaded.&quot;);
++			else
++			{
++				pluginCollection.Add (hash, plugin);
++			}
++		}
+ 	}
+ 
+ }
+
+Modified: player-sdk/trunk/src/sources.list
+===================================================================
+--- player-sdk/trunk/src/sources.list	2004-11-09 12:23:21 UTC (rev 8)
++++ player-sdk/trunk/src/sources.list	2004-11-10 17:18:40 UTC (rev 9)
+@@ -4,16 +4,16 @@
+ CSSOURCES += ./Data/AlbumMetadata.cs
+ CSSOURCES += ./Data/ICoverDb.cs
+ CSSOURCES += ./Data/Cover.cs
++CSSOURCES += ./Data/DataKit.cs
+ CSSOURCES += ./Data/Album.cs
+ CSSOURCES += ./Data/IAlbumComparer.cs
+ CSSOURCES += ./Data/ISearchable.cs
+ CSSOURCES += ./Data/Song.cs
+ CSSOURCES += ./Data/SongMetadata.cs
+ CSSOURCES += ./Data/ISongComparer.cs
+-CSSOURCES += ./Data/IDataKit.cs
+ CSSOURCES += ./Configuration/FileStore.cs
+ CSSOURCES += ./Configuration/Configuration.cs
+-CSSOURCES += ./Player/IPlayerKit.cs
++CSSOURCES += ./Player/PlayerKit.cs
+ CSSOURCES += ./Nini/AssemblyInfo.cs
+ CSSOURCES += ./Nini/Config/AliasText.cs
+ CSSOURCES += ./Nini/Config/ArgvConfigSource.cs
+@@ -37,11 +37,13 @@
+ CSSOURCES += ./Nini/Util/IOrderedDictionary.cs
+ CSSOURCES += ./Nini/Util/OrderedList.cs
+ CSSOURCES += ./Nini/Util/OrderedListEnumerator.cs
+-CSSOURCES += ./Kits/IKit.cs
+ CSSOURCES += ./Kits/KitManager.cs
+ CSSOURCES += ./Addins/AddinLoader.cs
+ CSSOURCES += ./Addins/IAddin.cs
++CSSOURCES += ./Addins/AbstractAddin.cs
+ CSSOURCES += ./Addins/AddinUnavailableException.cs
+ CSSOURCES += ./Addins/AddinLoadingException.cs
+-CSSOURCES += ./Plugins/IPlugin.cs
+ CSSOURCES += ./Plugins/PluginManager.cs
++CSSOURCES += ./Plugins/PluginInfoAttribute.cs
++CSSOURCES += ./Plugins/PluginLoadingException.cs
++CSSOURCES += ./Global/PlayerServices.cs
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000004.html">[Player-sdk-checkins] r8 - in player-sdk/trunk: . src src/Nini src/Nini/Config src/Nini/Ini src/Nini/Util
+</A></li>
+	
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#5">[ date ]</a>
+              <a href="thread.html#5">[ thread ]</a>
+              <a href="subject.html#5">[ subject ]</a>
+              <a href="author.html#5">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/player-sdk-checkins">More information about the Player-sdk-checkins
+mailing list</a><br>
+</body></html>
